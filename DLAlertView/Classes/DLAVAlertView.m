@@ -602,6 +602,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)showAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
+	//  Parts of this method were created by Alex Jarvis on 25/09/2013.
+	//  As part of the PXAlertView project:
+	//  https://github.com/alexanderjarvis/PXAlertView
+	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.20, 1.20, 1.00)],
 						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.00)],
@@ -629,6 +633,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)dismissAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
+	//  Parts of this method were created by Alex Jarvis on 25/09/2013.
+	//  As part of the PXAlertView project:
+	//  https://github.com/alexanderjarvis/PXAlertView
+	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.00, 1.00, 1.00)],
 						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.00)],
@@ -654,33 +662,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		}
 	});
 }
-
-#pragma mark - Orientation Observation
-
-//- (void)addDeviceOrientationObservers {
-//	if (self.isObservingOrientation) {
-//		return;
-//	}
-//	self.isObservingOrientation = YES;
-//	[[NSNotificationCenter defaultCenter] addObserver:self
-//											 selector:@selector(deviceDidRotate:)
-//												 name:UIDeviceOrientationDidChangeNotification
-//											   object:nil];
-//}
-//
-//- (void)removeDeviceOrientationObservers {
-//	if (!self.isObservingOrientation) {
-//		return;
-//	}
-//	self.isObservingOrientation = NO;
-//	[[NSNotificationCenter defaultCenter] removeObserver:self
-//													name:UIDeviceOrientationDidChangeNotification
-//												  object:nil];
-//}
-//
-//- (void)deviceDidRotate:(NSNotification *)notification {
-//	[self ]
-//}
 
 #pragma mark - Keyboard Observation
 
@@ -1038,7 +1019,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGRect rect = [[self class] getScreenFrameForCurrentOrientation];
 	CGFloat keyboardHeight = self.keyboardHeight;
 	rect.size.height -= keyboardHeight;
-	NSLog(@"rect: %@ (keyboard: %.2f)", NSStringFromCGRect(rect), keyboardHeight);
 	[UIView animateWithDuration:duration animations:^{
 		self.center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
 	}];
@@ -1058,10 +1038,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		temp.size.height = fullScreenRect.size.width;
 		fullScreenRect = temp;
     }
-	
-//    if (![UIApplication sharedApplication].statusBarHidden){
-//		fullScreenRect.size.height -= 20.0;
-//    }
 	
     return fullScreenRect;
 }

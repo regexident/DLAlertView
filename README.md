@@ -60,4 +60,4 @@ Vincent Esche ([@regexident](http://twitter.com/regexident))
 
 ## License
 
-**DLAlertView** is available under a **modified BSD-3 clause license** with the **additional requirement of attribution**. See the `LICENSE` file for more info.
+**DLAlertView** is available under a **modified BSD-3 clause license** with the **additional requirement of attribution**. (**DLAlertView** further more includes code by Alexander Jarvis, licensed under the **MIT license**.) See the `LICENSE` file for more info.
