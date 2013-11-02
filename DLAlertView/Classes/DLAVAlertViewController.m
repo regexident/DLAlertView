@@ -119,10 +119,6 @@
 #pragma mark - Device Orientation
 
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel {
-	//  This method was created by Alex Jarvis on 25/09/2013.
-	//  As part of the PXAlertView project:
-	//  https://github.com/alexanderjarvis/PXAlertView
-	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	NSArray *windows = [[UIApplication sharedApplication] windows];
 	for (UIWindow *window in windows) {
 		if (window.windowLevel == windowLevel) {
@@ -133,10 +129,6 @@
 }
 
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation {
-	//  This method was created by Alex Jarvis on 25/09/2013.
-	//  As part of the PXAlertView project:
-	//  https://github.com/alexanderjarvis/PXAlertView
-	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	CGRect frame;
 	if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
 		CGRect bounds = [UIScreen mainScreen].bounds;
@@ -154,10 +146,6 @@
 	self.backgroundView.frame = frame;
 	[self.currentAlertView positionInRect:CGRectZero];
 }
-
-//- (void)viewWillLayoutSubviews {
-//	[self.currentAlertView positionInRect:CGRectZero];
-//}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;

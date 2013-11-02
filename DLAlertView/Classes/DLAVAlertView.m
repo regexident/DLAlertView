@@ -602,10 +602,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)showAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
-	//  Parts of this method were created by Alex Jarvis on 25/09/2013.
-	//  As part of the PXAlertView project:
-	//  https://github.com/alexanderjarvis/PXAlertView
-	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.20, 1.20, 1.00)],
 						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.00)],
@@ -633,10 +629,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)dismissAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
-	//  Parts of this method were created by Alex Jarvis on 25/09/2013.
-	//  As part of the PXAlertView project:
-	//  https://github.com/alexanderjarvis/PXAlertView
-	//  Copyright (c) 2013 Panaxiom Ltd. All rights reserved.
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.00, 1.00, 1.00)],
 						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.00)],
