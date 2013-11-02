@@ -75,13 +75,20 @@ typedef void(^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSIntege
   cancelButtonTitle:(NSString *)cancelButtonTitle
   otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
-#pragma mark - Initialization
+#pragma mark - Textfields
 
 - (NSInteger)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder;
 - (NSString *)textFieldTextAtIndex:(NSInteger)textFieldIndex;
 
+- (void)setKeyboardType:(UIKeyboardType)keyboardType ofTextFieldAtIndex:(NSInteger)index;
+- (void)setInputView:(UIView *)inputView ofTextFieldAtIndex:(NSInteger)index;
+- (void)setSecureTextEntry:(BOOL)secureTextEntry ofTextFieldAtIndex:(NSInteger)index;
+
+#pragma mark - Buttons
+
 - (NSInteger)addButtonWithTitle:(NSString *)title;
 - (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
+- (NSInteger)indexOfButtonWithTitle:(NSString *)title;
 
 #pragma mark - Display
 

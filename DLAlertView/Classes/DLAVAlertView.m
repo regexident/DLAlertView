@@ -181,7 +181,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return line;
 }
 
-#pragma mark - Adding Textfields & Buttons
+#pragma mark - Textfields
 
 - (NSInteger)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder {
 	UITextField *lastTextField = [self.textfields lastObject];
@@ -230,6 +230,19 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return [self textFieldAtIndex:buttonIndex].text;
 }
 
+- (void)setKeyboardType:(UIKeyboardType)keyboardType ofTextFieldAtIndex:(NSInteger)index {
+	[self textFieldAtIndex:index].keyboardType = keyboardType;
+}
+
+- (void)setInputView:(UIView *)inputView ofTextFieldAtIndex:(NSInteger)index {
+	[self textFieldAtIndex:index].inputView = inputView;
+}
+
+- (void)setSecureTextEntry:(BOOL)secureTextEntry ofTextFieldAtIndex:(NSInteger)index {
+	[self textFieldAtIndex:index].secureTextEntry = secureTextEntry;
+}
+
+#pragma mark - Buttons
 - (NSInteger)addButtonWithTitle:(NSString *)title {
 	// Add line:
 	UIView *line = [[self class] line];
@@ -280,6 +293,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return buttonIndex;
 }
 
+#pragma mark - Textfields
+
 - (void)removeTextFieldsInRange:(NSRange)range {
 	for (UITextField *textfield in [self.textfields subarrayWithRange:range]) {
 		UIView *line = self.lines[0];
@@ -310,7 +325,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 			placeholderString = NSLocalizedString(@"Username", @"DLAVAlertView username placeholder");
 		}
 		[self addTextFieldWithText:nil placeholder:placeholderString];
-		[self setCustomTextFieldTheme:[self.theme.textFieldTheme themeWithSecureTextEntry:NO]
+		[self setCustomTextFieldTheme:self.theme.textFieldTheme
 				  forTextFieldAtIndex:self.textfields.count - 1];
 		UITextField *textField = [self.textfields lastObject];
 		[textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -318,9 +333,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (alertViewStyle == DLAVAlertViewStyleSecureTextInput || alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
 		NSString *placeholderString = NSLocalizedString(@"Password", @"DLAVAlertView password placeholder");
 		[self addTextFieldWithText:nil placeholder:placeholderString];
-		[self setCustomTextFieldTheme:[self.theme.textFieldTheme themeWithSecureTextEntry:YES]
+		[self setCustomTextFieldTheme:self.theme.textFieldTheme
 				  forTextFieldAtIndex:self.textfields.count - 1];
 		UITextField *textField = [self.textfields lastObject];
+		textField.secureTextEntry = YES;
 		[textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 	}
 	if (self.visible && alertViewStyle != DLAVAlertViewStyleDefault) {
@@ -464,9 +480,6 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		textfield.textColor = theme.textColor;
 		textfield.backgroundColor = theme.backgroundColor;
 		textfield.textAlignment = theme.textAlignment;
-		textfield.keyboardType = theme.keyboardType;
-		textfield.secureTextEntry = theme.secureTextEntry;
-		textfield.inputView = theme.inputView;
 	}];
 }
 

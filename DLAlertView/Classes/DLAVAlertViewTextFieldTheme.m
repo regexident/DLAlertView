@@ -24,12 +24,7 @@
 		_font = [UIFont systemFontOfSize:17.0];
 		_textColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:1.0];
 		_backgroundColor = [UIColor clearColor];
-		
 		_textAlignment = NSTextAlignmentCenter;
-		_keyboardType = UIKeyboardTypeDefault;
-		_inputView = nil;
-		
-		_secureTextEntry = NO;
 		
 		_style = [[self class] defaultThemeStyle];
 	}
@@ -63,12 +58,6 @@
 
 #pragma mark - Convenience
 
-- (instancetype)themeWithSecureTextEntry:(BOOL)secureTextEntry {
-	DLAVAlertViewTextFieldTheme *theme = [self copy];
-	theme.secureTextEntry = secureTextEntry;
-	return theme;
-}
-
 + (DLAVAlertViewThemeStyle)defaultThemeStyle {
 	return [DLAVAlertViewTheme defaultThemeStyle];
 }
@@ -81,12 +70,7 @@
 		copy.font = self.font;
 		copy.textColor = self.textColor;
 		copy.backgroundColor = self.backgroundColor;
-		
 		copy.textAlignment = self.textAlignment;
-		copy.keyboardType = self.keyboardType;
-		copy.inputView = self.inputView;
-		
-		copy.secureTextEntry = self.secureTextEntry;
 		
 		copy.style = self.style;
 	}
