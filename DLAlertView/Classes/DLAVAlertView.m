@@ -31,23 +31,23 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 @interface DLAVAlertView () <UITextFieldDelegate>
 
-@property (nonatomic) UILabel *titleLabel;
-@property (nonatomic) UILabel *messageLabel;
+@property (readwrite, strong, nonatomic) UILabel *titleLabel;
+@property (readwrite, strong, nonatomic) UILabel *messageLabel;
 
-@property (nonatomic) NSMutableArray *textfields;
-@property (nonatomic) NSMutableArray *buttons;
-@property (nonatomic) NSMutableArray *lines;
+@property (readwrite, strong, nonatomic) NSMutableArray *textfields;
+@property (readwrite, strong, nonatomic) NSMutableArray *buttons;
+@property (readwrite, strong, nonatomic) NSMutableArray *lines;
 
-@property (nonatomic) NSMutableArray *textFieldThemes;
-@property (nonatomic) NSMutableArray *buttonThemes;
-@property (nonatomic, copy) DLAVAlertViewTheme *theme;
+@property (readwrite, strong, nonatomic) NSMutableArray *textFieldThemes;
+@property (readwrite, strong, nonatomic) NSMutableArray *buttonThemes;
+@property (readwrite, copy, nonatomic) DLAVAlertViewTheme *theme;
 
-@property (nonatomic, readwrite, getter=isVisible) BOOL visible;
+@property (readwrite, assign, nonatomic, getter=isVisible) BOOL visible;
 
-@property (nonatomic) BOOL isObservingKeyboard;
-@property (nonatomic) CGFloat keyboardHeight;
+@property (readwrite, assign, nonatomic) BOOL isObservingKeyboard;
+@property (readwrite, assign, nonatomic) CGFloat keyboardHeight;
 
-@property (nonatomic, copy) DLAVAlertViewCompletionHandler completion;
+@property (readwrite, copy, nonatomic) DLAVAlertViewCompletionHandler completion;
 
 - (CGSize)preferredFrameSize;
 

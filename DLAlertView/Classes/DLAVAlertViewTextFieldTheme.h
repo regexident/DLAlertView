@@ -13,17 +13,17 @@
 
 #pragma mark - Properties
 
-@property (nonatomic) UIFont *font;
-@property (nonatomic) UIColor *textColor;
-@property (nonatomic) UIColor *backgroundColor;
+@property (readwrite, strong, nonatomic) UIFont *font;
+@property (readwrite, strong, nonatomic) UIColor *textColor;
+@property (readwrite, strong, nonatomic) UIColor *backgroundColor;
 
-@property (nonatomic) NSTextAlignment textAlignment;
-@property (nonatomic) UIKeyboardType keyboardType;
-@property (nonatomic) UIView *inputView;
+@property (readwrite, assign, nonatomic) NSTextAlignment textAlignment;
+@property (readwrite, assign, nonatomic) UIKeyboardType keyboardType;
+@property (readwrite, strong, nonatomic) UIView *inputView;
 
-@property (nonatomic) BOOL secureTextEntry;
+@property (readwrite, assign, nonatomic) BOOL secureTextEntry;
 
-@property (nonatomic, readonly) DLAVAlertViewThemeStyle style;
+@property (readonly, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 #pragma mark - Initialization
 

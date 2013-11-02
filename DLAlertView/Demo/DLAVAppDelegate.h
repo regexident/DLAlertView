@@ -10,6 +10,6 @@
 
 @interface DLAVAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (readwrite, strong, nonatomic) UIWindow *window;
 
 @end

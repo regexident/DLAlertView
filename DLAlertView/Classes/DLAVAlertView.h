@@ -47,20 +47,20 @@ typedef void(^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSIntege
 
 #pragma mark - Properties
 
-@property (nonatomic, weak) id <DLAVAlertViewDelegate> delegate;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *message;
+@property (readwrite, weak, nonatomic) id <DLAVAlertViewDelegate> delegate;
+@property (readwrite, copy, nonatomic) NSString *title;
+@property (readwrite, copy, nonatomic) NSString *message;
 
-@property (nonatomic, readonly) NSInteger numberOfButtons;
-@property (nonatomic) NSInteger cancelButtonIndex;
+@property (readonly, assign, nonatomic) NSInteger numberOfButtons;
+@property (readwrite, assign, nonatomic) NSInteger cancelButtonIndex;
 
-@property (nonatomic, readonly) NSInteger firstOtherButtonIndex;
-@property (nonatomic, readonly, getter=isVisible) BOOL visible;
-@property (nonatomic, readwrite) BOOL dismissesOnBackdropTap;
+@property (readonly, assign, nonatomic) NSInteger firstOtherButtonIndex;
+@property (readonly, assign, nonatomic, getter=isVisible) BOOL visible;
+@property (readwrite, assign, nonatomic) BOOL dismissesOnBackdropTap;
 
 @property(nonatomic, assign) DLAVAlertViewStyle alertViewStyle;
 
-@property (nonatomic) UIView *contentView;
+@property (readwrite, strong, nonatomic) UIView *contentView;
 
 @property (readwrite, assign, nonatomic) CGFloat minContentWidth;
 @property (readwrite, assign, nonatomic) CGFloat maxContentWidth;

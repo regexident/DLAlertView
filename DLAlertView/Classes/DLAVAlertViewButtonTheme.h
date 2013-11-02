@@ -13,16 +13,16 @@
 
 #pragma mark - Properties
 
-@property (nonatomic) UIFont *font;
+@property (readwrite, strong, nonatomic) UIFont *font;
 
-@property (nonatomic) UIColor *textColor;
-@property (nonatomic) UIColor *highlightTextColor;
-@property (nonatomic) UIColor *disabledTextColor;
+@property (readwrite, strong, nonatomic) UIColor *textColor;
+@property (readwrite, strong, nonatomic) UIColor *highlightTextColor;
+@property (readwrite, strong, nonatomic) UIColor *disabledTextColor;
 
-@property (nonatomic) UIColor *backgroundColor;
-@property (nonatomic) UIColor *highlightBackgroundColor;
+@property (readwrite, strong, nonatomic) UIColor *backgroundColor;
+@property (readwrite, strong, nonatomic) UIColor *highlightBackgroundColor;
 
-@property (nonatomic, readonly) DLAVAlertViewThemeStyle style;
+@property (readonly, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 #pragma mark - Initialization
 

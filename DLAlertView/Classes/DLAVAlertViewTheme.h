@@ -19,24 +19,24 @@ typedef NS_ENUM(NSUInteger, DLAVAlertViewThemeStyle) {
 
 #pragma mark - Properties
 
-@property (nonatomic) UIColor *backgroundColor;
+@property (readwrite, strong, nonatomic) UIColor *backgroundColor;
 
-@property (nonatomic) CGFloat cornerRadius;
+@property (readwrite, assign, nonatomic) CGFloat cornerRadius;
 
-@property (nonatomic) UIColor *lineColor;
+@property (readwrite, strong, nonatomic) UIColor *lineColor;
 
-@property (nonatomic) UIColor *borderColor;
-@property (nonatomic) CGFloat borderWidth;
+@property (readwrite, strong, nonatomic) UIColor *borderColor;
+@property (readwrite, assign, nonatomic) CGFloat borderWidth;
 
-@property (nonatomic) UIColor *titleColor;
-@property (nonatomic) UIFont *titleFont;
-@property (nonatomic) UIColor *messageColor;
-@property (nonatomic) UIFont *messageFont;
+@property (readwrite, strong, nonatomic) UIColor *titleColor;
+@property (readwrite, strong, nonatomic) UIFont *titleFont;
+@property (readwrite, strong, nonatomic) UIColor *messageColor;
+@property (readwrite, strong, nonatomic) UIFont *messageFont;
 
-@property (nonatomic, copy) DLAVAlertViewTextFieldTheme *textFieldTheme;
-@property (nonatomic, copy) DLAVAlertViewButtonTheme *buttonTheme;
+@property (readwrite, copy, nonatomic) DLAVAlertViewTextFieldTheme *textFieldTheme;
+@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme;
 
-@property (nonatomic, readonly) DLAVAlertViewThemeStyle style;
+@property (readonly, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 #pragma mark - Initialization
 

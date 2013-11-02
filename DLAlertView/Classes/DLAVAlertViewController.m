@@ -23,16 +23,16 @@
 
 @interface DLAVAlertViewController () <UITextFieldDelegate>
 
-@property (nonatomic) NSMutableArray *alertViews;
+@property (readwrite, strong, nonatomic) NSMutableArray *alertViews;
 @property (readwrite, strong, nonatomic) DLAVAlertView *currentAlertView;
 
-@property (nonatomic) UIWindow *mainWindow;
-@property (nonatomic) UIWindow *alertWindow;
-@property (nonatomic) UIView *backgroundView;
+@property (readwrite, strong, nonatomic) UIWindow *mainWindow;
+@property (readwrite, strong, nonatomic) UIWindow *alertWindow;
+@property (readwrite, strong, nonatomic) UIView *backgroundView;
 
-@property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (readwrite, strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (nonatomic, readwrite, getter=isVisible) BOOL visible;
+@property (readwrite, assign, nonatomic, getter=isVisible) BOOL visible;
 
 @end
 

@@ -15,7 +15,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 @interface DLAVAlertViewTheme ()
 
-@property (nonatomic, readwrite) DLAVAlertViewThemeStyle style;
+@property (readwrite, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 @end
 
