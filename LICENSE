@@ -18,10 +18,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 The following methods incorporate code taken from the PXAlertView project
 by Alexander Jarvis, and are subject to its license and copyright (see below):
 
+Affected methods:
+
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation
 - (void)dismissAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
 - (void)showAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
+
+License:
 
 The MIT License (MIT)
 
