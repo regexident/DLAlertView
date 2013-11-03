@@ -155,6 +155,10 @@
 	return YES;
 }
 
+- (BOOL)prefersStatusBarHidden {
+	return [UIApplication sharedApplication].statusBarHidden;
+}
+
 - (NSUInteger)supportedInterfaceOrientations {
 	return UIInterfaceOrientationMaskAll;
 }
