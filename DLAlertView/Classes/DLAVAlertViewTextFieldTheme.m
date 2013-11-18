@@ -3,7 +3,7 @@
 //  DLAVAlertView
 //
 //  Created by Vincent Esche on 31/10/13.
-//  Copyright (c) 2013 Definite Loop. All rights reserved.
+//  Copyright (c) 2013 Vincent Esche. All rights reserved.
 //
 
 #import "DLAVAlertViewTextFieldTheme.h"
