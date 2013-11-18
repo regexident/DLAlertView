@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, DLAVAlertViewThemeStyle) {
+typedef NS_ENUM (NSUInteger, DLAVAlertViewThemeStyle) {
 	DLAVAlertViewThemeStyleIOS7, // default
 	DLAVAlertViewThemeStyleHUD
 };

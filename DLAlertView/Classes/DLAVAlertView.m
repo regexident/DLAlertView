@@ -42,7 +42,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 @property (readwrite, strong, nonatomic) NSMutableArray *buttonThemes;
 @property (readwrite, copy, nonatomic) DLAVAlertViewTheme *theme;
 
-@property (readwrite, assign, nonatomic, getter=isVisible) BOOL visible;
+@property (readwrite, assign, nonatomic, getter = isVisible) BOOL visible;
 
 @property (readwrite, assign, nonatomic) BOOL isObservingKeyboard;
 @property (readwrite, assign, nonatomic) CGFloat keyboardHeight;
@@ -59,6 +59,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (id)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
+	
 	if (self) {
 		self.clipsToBounds = YES;
 		_textfields = [NSMutableArray array];
@@ -74,16 +75,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		_minContentWidth = 200.0;
 		_maxContentWidth = 270.0;
 	}
+	
 	return self;
 }
 
-- (id)initWithTitle:(NSString *)title
-			message:(NSString *)message
-		   delegate:(id)delegate
-  cancelButtonTitle:(NSString *)cancelButtonTitle
-  otherButtonTitles:(NSString *)otherButtonTitle, ...
-{
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitle, ...{
 	self = [self initWithFrame:CGRectZero];
+	
 	if (self) {
 		UILabel *titleLabel = [[self class] titleLabelWithTitle:title];
 		_titleLabel = titleLabel;
@@ -98,16 +96,20 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		if (cancelButtonTitle) {
 			[self addButtonWithTitle:cancelButtonTitle];
 		}
+		
 		if (otherButtonTitle) {
 			[self addButtonWithTitle:otherButtonTitle];
 		}
+		
 		if (otherButtonTitle) {
 			va_list args;
 			va_start(args, otherButtonTitle);
 			NSString *buttonTitle;
+			
 			while ((buttonTitle = va_arg(args, NSString *))) {
 				[self addButtonWithTitle:buttonTitle];
 			}
+			
 			va_end(args);
 		}
 		
@@ -117,6 +119,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		
 		[self updateFrameWithAnimationOfDuration:0.0];
 	}
+	
 	return self;
 }
 
@@ -134,11 +137,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	} else if (cancelTitle) {
 		return @[cancelTitle];
 	}
+	
 	return nil;
 }
 
 + (UILabel *)titleLabelWithTitle:(NSString *)title  {
 	UILabel *titleLabel = [[UILabel alloc] init];
+	
 	titleLabel.text = (title.length) ? title : nil;
 	titleLabel.backgroundColor = [UIColor clearColor];
 	titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -149,6 +154,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 + (UILabel *)messageLabelWithMessage:(NSString *)message  {
 	UILabel *messageLabel = [[UILabel alloc] init];
+	
 	messageLabel.text = (message.length) ? message : nil;
 	messageLabel.backgroundColor = [UIColor clearColor];
 	messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -159,6 +165,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 + (UITextField *)textFieldWithText:(NSString *)text placeholder:(NSString *)placeholder  {
 	UITextField *textfield = [[UITextField alloc] init];
+	
 	textfield.backgroundColor = [UIColor clearColor];
 	textfield.text = text;
 	textfield.placeholder = placeholder;
@@ -167,17 +174,20 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 + (UIButton *)buttonWithTitle:(NSString *)title target:(id)target  {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	
 	if (title) {
 		[button setTitle:title forState:UIControlStateNormal];
 	} else {
 		[button setTitle:NSLocalizedString(@"OK", nil) forState:UIControlStateNormal];
 	}
+	
 	button.backgroundColor = [UIColor clearColor];
 	return button;
 }
 
 + (UIView *)line  {
 	UIView *line = [[UIView alloc] init];
+	
 	return line;
 }
 
@@ -185,6 +195,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (NSInteger)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder {
 	UITextField *lastTextField = [self.textfields lastObject];
+	
 	lastTextField.returnKeyType = UIReturnKeyNext;
 	
 	// Add line:
@@ -215,7 +226,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (!self.isObservingKeyboard) {
 		[self addKeyboardNotificationObservers];
 	}
-	if (self.visible && self.textfields.count == 1) {
+	
+	if (self.visible && (self.textfields.count == 1)) {
 		[self.textfields[0] becomeFirstResponder];
 	}
 	
@@ -246,6 +258,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (NSInteger)addButtonWithTitle:(NSString *)title {
 	// Add line:
 	UIView *line = [[self class] line];
+	
 	line.backgroundColor = self.theme.lineColor;
 	[self addSubview:line];
 	[self.lines addObject:line];
@@ -283,54 +296,65 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (NSInteger)indexOfButtonWithTitle:(NSString *)title {
 	NSInteger buttonIndex = -1;
 	NSUInteger i = 0;
+	
 	for (UIButton *button in self.buttons) {
 		if ([button.titleLabel.text isEqualToString:title]) {
 			buttonIndex = i;
 			break;
 		}
+		
 		i++;
 	}
+	
 	return buttonIndex;
 }
 
 #pragma mark - Textfields
 
 - (void)removeTextFieldsInRange:(NSRange)range {
-	for (UITextField *textfield in [self.textfields subarrayWithRange:range]) {
+	for (UITextField *textfield in [self.textfields subarrayWithRange : range]) {
 		UIView *line = self.lines[0];
 		[line removeFromSuperview];
 		[self.lines removeObjectAtIndex:0];
 		[textfield removeFromSuperview];
 	}
+	
 	[self.textfields removeObjectsInRange:range];
 	[self.textFieldThemes removeObjectsInRange:range];
 	NSInteger buttonIndex = [self firstOtherButtonIndex];
+	
 	if (buttonIndex != -1) {
 		[self buttonAtIndex:buttonIndex].enabled = YES;
 	}
+	
 	[self updateFrameWithAnimationOfDuration:[self animationDuration]];
 }
 
 - (void)updateTextFieldsForAlertViewStyle:(DLAVAlertViewStyle)alertViewStyle {
 	NSUInteger oldTextFieldCount = self.textfields.count;
+	
 	if (alertViewStyle == DLAVAlertViewStyleDefault) {
 		[self endEditing:YES];
 		[self removeKeyboardNotificationObservers];
 	} else {
 		[self addKeyboardNotificationObservers];
 	}
-	if (alertViewStyle == DLAVAlertViewStylePlainTextInput || alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
+	
+	if ((alertViewStyle == DLAVAlertViewStylePlainTextInput) || (alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput)) {
 		NSString *placeholderString = nil;
+		
 		if (alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
 			placeholderString = NSLocalizedString(@"Username", @"DLAVAlertView username placeholder");
 		}
+		
 		[self addTextFieldWithText:nil placeholder:placeholderString];
 		[self setCustomTextFieldTheme:self.theme.textFieldTheme
 				  forTextFieldAtIndex:self.textfields.count - 1];
 		UITextField *textField = [self.textfields lastObject];
 		[textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 	}
-	if (alertViewStyle == DLAVAlertViewStyleSecureTextInput || alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
+	
+	if ((alertViewStyle == DLAVAlertViewStyleSecureTextInput) || (alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput)) {
 		NSString *placeholderString = NSLocalizedString(@"Password", @"DLAVAlertView password placeholder");
 		[self addTextFieldWithText:nil placeholder:placeholderString];
 		[self setCustomTextFieldTheme:self.theme.textFieldTheme
@@ -339,9 +363,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		textField.secureTextEntry = YES;
 		[textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 	}
-	if (self.visible && alertViewStyle != DLAVAlertViewStyleDefault) {
+	
+	if (self.visible && (alertViewStyle != DLAVAlertViewStyleDefault)) {
 		[self.textfields[oldTextFieldCount] becomeFirstResponder];
 	}
+	
 	[self removeTextFieldsInRange:NSMakeRange(0, oldTextFieldCount)];
 	
 	[self updateFirstOtherButtonEnabledWithCurrentTextField:nil];
@@ -360,6 +386,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (self.buttons.count == 1) {
 		return (self.cancelButtonIndex == -1) ? 0 : -1;
 	}
+	
 	return 1;
 }
 
@@ -388,9 +415,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)setContentView:(UIView *)contentView {
 	[_contentView removeFromSuperview];
 	_contentView = contentView;
+	
 	if (contentView) {
 		[self addSubview:contentView];
 	}
+	
 	[self updateFrameWithAnimationOfDuration:[self animationDuration]];
 }
 
@@ -411,7 +440,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 + (void)setBackdropColor:(UIColor *)color {
-	[DLAVAlertViewController sharedController].backdropColor = color ?: [UIColor clearColor];
+	[DLAVAlertViewController sharedController].backdropColor = color ? : [UIColor clearColor];
 }
 
 - (void)setCustomTextFieldTheme:(DLAVAlertViewTextFieldTheme *)textFieldTheme forTextFieldAtIndex:(NSUInteger)index {
@@ -419,9 +448,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)setCustomTextFieldTheme:(DLAVAlertViewTextFieldTheme *)textFieldTheme forTextFieldAtIndex:(NSUInteger)index animated:(BOOL)animated {
-	self.textFieldThemes[index] = textFieldTheme ?: [NSNull null];
-	[[self class] applyTheme:((textFieldTheme) ?: self.theme.textFieldTheme) toTextField:[self textFieldAtIndex:index] animated:animated];
-	[self updateFrameWithAnimationOfDuration:(animated) ? DLAVAlertViewAnimationDuration : 0.0];
+	self.textFieldThemes[index] = textFieldTheme ? : [NSNull null];
+	[[self class] applyTheme:((textFieldTheme) ? : self.theme.textFieldTheme) toTextField:[self textFieldAtIndex:index] animated:animated];
+	[self updateFrameWithAnimationOfDuration:(animated) ? DLAVAlertViewAnimationDuration:0.0];
 }
 
 - (void)setCustomButtonTheme:(DLAVAlertViewButtonTheme *)buttonTheme forButtonAtIndex:(NSUInteger)index {
@@ -429,9 +458,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)setCustomButtonTheme:(DLAVAlertViewButtonTheme *)buttonTheme forButtonAtIndex:(NSUInteger)index animated:(BOOL)animated {
-	self.buttonThemes[index] = buttonTheme ?: [NSNull null];
-	[[self class] applyTheme:((buttonTheme) ?: self.theme.buttonTheme) toButton:[self buttonAtIndex:index] animated:animated];
-	[self updateFrameWithAnimationOfDuration:(animated) ? DLAVAlertViewAnimationDuration : 0.0];
+	self.buttonThemes[index] = buttonTheme ? : [NSNull null];
+	[[self class] applyTheme:((buttonTheme) ? : self.theme.buttonTheme) toButton:[self buttonAtIndex:index] animated:animated];
+	[self updateFrameWithAnimationOfDuration:(animated) ? DLAVAlertViewAnimationDuration:0.0];
 }
 
 - (void)applyTheme:(DLAVAlertViewTheme *)theme  {
@@ -456,17 +485,21 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		DLAVAlertViewTextFieldTheme *defaultTextFieldTheme = theme.textFieldTheme;
 		[self.textfields enumerateObjectsUsingBlock:^(UITextField *textfield, NSUInteger index, BOOL *stop) {
 			DLAVAlertViewTextFieldTheme *textFieldTheme = self.textFieldThemes[index];
+			
 			if ([textFieldTheme isKindOfClass:[NSNull class]]) {
 				textFieldTheme = defaultTextFieldTheme;
 			}
+			
 			[[self class] applyTheme:textFieldTheme toTextField:textfield animated:animated];
 		}];
 		DLAVAlertViewButtonTheme *defaultButtonTheme = theme.buttonTheme;
 		[self.buttons enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger index, BOOL *stop) {
 			DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
+			
 			if ([buttonTheme isKindOfClass:[NSNull class]]) {
 				buttonTheme = defaultButtonTheme;
 			}
+			
 			[[self class] applyTheme:buttonTheme toButton:button animated:animated];
 		}];
 	}];
@@ -475,6 +508,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 + (void)applyTheme:(DLAVAlertViewTextFieldTheme *)theme toTextField:(UITextField *)textfield animated:(BOOL)animated {
 	CGFloat duration = ((animated) ? DLAVAlertViewThemeChangeDuration : 0.0);
+	
 	[UIView animateWithDuration:duration animations:^{
 		textfield.font = theme.font;
 		textfield.textColor = theme.textColor;
@@ -487,14 +521,16 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	[UIView animateWithDuration:(animated ? DLAVAlertViewThemeChangeDuration : 0.0) animations:^{
 		button.titleLabel.font = theme.font;
 		[button setTitleColor:theme.textColor forState:UIControlStateNormal];
+		
 		if (theme.highlightTextColor) {
 			[button setTitleColor:theme.highlightTextColor forState:UIControlStateDisabled];
 		} else {
 			UIColor *disabledColor = [theme.highlightTextColor colorWithAlphaComponent:CGColorGetAlpha(theme.highlightTextColor.CGColor) / 2];
 			[button setTitleColor:disabledColor forState:UIControlStateDisabled];
 		}
-		[button setTitleColor:(theme.disabledTextColor ?: [theme.textColor colorWithAlphaComponent:0.3]) forState:UIControlStateDisabled];
-		[button setTitleColor:(theme.highlightTextColor ?: theme.textColor) forState:UIControlStateHighlighted];
+		
+		[button setTitleColor:(theme.disabledTextColor ? : [theme.textColor colorWithAlphaComponent:0.3]) forState:UIControlStateDisabled];
+		[button setTitleColor:(theme.highlightTextColor ? : theme.textColor) forState:UIControlStateHighlighted];
 		button.backgroundColor = theme.backgroundColor;
 	}];
 }
@@ -503,18 +539,22 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (void)setBackgroundColorForButton:(UIButton *)button {
 	DLAVAlertViewButtonTheme *theme = self.buttonThemes[button.tag];
-	if ([theme isKindOfClass:[NSNull class]]){
+	
+	if ([theme isKindOfClass:[NSNull class]]) {
 		theme = self.theme.buttonTheme;
 	}
+	
 	button.backgroundColor = theme.backgroundColor;
 }
 
 - (void)setHighlightBackgroundColorForButton:(UIButton *)button {
 	DLAVAlertViewButtonTheme *theme = self.buttonThemes[button.tag];
-	if ([theme isKindOfClass:[NSNull class]]){
+	
+	if ([theme isKindOfClass:[NSNull class]]) {
 		theme = self.theme.buttonTheme;
 	}
-	button.backgroundColor = theme.highlightBackgroundColor ?: theme.backgroundColor;
+	
+	button.backgroundColor = theme.highlightBackgroundColor ? : theme.backgroundColor;
 }
 
 #pragma mark - Display Handling
@@ -527,13 +567,17 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (self.visible) {
 		return;
 	}
+	
 	self.completion = completion;
 	[[DLAVAlertViewController sharedController] addAlertView:self];
+	
 	if ([self.delegate respondsToSelector:@selector(willPresentAlertView:)]) {
 		[self.delegate willPresentAlertView:self];
 	}
+	
 	[self showAnimated:YES withCompletion:^{
 		[self didShowOrUnhide];
+		
 		if ([self.delegate respondsToSelector:@selector(didPresentAlertView:)]) {
 			[self.delegate didPresentAlertView:self];
 		}
@@ -554,7 +598,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}
 }
 
-- (void)hideWithCompletion:(void(^)(void))completion {
+- (void)hideWithCompletion:(void (^)(void))completion {
 	[self willDismissOrHide];
 	[self dismissAnimated:YES withCompletion:^{
 		if (completion) {
@@ -563,9 +607,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}];
 }
 
-- (void)unhideWithCompletion:(void(^)(void))completion {
+- (void)unhideWithCompletion:(void (^)(void))completion {
 	[self showAnimated:YES withCompletion:^{
 		[self didShowOrUnhide];
+		
 		if (completion) {
 			completion();
 		}
@@ -578,6 +623,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	} else if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		[self.delegate alertView:self clickedButtonAtIndex:-1];
 	}
+	
 	[self didDismissWithClickedButtonIndex:-1 animated:YES];
 }
 
@@ -589,24 +635,28 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		[self.delegate alertView:self clickedButtonAtIndex:buttonIndex];
 	}
+	
 	double delayInSeconds = 0.1;
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
 		[self didDismissWithClickedButtonIndex:buttonIndex animated:animated];
 	});
 }
 
-
 - (void)didDismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
 	[self willDismissOrHide];
+	
 	if ([self.delegate respondsToSelector:@selector(alertView:willDismissWithButtonIndex:)]) {
 		[self.delegate alertView:self willDismissWithButtonIndex:buttonIndex];
 	}
+	
 	[self dismissAnimated:animated withCompletion:^{
 		[[DLAVAlertViewController sharedController] removeAlertView:self];
+		
 		if ([self.delegate respondsToSelector:@selector(alertView:didDismissWithButtonIndex:)]) {
 			[self.delegate alertView:self didDismissWithButtonIndex:buttonIndex];
 		}
+		
 		if (self.completion) {
 			self.completion(self, buttonIndex);
 			self.completion = nil;
@@ -616,9 +666,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (void)showAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.20, 1.20, 1.00)],
-						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.00)],
-						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.00, 1.00, 1.00)]];
+								  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.05, 1.05, 1.00)],
+								  [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.00, 1.00, 1.00)]];
 	transformAnimation.keyTimes = @[@0.0, @0.5, @1.0];
 	
 	CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -635,6 +686,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationGroup.duration * NSEC_PER_SEC));
 	dispatch_after(popTime, dispatch_get_main_queue(), ^{
 		self.visible = YES;
+		
 		if (completion) {
 			completion();
 		}
@@ -643,9 +695,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (void)dismissAnimated:(BOOL)animated withCompletion:(void (^)(void))completion {
 	CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+	
 	transformAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.00, 1.00, 1.00)],
-						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.00)],
-						 [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.80, 0.80, 1.00)]];
+								  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.95, 0.95, 1.00)],
+								  [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.80, 0.80, 1.00)]];
 	transformAnimation.keyTimes = @[@0.0, @0.5, @1.0];
 	
 	CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -662,6 +715,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationGroup.duration * NSEC_PER_SEC));
 	dispatch_after(popTime, dispatch_get_main_queue(), ^{
 		self.visible = NO;
+		
 		if (completion) {
 			completion();
 		}
@@ -674,6 +728,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (self.isObservingKeyboard) {
 		return;
 	}
+	
 	self.isObservingKeyboard = YES;
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(keyboardDidChangeFrame:)
@@ -689,6 +744,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (!self.isObservingKeyboard) {
 		return;
 	}
+	
 	self.isObservingKeyboard = NO;
 	[[NSNotificationCenter defaultCenter] removeObserver:self
 													name:UIKeyboardWillChangeFrameNotification
@@ -707,6 +763,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	UIViewAnimationCurve animationCurve;
 	CGRect keyboardFrame;
 	NSDictionary *userInfo = [notification userInfo];
+	
 	[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
 	[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
 	[[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
@@ -716,10 +773,12 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGRect screenRect = [[self class] getScreenFrameForCurrentOrientation];
 	CGFloat keyboardHeight = CGRectGetHeight(keyboardFrame);
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-	if (orientation == UIInterfaceOrientationLandscapeRight ||
-		orientation == UIInterfaceOrientationLandscapeLeft) {
+	
+	if ((orientation == UIInterfaceOrientationLandscapeRight) ||
+		(orientation == UIInterfaceOrientationLandscapeLeft)) {
 		keyboardHeight = CGRectGetWidth(keyboardFrame);
 	}
+	
 	screenRect.size.height -= keyboardHeight;
 	self.keyboardHeight = keyboardHeight;
 	self.center = CGPointMake(CGRectGetMidX(screenRect), CGRectGetMidY(screenRect));
@@ -745,19 +804,22 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	if (self.visible && textField.tag + 1 < self.textfields.count) {
+	if (self.visible && (textField.tag + 1 < self.textfields.count)) {
 		[[self textFieldAtIndex:textField.tag + 1] becomeFirstResponder];
 	}
+	
 	[textField resignFirstResponder];
 	
 	BOOL returnEnabled = [self shouldSetFirstOtherButtonEnabled];
 	
 	if (textField.returnKeyType == UIReturnKeyDone) {
 		NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
-		if (returnEnabled && firstOtherButtonIndex != -1) {
+		
+		if (returnEnabled && (firstOtherButtonIndex != -1)) {
 			[self dismissWithButton:[self buttonAtIndex:firstOtherButtonIndex]];
 		}
 	}
+	
 	return returnEnabled;
 }
 
@@ -767,9 +829,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (BOOL)shouldSetFirstOtherButtonEnabled {
 	NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
+	
 	if (firstOtherButtonIndex == -1) {
 		return YES;
 	}
+	
 	if ([self.delegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)]) {
 		return [self.delegate alertViewShouldEnableFirstOtherButton:self];
 	} else if (self.alertViewStyle == DLAVAlertViewStyleSecureTextInput) {
@@ -777,6 +841,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	} else if (self.alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
 		return [self textFieldTextAtIndex:0].length != 0 && [self textFieldTextAtIndex:1].length != 0;
 	}
+	
 	return YES;
 }
 
@@ -784,10 +849,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (!self.textfields.count) {
 		return;
 	}
+	
 	NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
+	
 	if (firstOtherButtonIndex == -1) {
 		return;
 	}
+	
 	UIButton *button = [self buttonAtIndex:firstOtherButtonIndex];
 	button.enabled = [self shouldSetFirstOtherButtonEnabled];
 }
@@ -799,6 +867,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGFloat alertHeight = DLAVAlertViewContentMargin;
 	
 	BOOL animationsEnabled = [UIView areAnimationsEnabled];
+	
 	[UIView setAnimationsEnabled:NO];
 	
 	// Layout title:
@@ -831,6 +900,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	if (self.textfields.count) {
 		CGFloat textfieldHeight = [self textFieldHeight];
+		
 		for (UITextField *textfield in self.textfields) {
 			
 			// Layout line:
@@ -849,6 +919,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if (self.buttons.count) {
 		// Layout buttons:
 		CGFloat buttonHeight = [self buttonHeight];
+		
 		if (self.buttons.count == 2) {
 			// Layout line:
 			CGFloat lineHeight = [self lineWidth];
@@ -884,6 +955,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 			}
 		}
 	}
+	
 	[UIView setAnimationsEnabled:animationsEnabled];
 }
 
@@ -942,6 +1014,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	// Button heights:
 	NSUInteger buttonCount = self.buttons.count;
+	
 	if (buttonCount == 2) {
 		height += [self lineWidth];
 		height += [self buttonHeight];
@@ -983,24 +1056,27 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 + (CGSize)optimalSizeForLabel:(UILabel *)label inMaxSize:(CGSize)maxSize {
 	CGSize size = CGSizeMake(0.0, 0.0);
+	
 	if (!label.text) {
 		return size;
 	}
+	
 	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		size = [label.text sizeWithFont:label.font
-							 constrainedToSize:maxSize
-								 lineBreakMode:NSLineBreakByWordWrapping];
+					  constrainedToSize:maxSize
+						  lineBreakMode:NSLineBreakByWordWrapping];
 #pragma clang diagnostic pop
 	} else {
 		NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
 		context.minimumScaleFactor = 1.0;
 		size = [label.text boundingRectWithSize:maxSize
-										  options:NSStringDrawingUsesLineFragmentOrigin
-									   attributes:@{NSFontAttributeName:label.font}
-										  context:context].size;
+										options:NSStringDrawingUsesLineFragmentOrigin
+									 attributes:@{ NSFontAttributeName : label.font }
+										context:context].size;
 	}
+	
 	return size;
 }
 
@@ -1023,6 +1099,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)updateCenterWithAnimationOfDuration:(NSTimeInterval)duration {
 	CGRect rect = [[self class] getScreenFrameForCurrentOrientation];
 	CGFloat keyboardHeight = self.keyboardHeight;
+	
 	rect.size.height -= keyboardHeight;
 	[UIView animateWithDuration:duration animations:^{
 		self.center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
@@ -1030,21 +1107,22 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 + (CGRect)getScreenFrameForCurrentOrientation {
-    return [self getScreenFrameForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+	return [self getScreenFrameForOrientation:[UIApplication sharedApplication].statusBarOrientation];
 }
 
 + (CGRect)getScreenFrameForOrientation:(UIInterfaceOrientation)orientation {
-    UIScreen *screen = [UIScreen mainScreen];
-    CGRect fullScreenRect = screen.bounds;
-    if (orientation == UIInterfaceOrientationLandscapeRight ||
-		orientation == UIInterfaceOrientationLandscapeLeft) {
+	UIScreen *screen = [UIScreen mainScreen];
+	CGRect fullScreenRect = screen.bounds;
+	
+	if ((orientation == UIInterfaceOrientationLandscapeRight) ||
+		(orientation == UIInterfaceOrientationLandscapeLeft)) {
 		CGRect temp = CGRectZero;
 		temp.size.width = fullScreenRect.size.height;
 		temp.size.height = fullScreenRect.size.width;
 		fullScreenRect = temp;
-    }
+	}
 	
-    return fullScreenRect;
+	return fullScreenRect;
 }
 
 @end

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, DLAVAlertViewStyle) {
-    DLAVAlertViewStyleDefault = 0,
-    DLAVAlertViewStyleSecureTextInput,
-    DLAVAlertViewStylePlainTextInput,
-    DLAVAlertViewStyleLoginAndPasswordInput
+typedef NS_ENUM (NSUInteger, DLAVAlertViewStyle) {
+	DLAVAlertViewStyleDefault = 0,
+	DLAVAlertViewStyleSecureTextInput,
+	DLAVAlertViewStylePlainTextInput,
+	DLAVAlertViewStyleLoginAndPasswordInput
 };
 
 @class DLAVAlertView;
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, DLAVAlertViewStyle) {
 
 @class DLAVAlertView, DLAVAlertViewTheme, DLAVAlertViewButtonTheme, DLAVAlertViewTextFieldTheme;
 
-typedef void(^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteger buttonIndex);
+typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteger buttonIndex);
 
 @interface DLAVAlertView : UIView
 
@@ -55,7 +55,7 @@ typedef void(^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSIntege
 @property (readwrite, assign, nonatomic) NSInteger cancelButtonIndex;
 
 @property (readonly, assign, nonatomic) NSInteger firstOtherButtonIndex;
-@property (readonly, assign, nonatomic, getter=isVisible) BOOL visible;
+@property (readonly, assign, nonatomic, getter = isVisible) BOOL visible;
 @property (readwrite, assign, nonatomic) BOOL dismissesOnBackdropTap;
 
 @property(nonatomic, assign) DLAVAlertViewStyle alertViewStyle;

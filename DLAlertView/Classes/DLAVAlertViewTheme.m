@@ -25,6 +25,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 - (id)init {
 	self = [super init];
+	
 	if (self) {
 		_backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
 		
@@ -45,6 +46,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		_style = [[self class] defaultThemeStyle];
 	}
+	
 	return self;
 }
 
@@ -54,21 +56,24 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 - (id)initWithStyle:(DLAVAlertViewThemeStyle)style {
 	self = [self init];
+	
 	if (self) {
 		_style = style;
 		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] initWithStyle:style];
 		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] initWithStyle:style];
+		
 		if (style == DLAVAlertViewThemeStyleIOS7) {
 			// default no changes necessary
 		} else if (style == DLAVAlertViewThemeStyleHUD) {
 			[self adjustPropertiesForStyleHUD];
 		}
 	}
+	
 	return self;
 }
 
 + (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style {
-	return [(DLAVAlertViewTheme *)[self alloc] initWithStyle:style];
+	return [(DLAVAlertViewTheme *)[self alloc] initWithStyle : style];
 }
 
 #pragma mark - Defaults
@@ -108,16 +113,17 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 - (instancetype)copyWithZone:(NSZone *)zone {
 	DLAVAlertViewTheme *copy = [(DLAVAlertViewTheme *)[[self class] alloc] init];
+	
 	if (copy) {
 		copy.backgroundColor = self.backgroundColor;
-
+		
 		copy.cornerRadius = self.cornerRadius;
-
+		
 		copy.lineColor = self.lineColor;
-
+		
 		copy.borderColor = self.borderColor;
 		copy.borderWidth = self.borderWidth;
-
+		
 		copy.titleColor = self.titleColor;
 		copy.titleFont = self.titleFont;
 		copy.messageColor = self.messageColor;
@@ -128,6 +134,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		copy.style = self.style;
 	}
+	
 	return copy;
 }
 

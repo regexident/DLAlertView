@@ -15,8 +15,8 @@
 @interface DLAVAlertView ()
 
 - (void)positionInRect:(CGRect)rect;
-- (void)hideWithCompletion:(void(^)(void))completion;
-- (void)unhideWithCompletion:(void(^)(void))completion;
+- (void)hideWithCompletion:(void (^)(void))completion;
+- (void)unhideWithCompletion:(void (^)(void))completion;
 - (void)dismissWithBackdropTap;
 
 @end
@@ -32,7 +32,7 @@
 
 @property (readwrite, strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (readwrite, assign, nonatomic, getter=isVisible) BOOL visible;
+@property (readwrite, assign, nonatomic, getter = isVisible) BOOL visible;
 
 @end
 
@@ -40,6 +40,7 @@
 
 - (id)init {
 	self = [super init];
+	
 	if (self) {
 		_mainWindow = [self windowWithLevel:UIWindowLevelNormal];
 		_alertWindow = [self windowWithLevel:UIWindowLevelAlert];
@@ -49,6 +50,7 @@
 			_alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 			_alertWindow.windowLevel = UIWindowLevelAlert;
 		}
+		
 		_alertWindow.rootViewController = self;
 		
 		CGRect frame = [self frameForOrientation:self.interfaceOrientation];
@@ -65,12 +67,14 @@
 		[self.view addSubview:_backgroundView];
 		
 	}
+	
 	return self;
 }
 
 + (instancetype)sharedController {
 	static DLAVAlertViewController *sharedController = nil;
 	static dispatch_once_t onceToken;
+	
 	dispatch_once(&onceToken, ^{
 		sharedController = [[self alloc] init];
 	});
@@ -88,12 +92,15 @@
 		[self.alertWindow makeKeyAndVisible];
 		[self showBackgroundViewWithCompletion:nil];
 	}
+	
 	DLAVAlertView *last = [self.alertViews lastObject];
+	
 	if (last) {
 		[last hideWithCompletion:^{
 			[last removeFromSuperview];
 		}];
 	}
+	
 	[self.alertViews addObject:alertView];
 	[self.view addSubview:alertView];
 	self.currentAlertView = alertView;
@@ -103,11 +110,13 @@
 	[alertView removeFromSuperview];
 	[self.alertViews removeObject:alertView];
 	DLAVAlertView *previousAlertView = [self.alertViews lastObject];
+	
 	if (previousAlertView) {
 		[self.view addSubview:previousAlertView];
 		[previousAlertView unhideWithCompletion:nil];
 		self.currentAlertView = previousAlertView;
 	}
+	
 	if (!self.alertViews.count) {
 		[self hideBackgroundViewWithCompletion:^(BOOL finished) {
 			self.alertWindow.hidden = YES;
@@ -120,22 +129,26 @@
 
 - (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel {
 	NSArray *windows = [[UIApplication sharedApplication] windows];
+	
 	for (UIWindow *window in windows) {
 		if (window.windowLevel == windowLevel) {
 			return window;
 		}
 	}
+	
 	return nil;
 }
 
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation {
 	CGRect frame;
-	if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+	
+	if ((orientation == UIInterfaceOrientationLandscapeLeft) || (orientation == UIInterfaceOrientationLandscapeRight)) {
 		CGRect bounds = [UIScreen mainScreen].bounds;
 		frame = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
 	} else {
 		frame = [UIScreen mainScreen].bounds;
 	}
+	
 	return frame;
 }
 
@@ -165,21 +178,23 @@
 
 #pragma mark - Device Orientation
 
-- (void)showBackgroundViewWithCompletion:(void(^)(BOOL finished))completion {
+- (void)showBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
 		self.mainWindow.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
 		[self.mainWindow tintColorDidChange];
 	}
+	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.backgroundView.alpha = 1.0;
 	} completion:completion];
 }
 
-- (void)hideBackgroundViewWithCompletion:(void(^)(BOOL finished))completion {
+- (void)hideBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
 		self.mainWindow.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
 		[self.mainWindow tintColorDidChange];
 	}
+	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.backgroundView.alpha = 0.0;
 	} completion:completion];

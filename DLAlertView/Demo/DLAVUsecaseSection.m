@@ -12,11 +12,11 @@
 
 - (id)initWithName:(NSString *)name objectIndexes:(NSIndexSet *)objectIndexes {
 	self = [super init];
-    if (self) {
-        _name = name;
+	if (self) {
+		_name = name;
 		_objectIndexes = objectIndexes;
-    }
-    return self;
+	}
+	return self;
 }
 
 + (instancetype)sectionWithName:(NSString *)name objectIndexes:(NSIndexSet *)objectIndexes {

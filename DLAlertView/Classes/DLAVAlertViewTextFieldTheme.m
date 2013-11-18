@@ -20,6 +20,7 @@
 
 - (id)init {
 	self = [super init];
+	
 	if (self) {
 		_font = [UIFont systemFontOfSize:17.0];
 		_textColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:1.0];
@@ -28,6 +29,7 @@
 		
 		_style = [[self class] defaultThemeStyle];
 	}
+	
 	return self;
 }
 
@@ -37,17 +39,20 @@
 
 - (id)initWithStyle:(DLAVAlertViewThemeStyle)style {
 	self = [self init];
+	
 	if (self) {
 		_style = style;
+		
 		if (style == DLAVAlertViewThemeStyleHUD) {
 			[self adjustPropertiesForStyleHUD];
 		}
 	}
+	
 	return self;
 }
 
 + (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style {
-	return [(DLAVAlertViewTextFieldTheme *)[self alloc] initWithStyle:style];
+	return [(DLAVAlertViewTextFieldTheme *)[self alloc] initWithStyle : style];
 }
 
 #pragma mark - Style Adjustments
@@ -66,6 +71,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
 	DLAVAlertViewTextFieldTheme *copy = [(DLAVAlertViewTextFieldTheme *)[[self class] alloc] init];
+	
 	if (copy) {
 		copy.font = self.font;
 		copy.textColor = self.textColor;
@@ -74,6 +80,7 @@
 		
 		copy.style = self.style;
 	}
+	
 	return copy;
 }
 

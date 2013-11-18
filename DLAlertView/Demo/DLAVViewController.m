@@ -28,27 +28,27 @@
 @implementation DLAVViewController
 
 - (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    if (self) {
-        _usecases = [self prepareUsecases];
+	self = [super initWithStyle:style];
+	if (self) {
+		_usecases = [self prepareUsecases];
 		_sections = [self prepareSectionsForUsecases:_usecases];
 		_delegate = [[DLAVDelegate alloc] init];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    self = [super initWithCoder:decoder];
-    if (self) {
-        _usecases = [self prepareUsecases];
+	self = [super initWithCoder:decoder];
+	if (self) {
+		_usecases = [self prepareUsecases];
 		_sections = [self prepareSectionsForUsecases:_usecases];
 		_delegate = [[DLAVDelegate alloc] init];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	UIEdgeInsets contentInset = self.tableView.contentInset;
 	contentInset.top = 20.0;
@@ -56,14 +56,14 @@
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections.count;
+	return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -75,12 +75,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+	static NSString *CellIdentifier = @"Cell";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 	cell.textLabel.text = [@"Alert with " stringByAppendingString:[self usecaseAtIndexPath:indexPath].name];
-    
-    return cell;
+	return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

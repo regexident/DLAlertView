@@ -20,6 +20,7 @@
 
 - (id)init {
 	self = [super init];
+	
 	if (self) {
 		_font = [UIFont systemFontOfSize:17.0];
 		
@@ -32,6 +33,7 @@
 		
 		_style = [[self class] defaultThemeStyle];
 	}
+	
 	return self;
 }
 
@@ -41,17 +43,20 @@
 
 - (id)initWithStyle:(DLAVAlertViewThemeStyle)style {
 	self = [self init];
+	
 	if (self) {
 		_style = style;
+		
 		if (style == DLAVAlertViewThemeStyleHUD) {
 			[self adjustPropertiesForStyleHUD];
 		}
 	}
+	
 	return self;
 }
 
 + (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style {
-	return [(DLAVAlertViewButtonTheme *)[self alloc] initWithStyle:style];
+	return [(DLAVAlertViewButtonTheme *)[self alloc] initWithStyle : style];
 }
 
 #pragma mark - Style Adjustments
@@ -65,12 +70,14 @@
 
 - (instancetype)themeWithRegularSystemFont:(BOOL)bold {
 	DLAVAlertViewButtonTheme *theme = [self copy];
+	
 	theme.font = [UIFont systemFontOfSize:theme.font.pointSize];
 	return theme;
 }
 
 - (instancetype)themeWithBoldSystemFont:(BOOL)bold {
 	DLAVAlertViewButtonTheme *theme = [self copy];
+	
 	theme.font = [UIFont boldSystemFontOfSize:theme.font.pointSize];
 	return theme;
 }
@@ -83,6 +90,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
 	DLAVAlertViewButtonTheme *copy = [(DLAVAlertViewButtonTheme *)[[self class] alloc] init];
+	
 	if (copy) {
 		copy.font = self.font;
 		
@@ -95,6 +103,7 @@
 		
 		copy.style = self.style;
 	}
+	
 	return copy;
 }
 

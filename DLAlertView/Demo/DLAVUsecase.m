@@ -19,13 +19,13 @@
 @implementation DLAVUsecase
 
 - (id)initWithName:(NSString *)name sectionName:(NSString *)sectionName block:(DLAVUsecaseBlock)block {
-    self = [self init];
-    if (self) {
-        _name = name;
+	self = [self init];
+	if (self) {
+		_name = name;
 		_sectionName = sectionName;
 		_block = block;
-    }
-    return self;
+	}
+	return self;
 }
 
 + (instancetype)usecaseWithName:(NSString *)name sectionName:(NSString *)sectionName block:(DLAVUsecaseBlock)block {
