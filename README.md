@@ -27,7 +27,9 @@
 
 Just copy the files in `"DLAlertView/Classes/..."` into your project.
 
-<sup>(I don't use CocoaPod myself, but am very open for pull requests for a pod!)</sup>
+Alternatively you can install DLAlertView into your project with [CocoaPods](http://beta.cocoapods.org/). Just add it to your Podfile:  
+`pod 'DLAlertView'`
+
 
 ## Usage
 
