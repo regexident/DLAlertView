@@ -56,6 +56,10 @@ DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Click OK!" mes
 
 None.
 
+## Requirements.
+
+iOS v7.0+ (might also work on iOS6, though)
+
 ## Creator
 
 Vincent Esche ([@regexident](http://twitter.com/regexident))
