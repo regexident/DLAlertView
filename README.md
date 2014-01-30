@@ -11,8 +11,8 @@
 * Use **delegates** and/or **blocks**!
 * **Animations** that match UIAlertView in iOS 7.
 * **Default look** that matches UIAlertView in iOS 7.
-* **Any number** of **buttons** per alert.
-* **Any number** of **textfields** per alert.
+* **Any number** of **buttons** per alert (`1..n`).
+* **Any number** of **textfields** per alert (`0..n`).
 * Optional **custom content view**.
 * **Change** title/message/contentView **while shown**.
 * **Add** textfields **while shown**.

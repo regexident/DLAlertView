@@ -77,8 +77,9 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 
 #pragma mark - Textfields
 
-- (NSInteger)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder;
+- (void)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder;
 - (NSString *)textFieldTextAtIndex:(NSInteger)textFieldIndex;
+- (NSInteger)numberOfTextFields;
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType ofTextFieldAtIndex:(NSInteger)index;
 - (void)setInputView:(UIView *)inputView ofTextFieldAtIndex:(NSInteger)index;
@@ -86,7 +87,7 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 
 #pragma mark - Buttons
 
-- (NSInteger)addButtonWithTitle:(NSString *)title;
+- (void)addButtonWithTitle:(NSString *)title;
 - (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
 - (NSInteger)indexOfButtonWithTitle:(NSString *)title;
 

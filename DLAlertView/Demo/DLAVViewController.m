@@ -60,8 +60,6 @@
 	// Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return self.sections.count;
 }
@@ -105,16 +103,58 @@
 	return self.usecases[usecaseIndex];
 }
 
+- (NSArray *)prepareSectionsForUsecases:(NSArray *)usecases {
+	NSMutableArray *sections = [NSMutableArray array];
+	if (!usecases.count) {
+		return sections;
+	}
+	NSArray *sortedUsecases = [usecases sortedArrayUsingComparator:^NSComparisonResult(DLAVUsecase *usecase1, DLAVUsecase *usecase2) {
+		return [usecase1.sectionName localizedCompare:usecase2.sectionName];
+	}];
+	__block NSString *sectionName = ((DLAVUsecase *)sortedUsecases[0]).sectionName;
+	__block NSMutableIndexSet *sectionIndexes = [NSMutableIndexSet indexSetWithIndex:0];
+	[sortedUsecases enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, sortedUsecases.count - 1)] options:0 usingBlock:^(DLAVUsecase *usecase, NSUInteger index, BOOL *stop) {
+		if (![usecase.sectionName isEqual:sectionName]) {
+			[sections addObject:[DLAVUsecaseSection sectionWithName:sectionName objectIndexes:sectionIndexes]];
+			sectionName = usecase.sectionName;
+			sectionIndexes = [NSMutableIndexSet indexSetWithIndex:index];
+		}
+		[sectionIndexes addIndex:index];
+	}];
+	[sections addObject:[DLAVUsecaseSection sectionWithName:sectionName objectIndexes:sectionIndexes]];
+	return sections;
+}
+
+#pragma mark HUD Theme
+
++ (DLAVAlertViewTheme *)HUDTheme {
+	DLAVAlertViewTheme *theme = [[DLAVAlertViewTheme alloc] init];
+	if (theme) {
+		theme.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.65];
+		theme.lineColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+		theme.titleColor = [UIColor lightTextColor];
+		theme.messageColor = [UIColor lightTextColor];
+		
+		theme.buttonTheme.textColor = [UIColor lightTextColor];
+		theme.buttonTheme.disabledTextColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+		
+		theme.textFieldTheme.textColor = [UIColor lightTextColor];
+	}
+	return theme;
+}
+
+#pragma mark Use Cases
+
 - (NSArray *)prepareUsecases {
 	NSMutableArray *usecases = [NSMutableArray array];
 	
 	self.delegate = [[DLAVDelegate alloc] init];
 	
-	// Simple Alerts:
+#pragma mark Simple Alerts
 	
 	NSUInteger sectionIndex = 1;
 	
-	NSString * const alertsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Simple Alerts"];
+	NSString * const alertsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with only buttons"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"one button" sectionName:alertsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"One button!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -124,7 +164,7 @@
 	}]];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"two buttons" sectionName:alertsSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two button!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two buttons!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
@@ -137,9 +177,9 @@
 		}];
 	}]];
 	
-	// Simple Alerts with Message:
+#pragma mark Simple Alerts with Message
 	
-	NSString * const alertsWithMessageSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Simple Alerts with Message"];
+	NSString * const alertsWithMessageSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with a message"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"short message" sectionName:alertsWithMessageSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Tap OK!" message:@"You have no choice anyway!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -162,9 +202,9 @@
 		}];
 	}]];
 	
-	// Alerts with Custom View:
+#pragma mark Alerts with Custom View
 	
-	NSString * const alertsWithContentViewSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with Content View"];
+	NSString * const alertsWithContentViewSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with a content view"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a content view" sectionName:alertsWithContentViewSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, a view!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -176,9 +216,9 @@
 		}];
 	}]];
 	
-	// Alerts with Delegate:
+#pragma mark Alerts with Delegate
 	
-	NSString * const alertsWithDelegateSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with a Delegate"];
+	NSString * const alertsWithDelegateSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with a delegate"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a delegate" sectionName:alertsWithDelegateSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Watch the console!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -190,9 +230,9 @@
 		}];
 	}]];
 	
-	// Alerts with Textfields:
+#pragma mark Alerts with Textfields
 	
-	NSString * const alertsWithTextFieldsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with Textfields"];
+	NSString * const alertsWithTextFieldsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with textfields"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a textfield" sectionName:alertsWithTextFieldsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, a textfield!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
@@ -226,63 +266,105 @@
 		}];
 	}]];
 	
-	// Alerts with dynamic Elements:
+#pragma mark Alerts with dynamic Elements
 	
-	NSString * const alertsWithDynamicElementsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Themed Alerts"];
+	NSString * const alertsWithDynamicElementsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with changing content"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"dynamic alert view style" sectionName:alertsWithDynamicElementsSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Wait for it…" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Wait for it…" message:@"Wait for it…" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
 		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
+		alertView.delegate = self.delegate;
+		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+		}];
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-			alertView.title = @"Now look at that!";
-			alertView.alertViewStyle = DLAVAlertViewStyleLoginAndPasswordInput;
+			alertView.message = @"Let's see some textfields!";
 		});
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-			alertView.title = @"One more time!";
-			alertView.alertViewStyle = DLAVAlertViewStyleSecureTextInput;
+			alertView.message = @"A textfield, oh my!";
+			alertView.alertViewStyle = DLAVAlertViewStylePlainTextInput;
 		});
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-			alertView.title = @"Okay, that's it for now.";
-			alertView.alertViewStyle = DLAVAlertViewStyleDefault;
+			alertView.message = @"Shh, secret!";
+			alertView.alertViewStyle = DLAVAlertViewStyleSecureTextInput;
 		});
-		alertView.delegate = self.delegate;
-		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
-			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
-		}];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+			alertView.message = @"Wanna come in?";
+			alertView.alertViewStyle = DLAVAlertViewStyleLoginAndPasswordInput;
+		});
 	}]];
 	
-	[usecases addObject:[DLAVUsecase usecaseWithName:@"dynamic elements" sectionName:alertsWithDynamicElementsSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Wait for it…" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-			alertView.message = @"How about a textfield?";
-			[alertView addButtonWithTitle:@"Yay!"];
-		});
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-			alertView.message = @"Hooray!";
-			[alertView addTextFieldWithText:nil placeholder:@"That was fun!"];
-		});
-		alertView.delegate = self.delegate;
-		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
-			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
-		}];
-	}]];
+#pragma mark Alerts with custom Theme
 	
-	// Alerts with custom Theme:
-	
-	NSString * const alertsWithCustomThemeSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Themed Alerts"];
+	NSString * const alertsWithCustomThemeSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with themed elements"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"HUD theme" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Fancy!" message:nil delegate:nil cancelButtonTitle:@"It is!" otherButtonTitles:nil, nil];
-		[alertView applyTheme:[DLAVAlertViewTheme themeWithStyle:DLAVAlertViewThemeStyleHUD]];
+		[alertView applyTheme:[[self class] HUDTheme] animated:NO];
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 	}]];
 	
-	[usecases addObject:[DLAVUsecase usecaseWithName:@"butt ugly theme" sectionName:alertsWithCustomThemeSectionName block:^{
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"live changing theme" sectionName:alertsWithCustomThemeSectionName block:^{
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Fancy!" message:nil delegate:nil cancelButtonTitle:@"It is!" otherButtonTitles:nil, nil];
+		double delayInSeconds = 1.5;
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			[alertView applyTheme:[[self class] HUDTheme] animated:YES];
+		});
+		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+		}];
+	}]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"customized buttons" sectionName:alertsWithCustomThemeSectionName block:^{
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two customized buttons!" message:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        alertView.maxContentWidth = 200.0;
+        
+        DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
+		theme.backgroundColor = [UIColor whiteColor];
+		theme.titleColor = [UIColor darkGrayColor];
+		theme.messageColor = [UIColor grayColor];
+		theme.titleFont = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
+		theme.messageFont = [UIFont fontWithName:@"Avenir-Light" size:theme.messageFont.pointSize];
+        theme.lineWidth = 0.0;
+        theme.lineColor = [UIColor clearColor];
+		DLAVAlertViewButtonTheme *leftButtonTheme = [DLAVAlertViewButtonTheme theme];
+		leftButtonTheme.height = 35.0;
+        leftButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5, 7.5 * 0.5);
+		leftButtonTheme.backgroundColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.882 alpha:1.000];
+		leftButtonTheme.highlightBackgroundColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.843 alpha:1.000];
+        leftButtonTheme.borderColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.843 alpha:1.000];
+        leftButtonTheme.borderWidth = 1.0;
+        leftButtonTheme.cornerRadius = 4.0;
+		leftButtonTheme.textColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+        leftButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
+        [alertView setCustomButtonTheme:leftButtonTheme forButtonAtIndex:0];
+        DLAVAlertViewButtonTheme *rightButtonTheme = [DLAVAlertViewButtonTheme theme];
+		rightButtonTheme.height = 35.0;
+        rightButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5 * 0.5, 7.5);
+		rightButtonTheme.backgroundColor = [UIColor colorWithHue:0.016 saturation:0.682 brightness:0.961 alpha:1.000];
+		rightButtonTheme.highlightBackgroundColor = [UIColor colorWithHue:0.015 saturation:0.680 brightness:0.882 alpha:1.000];
+        rightButtonTheme.borderColor = [UIColor colorWithHue:0.015 saturation:0.680 brightness:0.882 alpha:1.000];
+        rightButtonTheme.borderWidth = 1.0;
+        rightButtonTheme.cornerRadius = 4.0;
+		rightButtonTheme.textColor = [UIColor whiteColor];
+        rightButtonTheme.textShadowColor = [UIColor colorWithHue:0.016 saturation:0.682 brightness:0.750 alpha:1.000];
+        rightButtonTheme.textShadowOpacity = 0.75;
+        rightButtonTheme.textShadowRadius = 0.0;
+        rightButtonTheme.textShadowOffset = CGSizeMake(0.0, 1.0);
+        rightButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
+		[alertView setCustomButtonTheme:rightButtonTheme forButtonAtIndex:1];
+		[alertView applyTheme:theme];
+        
+		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+		}];
+	}]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"butt ugly theme" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Yuck!" message:@"Now that's ugly!" delegate:nil cancelButtonTitle:@"Be gone!" otherButtonTitles:nil, nil];
 		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
 		theme.backgroundColor = [UIColor yellowColor];
@@ -303,23 +385,11 @@
 		}];
 	}]];
 	
-	[usecases addObject:[DLAVUsecase usecaseWithName:@"live changing theme" sectionName:alertsWithCustomThemeSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Fancy!" message:nil delegate:nil cancelButtonTitle:@"It is!" otherButtonTitles:nil, nil];
-		double delayInSeconds = 1.5;
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			[alertView applyTheme:[DLAVAlertViewTheme themeWithStyle:DLAVAlertViewThemeStyleHUD] animated:YES];
-		});
-		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
-			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
-		}];
-	}]];
+#pragma mark Alerts with backdrop tap dismissal
 	
-	// Alerts with backdrop tap dismissal:
+	NSString * const alertsWithBackdropTapDismissalSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with background dismissal"];
 	
-	NSString * const alertsWithBackdropTapDismissalSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Themed Alerts"];
-	
-	[usecases addObject:[DLAVUsecase usecaseWithName:@"backdrop tap dismissal" sectionName:alertsWithBackdropTapDismissalSectionName block:^{
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"background tap dismissal" sectionName:alertsWithBackdropTapDismissalSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Tap outside me!" message:nil delegate:nil cancelButtonTitle:@"Not here!" otherButtonTitles:nil, nil];
 		alertView.dismissesOnBackdropTap = YES;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
@@ -332,28 +402,6 @@
 	}]];
 	
 	return usecases;
-}
-
-- (NSArray *)prepareSectionsForUsecases:(NSArray *)usecases {
-	NSMutableArray *sections = [NSMutableArray array];
-	if (!usecases.count) {
-		return sections;
-	}
-	NSArray *sortedUsecases = [usecases sortedArrayUsingComparator:^NSComparisonResult(DLAVUsecase *usecase1, DLAVUsecase *usecase2) {
-		return [usecase1.sectionName localizedCompare:usecase2.sectionName];
-	}];
-	__block NSString *sectionName = ((DLAVUsecase *)sortedUsecases[0]).sectionName;
-	__block NSMutableIndexSet *sectionIndexes = [NSMutableIndexSet indexSetWithIndex:0];
-	[sortedUsecases enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, sortedUsecases.count - 1)] options:0 usingBlock:^(DLAVUsecase *usecase, NSUInteger index, BOOL *stop) {
-		if (![usecase.sectionName isEqual:sectionName]) {
-			[sections addObject:[DLAVUsecaseSection sectionWithName:sectionName objectIndexes:sectionIndexes]];
-			sectionName = usecase.sectionName;
-			sectionIndexes = [NSMutableIndexSet indexSetWithIndex:index];
-		}
-		[sectionIndexes addIndex:index];
-	}];
-	[sections addObject:[DLAVUsecaseSection sectionWithName:sectionName objectIndexes:sectionIndexes]];
-	return sections;
 }
 
 @end

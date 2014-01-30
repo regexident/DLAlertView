@@ -36,9 +36,9 @@
 	NSLog(@"[DLAVUsecase alertView:%p didDismissWithButtonIndex:%ld]", alertView, (long)buttonIndex);
 }
 
-//- (BOOL)alertViewShouldEnableFirstOtherButton:(DLAVAlertView *)alertView {
-//	NSLog(@"[DLAVUsecase alertViewShouldEnableFirstOtherButton:%p]", alertView);
-//	return YES;
-//}
+- (BOOL)alertViewShouldEnableFirstOtherButton:(DLAVAlertView *)alertView {
+	NSLog(@"[DLAVUsecase alertViewShouldEnableFirstOtherButton:%p]", alertView);
+	return YES;
+}
 
 @end

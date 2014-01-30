@@ -11,11 +11,15 @@
 #import "DLAVAlertViewTextFieldTheme.h"
 #import "DLAVAlertViewButtonTheme.h"
 
+const DLAVTextControlMargins DLAVTextControlMarginsNone = {0.0, 0.0, 0.0, 0.0};
+
+DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, CGFloat left, CGFloat right) {
+    return (DLAVTextControlMargins){top, bottom, left, right};
+}
+
 static DLAVAlertViewTheme *defaultTheme = nil;
 
 @interface DLAVAlertViewTheme ()
-
-@property (readwrite, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 @end
 
@@ -31,20 +35,29 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		_cornerRadius = 8.0;
 		
+        _lineWidth = 1.0 / [[UIScreen mainScreen] scale];
 		_lineColor = [UIColor colorWithWhite:0.0 alpha:0.15];
 		
 		_borderColor = [UIColor clearColor];
 		_borderWidth = 0.0;
 		
-		_titleColor = [UIColor blackColor];
+		_contentViewMargins = DLAVTextControlMarginsMake(0.0, 10.0, 10.0, 10.0);
+		
+		_titleMargins = DLAVTextControlMarginsMake(10.0, 10.0, 10.0, 10.0);
+		_titleColor = [UIColor darkTextColor];
 		_titleFont = [UIFont boldSystemFontOfSize:17.0];
-		_messageColor = [UIColor blackColor];
+		
+		_messageMargins = DLAVTextControlMarginsMake(-5.0, 10.0, 10.0, 10.0);
+		_messageColor = [UIColor darkTextColor];
 		_messageFont = [UIFont systemFontOfSize:15.0];
 		
-		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] initWithStyle:[[self class] defaultThemeStyle]];
-		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] initWithStyle:[[self class] defaultThemeStyle]];
-		
-		_style = [[self class] defaultThemeStyle];
+        _shadowColor = [UIColor blackColor];
+        _shadowOpacity = 0.5;
+        _shadowRadius = 20.0;
+        _shadowOffset = CGSizeMake(0.0, 0.0);
+        
+		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] init];
+		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
 	}
 	
 	return self;
@@ -52,34 +65,6 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 + (instancetype)theme {
 	return [[self alloc] init];
-}
-
-- (id)initWithStyle:(DLAVAlertViewThemeStyle)style {
-	self = [self init];
-	
-	if (self) {
-		_style = style;
-		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] initWithStyle:style];
-		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] initWithStyle:style];
-		
-		if (style == DLAVAlertViewThemeStyleIOS7) {
-			// default no changes necessary
-		} else if (style == DLAVAlertViewThemeStyleHUD) {
-			[self adjustPropertiesForStyleHUD];
-		}
-	}
-	
-	return self;
-}
-
-+ (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style {
-	return [(DLAVAlertViewTheme *)[self alloc] initWithStyle : style];
-}
-
-#pragma mark - Defaults
-
-+ (DLAVAlertViewThemeStyle)defaultThemeStyle {
-	return DLAVAlertViewThemeStyleIOS7;
 }
 
 #pragma mark - Style Adjustments
@@ -103,9 +88,9 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 	}
 }
 
-+ (void)setDefaultTheme:(DLAVAlertViewTheme *)theme  {
++ (void)setDefaultTheme:(DLAVAlertViewTheme *)aDefaultTheme  {
 	@synchronized(self) {
-		defaultTheme = theme;
+		defaultTheme = [aDefaultTheme copy];
 	}
 }
 
@@ -119,20 +104,27 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		copy.cornerRadius = self.cornerRadius;
 		
+        copy.lineWidth = self.lineWidth;
 		copy.lineColor = self.lineColor;
 		
 		copy.borderColor = self.borderColor;
 		copy.borderWidth = self.borderWidth;
 		
+		copy.titleMargins = self.titleMargins;
 		copy.titleColor = self.titleColor;
 		copy.titleFont = self.titleFont;
+		
+		copy.messageMargins = self.messageMargins;
 		copy.messageColor = self.messageColor;
 		copy.messageFont = self.messageFont;
 		
-		copy.textFieldTheme = self.textFieldTheme;
-		copy.buttonTheme = self.buttonTheme;
-		
-		copy.style = self.style;
+        copy.shadowColor = self.shadowColor;
+        copy.shadowOpacity = self.shadowOpacity;
+        copy.shadowRadius = self.shadowRadius;
+        copy.shadowOffset = self.shadowOffset;
+
+		copy.textFieldTheme = [self.textFieldTheme copy];
+		copy.buttonTheme = [self.buttonTheme copy];
 	}
 	
 	return copy;

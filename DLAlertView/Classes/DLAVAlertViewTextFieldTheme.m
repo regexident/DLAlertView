@@ -10,8 +10,6 @@
 
 @interface DLAVAlertViewTextFieldTheme ()
 
-@property (readwrite, assign, nonatomic) DLAVAlertViewThemeStyle style;
-
 @end
 
 @implementation DLAVAlertViewTextFieldTheme
@@ -20,67 +18,23 @@
 
 - (id)init {
 	self = [super init];
-	
 	if (self) {
-		_font = [UIFont systemFontOfSize:17.0];
-		_textColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:1.0];
-		_backgroundColor = [UIColor clearColor];
-		_textAlignment = NSTextAlignmentCenter;
-		
-		_style = [[self class] defaultThemeStyle];
+		self.font = [UIFont systemFontOfSize:17.0];
+		self.height = 33.0;
+		self.textAlignment = NSTextAlignmentCenter;
+		self.backgroundColor = [UIColor clearColor];
+		self.highlightBackgroundColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:0.1];
 	}
-	
 	return self;
-}
-
-+ (instancetype)theme {
-	return [[self alloc] init];
-}
-
-- (id)initWithStyle:(DLAVAlertViewThemeStyle)style {
-	self = [self init];
-	
-	if (self) {
-		_style = style;
-		
-		if (style == DLAVAlertViewThemeStyleHUD) {
-			[self adjustPropertiesForStyleHUD];
-		}
-	}
-	
-	return self;
-}
-
-+ (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style {
-	return [(DLAVAlertViewTextFieldTheme *)[self alloc] initWithStyle : style];
-}
-
-#pragma mark - Style Adjustments
-
-- (void)adjustPropertiesForStyleHUD {
-	_textColor = [UIColor whiteColor];
-}
-
-#pragma mark - Convenience
-
-+ (DLAVAlertViewThemeStyle)defaultThemeStyle {
-	return [DLAVAlertViewTheme defaultThemeStyle];
 }
 
 #pragma mark - NSCopying Protocol
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-	DLAVAlertViewTextFieldTheme *copy = [(DLAVAlertViewTextFieldTheme *)[[self class] alloc] init];
-	
+	DLAVAlertViewTextFieldTheme *copy = [super copyWithZone:zone];
 	if (copy) {
-		copy.font = self.font;
-		copy.textColor = self.textColor;
-		copy.backgroundColor = self.backgroundColor;
 		copy.textAlignment = self.textAlignment;
-		
-		copy.style = self.style;
 	}
-	
 	return copy;
 }
 

@@ -14,7 +14,7 @@
 
 @interface DLAVAlertView ()
 
-- (void)positionInRect:(CGRect)rect;
+- (void)updateFrameWithAnimationOfDuration:(NSTimeInterval)duration;
 - (void)hideWithCompletion:(void (^)(void))completion;
 - (void)unhideWithCompletion:(void (^)(void))completion;
 - (void)dismissWithBackdropTap;
@@ -101,6 +101,8 @@
 		}];
 	}
 	
+	[alertView updateFrameWithAnimationOfDuration:0.0];
+	
 	[self.alertViews addObject:alertView];
 	[self.view addSubview:alertView];
 	self.currentAlertView = alertView;
@@ -157,7 +159,7 @@
 	CGRect frame = [self frameForOrientation:toInterfaceOrientation];
 	self.view.frame = frame;
 	self.backgroundView.frame = frame;
-	[self.currentAlertView positionInRect:CGRectZero];
+	[self.currentAlertView updateFrameWithAnimationOfDuration:0.0];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

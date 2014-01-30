@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM (NSUInteger, DLAVAlertViewThemeStyle) {
-	DLAVAlertViewThemeStyleIOS7, // default
-	DLAVAlertViewThemeStyleHUD
-};
+typedef struct {
+    CGFloat top;
+    CGFloat bottom;
+    CGFloat left;
+    CGFloat right;
+} DLAVTextControlMargins;
+
+extern const DLAVTextControlMargins DLAVTextControlMarginsNone;
+
+DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, CGFloat left, CGFloat right);
 
 @class DLAVAlertViewTextFieldTheme, DLAVAlertViewButtonTheme;
 
@@ -23,35 +29,37 @@ typedef NS_ENUM (NSUInteger, DLAVAlertViewThemeStyle) {
 
 @property (readwrite, assign, nonatomic) CGFloat cornerRadius;
 
+@property (readwrite, assign, nonatomic) CGFloat lineWidth;
 @property (readwrite, strong, nonatomic) UIColor *lineColor;
 
 @property (readwrite, strong, nonatomic) UIColor *borderColor;
 @property (readwrite, assign, nonatomic) CGFloat borderWidth;
 
+@property (readwrite, assign, nonatomic) DLAVTextControlMargins contentViewMargins;
+
+@property (readwrite, assign, nonatomic) DLAVTextControlMargins titleMargins;
 @property (readwrite, strong, nonatomic) UIColor *titleColor;
 @property (readwrite, strong, nonatomic) UIFont *titleFont;
+
+@property (readwrite, assign, nonatomic) DLAVTextControlMargins messageMargins;
 @property (readwrite, strong, nonatomic) UIColor *messageColor;
 @property (readwrite, strong, nonatomic) UIFont *messageFont;
 
+@property (readwrite, strong, nonatomic) UIColor *shadowColor;
+@property (readwrite, assign, nonatomic) CGFloat shadowOpacity;
+@property (readwrite, assign, nonatomic) CGFloat shadowRadius;
+@property (readwrite, assign, nonatomic) CGSize shadowOffset;
+
 @property (readwrite, copy, nonatomic) DLAVAlertViewTextFieldTheme *textFieldTheme;
 @property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme;
-
-@property (readonly, assign, nonatomic) DLAVAlertViewThemeStyle style;
 
 #pragma mark - Initialization
 
 - (id)init;
 + (instancetype)theme;
 
-- (id)initWithStyle:(DLAVAlertViewThemeStyle)style;
-+ (instancetype)themeWithStyle:(DLAVAlertViewThemeStyle)style;
-
 + (DLAVAlertViewTheme *)defaultTheme;
 + (void)setDefaultTheme:(DLAVAlertViewTheme *)theme;
-
-#pragma mark - Defaults
-
-+ (DLAVAlertViewThemeStyle)defaultThemeStyle;
 
 @end
 
