@@ -174,6 +174,10 @@
 	return [UIApplication sharedApplication].statusBarHidden;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [UIApplication sharedApplication].statusBarStyle;
+}
+
 - (NSUInteger)supportedInterfaceOrientations {
 	return UIInterfaceOrientationMaskAll;
 }
