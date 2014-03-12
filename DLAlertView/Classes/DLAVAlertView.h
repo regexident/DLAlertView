@@ -20,7 +20,7 @@ typedef NS_ENUM (NSUInteger, DLAVAlertViewStyle) {
 #pragma mark Delegate Protocol
 
 @protocol DLAVAlertViewDelegate <NSObject>
-
+@optional
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)alertView:(DLAVAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
