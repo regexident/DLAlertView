@@ -83,6 +83,7 @@
 	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.bounds.size.width, 30.0)];
 	UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, tableView.bounds.size.width - 20, 30.0)];
 	headerView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+	headerLabel.backgroundColor = headerView.backgroundColor;
 	headerLabel.text = [self tableView:tableView titleForHeaderInSection:section];
 	[headerView addSubview:headerLabel];
 	return headerView;
