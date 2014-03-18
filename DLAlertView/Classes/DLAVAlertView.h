@@ -57,6 +57,8 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 @property (readonly, assign, nonatomic) NSInteger firstOtherButtonIndex;
 @property (readonly, assign, nonatomic, getter = isVisible) BOOL visible;
 @property (readwrite, assign, nonatomic) BOOL dismissesOnBackdropTap;
+@property (readwrite, assign, nonatomic) BOOL hasCustomTextFields;
+@property (readwrite, weak, nonatomic) UITextField *customFirstReponderTextField;
 
 @property(nonatomic, assign) DLAVAlertViewStyle alertViewStyle;
 

@@ -617,15 +617,25 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)willDismissOrHide {
+    if(self.isObservingKeyboard){
+        [self removeKeyboardNotificationObservers];
+    }
+    
 	if (self.textfields.count) {
-		[self removeKeyboardNotificationObservers];
 		[self endEditing:YES];
 	}
 }
 
 - (void)didShowOrUnhide {
+    if(self.textfields.count || self.hasCustomTextFields){
+        [self addKeyboardNotificationObservers];
+    }
+    
+    if(self.customFirstReponderTextField != nil){
+        [self.customFirstReponderTextField becomeFirstResponder];
+    }
+    
 	if (self.textfields.count) {
-		[self addKeyboardNotificationObservers];
 		[self.textfields[0] becomeFirstResponder];
 	}
 }
