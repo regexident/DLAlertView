@@ -21,6 +21,10 @@ typedef NS_ENUM (NSUInteger, DLAVAlertViewStyle) {
 
 @protocol DLAVAlertViewDelegate <NSObject>
 @optional
+
+// Called when a button is clicked. The view will be dismissed or not depending on return value. It's called after alertView:clickedButtonAtIndex:.
+- (BOOL)alertView:(DLAVAlertView *)alertView shouldDismissAfterClickingButtonAtIndex:(NSInteger)buttonIndex;
+
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)alertView:(DLAVAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 

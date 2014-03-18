@@ -677,6 +677,14 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		[self.delegate alertView:self clickedButtonAtIndex:buttonIndex];
 	}
+    
+	if ([self.delegate respondsToSelector:@selector(alertView:shouldDismissAfterClickingButtonAtIndex:)]) {
+		if(![self.delegate alertView:self shouldDismissAfterClickingButtonAtIndex:buttonIndex]){
+            UIButton *clickedButton = [self buttonAtIndex:buttonIndex];
+            [self setBackgroundColorForButton:clickedButton];
+            return;
+        }
+	}
 	
 	double delayInSeconds = 0.1;
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
