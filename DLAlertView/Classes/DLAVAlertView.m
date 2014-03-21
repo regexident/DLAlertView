@@ -617,15 +617,25 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)willDismissOrHide {
+    if(self.isObservingKeyboard){
+        [self removeKeyboardNotificationObservers];
+    }
+    
 	if (self.textfields.count) {
-		[self removeKeyboardNotificationObservers];
 		[self endEditing:YES];
 	}
 }
 
 - (void)didShowOrUnhide {
+    if(self.textfields.count || self.hasCustomTextFields){
+        [self addKeyboardNotificationObservers];
+    }
+    
+    if(self.customFirstReponderTextField != nil){
+        [self.customFirstReponderTextField becomeFirstResponder];
+    }
+    
 	if (self.textfields.count) {
-		[self addKeyboardNotificationObservers];
 		[self.textfields[0] becomeFirstResponder];
 	}
 }
@@ -666,6 +676,14 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
 	if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		[self.delegate alertView:self clickedButtonAtIndex:buttonIndex];
+	}
+    
+	if ([self.delegate respondsToSelector:@selector(alertView:shouldDismissAfterClickingButtonAtIndex:)]) {
+		if(![self.delegate alertView:self shouldDismissAfterClickingButtonAtIndex:buttonIndex]){
+            UIButton *clickedButton = [self buttonAtIndex:buttonIndex];
+            [self setBackgroundColorForButton:clickedButton];
+            return;
+        }
 	}
 	
 	double delayInSeconds = 0.1;

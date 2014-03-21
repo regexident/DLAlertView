@@ -21,6 +21,10 @@ typedef NS_ENUM (NSUInteger, DLAVAlertViewStyle) {
 
 @protocol DLAVAlertViewDelegate <NSObject>
 @optional
+
+// Called when a button is clicked. The view will be dismissed or not depending on return value. It's called after alertView:clickedButtonAtIndex:.
+- (BOOL)alertView:(DLAVAlertView *)alertView shouldDismissAfterClickingButtonAtIndex:(NSInteger)buttonIndex;
+
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)alertView:(DLAVAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
@@ -57,6 +61,8 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 @property (readonly, assign, nonatomic) NSInteger firstOtherButtonIndex;
 @property (readonly, assign, nonatomic, getter = isVisible) BOOL visible;
 @property (readwrite, assign, nonatomic) BOOL dismissesOnBackdropTap;
+@property (readwrite, assign, nonatomic) BOOL hasCustomTextFields;
+@property (readwrite, weak, nonatomic) UITextField *customFirstReponderTextField;
 
 @property(nonatomic, assign) DLAVAlertViewStyle alertViewStyle;
 
