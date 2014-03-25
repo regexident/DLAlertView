@@ -1175,11 +1175,15 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (CGFloat)titleHeight  {
-	return [[self class] optimalSizeForLabel:self.titleLabel inMaxSize:CGSizeMake([self alertWidth], CGFLOAT_MAX)].height;
+	DLAVTextControlMargins margins = self.theme.titleMargins;
+    CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
+	return [[self class] optimalSizeForLabel:self.titleLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height;
 }
 
 - (CGFloat)messageHeight  {
-	return (self.messageLabel) ? [[self class] optimalSizeForLabel:self.messageLabel inMaxSize:CGSizeMake([self alertWidth], CGFLOAT_MAX)].height : 0.0;
+	DLAVTextControlMargins margins = self.theme.messageMargins;
+    CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
+	return (self.messageLabel) ? [[self class] optimalSizeForLabel:self.messageLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height : 0.0;
 }
 
 - (CGFloat)contentViewHeight  {
