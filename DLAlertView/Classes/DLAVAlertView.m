@@ -32,6 +32,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 @property (readwrite, strong, nonatomic) UIView *clippingView;
 
 @property (readwrite, strong, nonatomic) UILabel *titleLabel;
+@property (readwrite, strong, nonatomic) UIView *titleBackgroundView;
 @property (readwrite, strong, nonatomic) UILabel *messageLabel;
 
 @property (readwrite, strong, nonatomic) NSMutableArray *textfields;
@@ -263,6 +264,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	[self.titleLabel removeFromSuperview];
     self.titleLabel = titleLabel;
     [self.clippingView addSubview:titleLabel];
+    
+    UIView* titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.titleBackgroundView removeFromSuperview];
+    self.titleBackgroundView = titleBackgroundView;
+    [self.clippingView insertSubview:titleBackgroundView belowSubview:titleLabel];
 }
 
 - (void)addLabelWithMessage:(NSString *)message {
@@ -516,6 +522,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
         self.backgroundColor = theme.backgroundColor;
 		self.titleLabel.textColor = theme.titleColor;
 		self.titleLabel.font = theme.titleFont;
+        self.titleBackgroundView.backgroundColor = (theme.titleBackgroundColor ?: theme.backgroundColor);
 		self.messageLabel.textColor = theme.messageColor;
 		self.messageLabel.font = theme.messageFont;
 		[self.lines enumerateObjectsUsingBlock:^(UIView *line, NSUInteger index, BOOL *stop) {
@@ -961,11 +968,12 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (void)layoutTitleLabelWithTheme:(DLAVAlertViewTheme *)theme inAlertWithSize:(CGSize)alertSize atVerticalOffset:(CGFloat *)offset {
 	NSAssert(offset, @"Method argument 'offset' must not be NULL.");
-	DLAVTextControlMargins titleMargins = theme.titleMargins;
-	*offset += titleMargins.top;
 	CGFloat titleHeight = [self titleHeight];
-	self.titleLabel.frame = CGRectMake(titleMargins.left, *offset, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
-	*offset += titleHeight + titleMargins.bottom;
+	DLAVTextControlMargins titleMargins = theme.titleMargins;
+    CGFloat titleBackgroundHeight = titleHeight + titleMargins.top + titleMargins.bottom;
+    self.titleBackgroundView.frame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);
+	self.titleLabel.frame = CGRectMake(titleMargins.left, *offset + titleMargins.top, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
+	*offset += titleBackgroundHeight;
 }
 
 - (void)layoutMessageLabelWithTheme:(DLAVAlertViewTheme *)theme inAlertWithSize:(CGSize)alertSize atVerticalOffset:(CGFloat *)offset {
@@ -1167,7 +1175,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		}
 	}
 	
-	return height;
+    // Use floor() to remove fractional points that would otherwise leave a gap around the content.
+	return floor(height);
 }
 
 - (CGSize)preferredFrameSize  {
@@ -1177,13 +1186,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (CGFloat)titleHeight  {
 	DLAVTextControlMargins margins = self.theme.titleMargins;
     CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
-	return [[self class] optimalSizeForLabel:self.titleLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height;
+	return ceil([[self class] optimalSizeForLabel:self.titleLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height);
 }
 
 - (CGFloat)messageHeight  {
 	DLAVTextControlMargins margins = self.theme.messageMargins;
     CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
-	return (self.messageLabel) ? [[self class] optimalSizeForLabel:self.messageLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height : 0.0;
+	return (self.messageLabel) ? ceil([[self class] optimalSizeForLabel:self.messageLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height) : 0.0;
 }
 
 - (CGFloat)contentViewHeight  {

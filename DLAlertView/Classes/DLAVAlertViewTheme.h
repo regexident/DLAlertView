@@ -40,6 +40,7 @@ DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, C
 @property (readwrite, assign, nonatomic) DLAVTextControlMargins titleMargins;
 @property (readwrite, strong, nonatomic) UIColor *titleColor;
 @property (readwrite, strong, nonatomic) UIFont *titleFont;
+@property (readwrite, strong, nonatomic) UIColor *titleBackgroundColor;
 
 @property (readwrite, assign, nonatomic) DLAVTextControlMargins messageMargins;
 @property (readwrite, strong, nonatomic) UIColor *messageColor;
