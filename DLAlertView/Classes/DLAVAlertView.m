@@ -63,6 +63,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	if (self) {
 		self.clipsToBounds = NO;
+        
+        _delegate = delegate;
 		
 		_textfields = [NSMutableArray array];
 		_buttons = [NSMutableArray array];
