@@ -1125,8 +1125,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGFloat height = 0.0;
 	
 	// Title height:
-    DLAVTextControlMargins titleMargins = theme.titleMargins;
-	height += titleMargins.top + [self titleHeight] + titleMargins.bottom;
+    if (self.title) {
+        DLAVTextControlMargins titleMargins = theme.titleMargins;
+        height += titleMargins.top + [self titleHeight] + titleMargins.bottom;
+    }
 	
 	// Message height:
 	if (self.message) {
