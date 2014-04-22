@@ -26,7 +26,6 @@
 @property (readwrite, strong, nonatomic) NSMutableArray *alertViews;
 @property (readwrite, strong, nonatomic) DLAVAlertView *currentAlertView;
 
-@property (readwrite, strong, nonatomic) UIWindow *mainWindow;
 @property (readwrite, strong, nonatomic) UIWindow *alertWindow;
 @property (readwrite, strong, nonatomic) UIView *backgroundView;
 
@@ -42,8 +41,7 @@
 	self = [super init];
 	
 	if (self) {
-		_mainWindow = [self windowWithLevel:UIWindowLevelNormal];
-		_alertWindow = [self windowWithLevel:UIWindowLevelAlert];
+		_alertWindow = [self firstWindowWithLevel:UIWindowLevelAlert];
 		_alertViews = [NSMutableArray array];
 		
 		if (!_alertWindow) {
@@ -122,14 +120,14 @@
 	if (!self.alertViews.count) {
 		[self hideBackgroundViewWithCompletion:^(BOOL finished) {
 			self.alertWindow.hidden = YES;
-			[self.mainWindow makeKeyAndVisible];
+			[[self lastWindowWithLevel:UIWindowLevelNormal] makeKeyAndVisible];
 		}];
 	}
 }
 
-#pragma mark - Device Orientation
+#pragma mark - Windows
 
-- (UIWindow *)windowWithLevel:(UIWindowLevel)windowLevel {
+- (UIWindow *)firstWindowWithLevel:(UIWindowLevel)windowLevel {
 	NSArray *windows = [[UIApplication sharedApplication] windows];
 	
 	for (UIWindow *window in windows) {
@@ -140,6 +138,34 @@
 	
 	return nil;
 }
+
+- (UIWindow *)lastWindowWithLevel:(UIWindowLevel)windowLevel {
+	NSArray *windows = [[UIApplication sharedApplication] windows];
+	
+	for (UIWindow *window in [windows reverseObjectEnumerator]) {
+		if (window.windowLevel == windowLevel) {
+			return window;
+		}
+	}
+	
+	return nil;
+}
+
+- (void)windowsWithLevel:(UIWindowLevel)windowLevel block:(void (^)(UIWindow*))block {
+    if (!block) {
+        return;
+    }
+    
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+	
+	for (UIWindow *window in windows) {
+		if (window.windowLevel == windowLevel) {
+			block(window);
+		}
+	}
+}
+
+#pragma mark - Device Orientation
 
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation {
 	CGRect frame;
@@ -186,8 +212,10 @@
 
 - (void)showBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-		self.mainWindow.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-		[self.mainWindow tintColorDidChange];
+        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow* window) {
+            window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+            [window tintColorDidChange];
+        }];
 	}
 	
 	[UIView animateWithDuration:0.3 animations:^{
@@ -197,8 +225,10 @@
 
 - (void)hideBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-		self.mainWindow.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-		[self.mainWindow tintColorDidChange];
+        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow* window) {
+            window.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+            [window tintColorDidChange];
+        }];
 	}
 	
 	[UIView animateWithDuration:0.3 animations:^{

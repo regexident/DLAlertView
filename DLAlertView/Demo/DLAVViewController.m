@@ -365,6 +365,19 @@
 		}];
 	}]];
     
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"title background" sectionName:alertsWithCustomThemeSectionName block:^{
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Custom Title Background" message:@"Very distinctive." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
+		theme.backgroundColor = [UIColor whiteColor];
+        theme.titleBackgroundColor = [UIColor blueColor];
+        theme.titleColor = [UIColor whiteColor];
+        theme.messageMargins = theme.titleMargins;
+		[alertView applyTheme:theme];
+		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+		}];
+	}]];
+    
     [usecases addObject:[DLAVUsecase usecaseWithName:@"butt ugly theme" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Yuck!" message:@"Now that's ugly!" delegate:nil cancelButtonTitle:@"Be gone!" otherButtonTitles:nil, nil];
 		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
