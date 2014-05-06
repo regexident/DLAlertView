@@ -223,8 +223,6 @@
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a delegate" sectionName:alertsWithDelegateSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Watch the console!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
 		alertView.delegate = self.delegate;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
@@ -237,8 +235,6 @@
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a textfield" sectionName:alertsWithTextFieldsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, a textfield!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
 		alertView.alertViewStyle = DLAVAlertViewStylePlainTextInput;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%p' at index: %ld (with input: '%@')", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex, [alertView textFieldTextAtIndex:0]);
@@ -247,8 +243,6 @@
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a secret field" sectionName:alertsWithTextFieldsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, a secure textfield!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
 		alertView.alertViewStyle = DLAVAlertViewStyleSecureTextInput;
 		alertView.delegate = self.delegate;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
@@ -258,8 +252,6 @@
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"login textfields" sectionName:alertsWithTextFieldsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, login fields!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
 		alertView.alertViewStyle = DLAVAlertViewStyleLoginAndPasswordInput;
 		alertView.delegate = self.delegate;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
@@ -273,8 +265,6 @@
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"dynamic alert view style" sectionName:alertsWithDynamicElementsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Wait for it…" message:@"Wait for it…" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-		UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 40.0)];
-		contentView.backgroundColor = [UIColor colorWithHue:0.0 saturation:0.5 brightness:1.0 alpha:1.0];
 		alertView.delegate = self.delegate;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
