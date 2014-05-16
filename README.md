@@ -27,9 +27,8 @@
 
 Just copy the files in `"DLAlertView/Classes/..."` into your project.
 
-Alternatively you can install DLAlertView into your project with [CocoaPods](http://beta.cocoapods.org/). Just add it to your Podfile:  
-`pod 'DLAlertView'`
-
+Alternatively you can install DLAlertView into your project with [CocoaPods](http://cocoapods.org/).  
+Just add it to your Podfile: `pod 'DLAlertView'`
 
 ## Usage
 
@@ -58,7 +57,7 @@ None.
 
 ## Requirements.
 
-iOS v7.0+ (might also work on iOS6, though)
+iOS 6.0+
 
 ## Creator
 
