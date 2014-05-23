@@ -344,7 +344,21 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (DLAVAlertViewButtonTheme *)themeForButtonAtIndex:(NSUInteger)index {
     DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
     if ([buttonTheme isKindOfClass:[NSNull class]]) {
-        buttonTheme = self.theme.buttonTheme;
+        if (self.numberOfButtons == 1) {
+            buttonTheme = self.theme.primaryButtonTheme;
+        } else if (self.numberOfButtons == 2) {
+            if (self.cancelButtonIndex != -1) {
+                buttonTheme = (index == self.cancelButtonIndex) ? self.theme.otherButtonTheme : self.theme.primaryButtonTheme;
+            } else {
+                buttonTheme = self.theme.otherButtonTheme;
+            }
+        } else {
+            if (self.cancelButtonIndex != -1) {
+                buttonTheme = (index == self.cancelButtonIndex) ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
+            } else {
+                return self.theme.otherButtonTheme;
+            }
+        }
     }
     return buttonTheme;
 }

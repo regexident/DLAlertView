@@ -52,7 +52,10 @@ DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, C
 @property (readwrite, assign, nonatomic) CGSize shadowOffset;
 
 @property (readwrite, copy, nonatomic) DLAVAlertViewTextFieldTheme *textFieldTheme;
-@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme;
+
+@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme; /* applies to both primary and secondary buttons */
+@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *primaryButtonTheme;
+@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *otherButtonTheme;
 
 #pragma mark - Initialization
 

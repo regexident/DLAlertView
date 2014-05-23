@@ -172,7 +172,7 @@
 	}]];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"many buttons" sectionName:alertsSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Many buttons!" message:nil delegate:nil cancelButtonTitle:@"One" otherButtonTitles:@"Two", @"Three", @"Four", nil];
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Many buttons!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"One", @"Two", @"Three", @"Four", nil];
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];

@@ -48,14 +48,14 @@
 
 #pragma mark - Convenience
 
-- (instancetype)themeWithRegularSystemFont:(BOOL)bold {
+- (instancetype)themeWithRegularSystemFont {
 	DLAVAlertViewTextControlTheme *theme = [self copy];
 	
 	theme.font = [UIFont systemFontOfSize:theme.font.pointSize];
 	return theme;
 }
 
-- (instancetype)themeWithBoldSystemFont:(BOOL)bold {
+- (instancetype)themeWithBoldSystemFont {
 	DLAVAlertViewTextControlTheme *theme = [self copy];
 	
 	theme.font = [UIFont boldSystemFontOfSize:theme.font.pointSize];

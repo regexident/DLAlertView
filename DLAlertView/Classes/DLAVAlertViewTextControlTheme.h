@@ -40,7 +40,7 @@
 
 #pragma mark - Convenience
 
-- (instancetype)themeWithRegularSystemFont:(BOOL)bold;
-- (instancetype)themeWithBoldSystemFont:(BOOL)bold;
+- (instancetype)themeWithRegularSystemFont;
+- (instancetype)themeWithBoldSystemFont;
 
 @end

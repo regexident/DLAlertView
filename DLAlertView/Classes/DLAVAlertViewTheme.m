@@ -57,7 +57,10 @@ static DLAVAlertViewTheme *defaultTheme = nil;
         _shadowOffset = CGSizeMake(0.0, 0.0);
         
 		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] init];
-		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
+        
+        _buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
+        _primaryButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithBoldSystemFont];
+		_otherButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithRegularSystemFont];
 	}
 	
 	return self;
@@ -65,6 +68,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 + (instancetype)theme {
 	return [[self alloc] init];
+}
+
+- (void)setButtonTheme:(DLAVAlertViewButtonTheme *)buttonTheme
+{
+    _buttonTheme = _primaryButtonTheme = _otherButtonTheme = buttonTheme;
 }
 
 #pragma mark - Style Adjustments
@@ -122,9 +130,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
         copy.shadowOpacity = self.shadowOpacity;
         copy.shadowRadius = self.shadowRadius;
         copy.shadowOffset = self.shadowOffset;
-
+        
 		copy.textFieldTheme = [self.textFieldTheme copy];
-		copy.buttonTheme = [self.buttonTheme copy];
+        
+        copy.primaryButtonTheme = [self.primaryButtonTheme copy];
+		copy.otherButtonTheme = [self.otherButtonTheme copy];
 	}
 	
 	return copy;
