@@ -43,11 +43,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		_contentViewMargins = DLAVTextControlMarginsMake(0.0, 10.0, 10.0, 10.0);
 		
-		_titleMargins = DLAVTextControlMarginsMake(10.0, 10.0, 10.0, 10.0);
+		_titleMargins = DLAVTextControlMarginsMake(18.0, 10.0, 10.0, 10.0);
 		_titleColor = [UIColor darkTextColor];
 		_titleFont = [UIFont boldSystemFontOfSize:17.0];
 		
-		_messageMargins = DLAVTextControlMarginsMake(-5.0, 10.0, 10.0, 10.0);
+		_messageMargins = DLAVTextControlMarginsMake(-5.0, 17.0, 10.0, 10.0);
 		_messageColor = [UIColor darkTextColor];
 		_messageFont = [UIFont systemFontOfSize:15.0];
 		
@@ -57,7 +57,10 @@ static DLAVAlertViewTheme *defaultTheme = nil;
         _shadowOffset = CGSizeMake(0.0, 0.0);
         
 		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] init];
-		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
+        
+        _buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
+        _primaryButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithBoldSystemFont];
+		_otherButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithRegularSystemFont];
 	}
 	
 	return self;
@@ -65,6 +68,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 + (instancetype)theme {
 	return [[self alloc] init];
+}
+
+- (void)setButtonTheme:(DLAVAlertViewButtonTheme *)buttonTheme
+{
+    _buttonTheme = _primaryButtonTheme = _otherButtonTheme = buttonTheme;
 }
 
 #pragma mark - Style Adjustments
@@ -122,9 +130,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
         copy.shadowOpacity = self.shadowOpacity;
         copy.shadowRadius = self.shadowRadius;
         copy.shadowOffset = self.shadowOffset;
-
+        
 		copy.textFieldTheme = [self.textFieldTheme copy];
-		copy.buttonTheme = [self.buttonTheme copy];
+        
+        copy.primaryButtonTheme = [self.primaryButtonTheme copy];
+		copy.otherButtonTheme = [self.otherButtonTheme copy];
 	}
 	
 	return copy;

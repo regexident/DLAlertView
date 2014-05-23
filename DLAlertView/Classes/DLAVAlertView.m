@@ -341,10 +341,28 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return buttonIndex;
 }
 
+- (BOOL)isPrimaryButtonAtIndex:(NSUInteger)buttonIndex {
+    if (self.numberOfButtons == 1) {
+        return YES;
+    } else if (self.numberOfButtons == 2) {
+        if (self.cancelButtonIndex != -1) {
+            return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
+        } else {
+            return NO;
+        }
+    } else {
+        if (self.cancelButtonIndex != -1) {
+            return (buttonIndex == self.cancelButtonIndex) ? YES : NO;
+        } else {
+            return NO;
+        }
+    }
+}
+
 - (DLAVAlertViewButtonTheme *)themeForButtonAtIndex:(NSUInteger)index {
     DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
     if ([buttonTheme isKindOfClass:[NSNull class]]) {
-        buttonTheme = self.theme.buttonTheme;
+        buttonTheme = [self isPrimaryButtonAtIndex:index] ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
     }
     return buttonTheme;
 }
