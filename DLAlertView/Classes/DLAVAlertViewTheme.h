@@ -53,7 +53,7 @@ DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, C
 
 @property (readwrite, copy, nonatomic) DLAVAlertViewTextFieldTheme *textFieldTheme;
 
-@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme; /* applies to both primary and secondary buttons */
+@property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *buttonTheme; /* applied to both primary and other buttons */
 @property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *primaryButtonTheme;
 @property (readwrite, copy, nonatomic) DLAVAlertViewButtonTheme *otherButtonTheme;
 

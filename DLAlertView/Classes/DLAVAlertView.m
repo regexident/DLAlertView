@@ -341,24 +341,28 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return buttonIndex;
 }
 
+- (BOOL)isPrimaryButtonAtIndex:(NSUInteger)buttonIndex {
+    if (self.numberOfButtons == 1) {
+        return YES;
+    } else if (self.numberOfButtons == 2) {
+        if (self.cancelButtonIndex != -1) {
+            return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
+        } else {
+            return NO;
+        }
+    } else {
+        if (self.cancelButtonIndex != -1) {
+            return (buttonIndex == self.cancelButtonIndex) ? YES : NO;
+        } else {
+            return NO;
+        }
+    }
+}
+
 - (DLAVAlertViewButtonTheme *)themeForButtonAtIndex:(NSUInteger)index {
     DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
     if ([buttonTheme isKindOfClass:[NSNull class]]) {
-        if (self.numberOfButtons == 1) {
-            buttonTheme = self.theme.primaryButtonTheme;
-        } else if (self.numberOfButtons == 2) {
-            if (self.cancelButtonIndex != -1) {
-                buttonTheme = (index == self.cancelButtonIndex) ? self.theme.otherButtonTheme : self.theme.primaryButtonTheme;
-            } else {
-                buttonTheme = self.theme.otherButtonTheme;
-            }
-        } else {
-            if (self.cancelButtonIndex != -1) {
-                buttonTheme = (index == self.cancelButtonIndex) ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
-            } else {
-                return self.theme.otherButtonTheme;
-            }
-        }
+        buttonTheme = [self isPrimaryButtonAtIndex:index] ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
     }
     return buttonTheme;
 }
