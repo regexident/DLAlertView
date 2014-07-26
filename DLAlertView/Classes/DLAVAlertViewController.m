@@ -31,8 +31,6 @@
 
 @property (readwrite, strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (readwrite, assign, nonatomic, getter = isVisible) BOOL visible;
-
 @end
 
 @implementation DLAVAlertViewController
@@ -80,7 +78,7 @@
 }
 
 - (void)setBackdropColor:(UIColor *)backdropColor {
-	_backgroundView.backgroundColor = backdropColor;
+	self.backgroundView.backgroundColor = backdropColor;
 }
 
 - (void)addAlertView:(DLAVAlertView *)alertView {
@@ -114,13 +112,15 @@
 	if (previousAlertView) {
 		[self.view addSubview:previousAlertView];
 		[previousAlertView unhideWithCompletion:nil];
-		self.currentAlertView = previousAlertView;
 	}
+	self.currentAlertView = previousAlertView;
 	
 	if (!self.alertViews.count) {
 		[self hideBackgroundViewWithCompletion:^(BOOL finished) {
-			self.alertWindow.hidden = YES;
-			[[self lastWindowWithLevel:UIWindowLevelNormal] makeKeyAndVisible];
+			if (!self.alertViews.count) {
+				self.alertWindow.hidden = YES;
+				[[self lastWindowWithLevel:UIWindowLevelNormal] makeKeyAndVisible];
+			}
 		}];
 	}
 }

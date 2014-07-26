@@ -286,6 +286,22 @@
 		});
 	}]];
 	
+#pragma mark Alerts with follow-up Alerts
+	
+	NSString * const alertsWithFollowUpAlertsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with follow-up alerts"];
+	
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"follow-up alert" sectionName:alertsWithFollowUpAlertsSectionName block:^{
+		DLAVAlertView *alertViewA = [[DLAVAlertView alloc] initWithTitle:@"First Alert" message:@"Tap 'OK' for another one." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+		alertViewA.delegate = self.delegate;
+		[alertViewA showWithCompletion:^(DLAVAlertView *alertViewA, NSInteger buttonIndexA) {
+			if (buttonIndexA != [alertViewA cancelButtonIndex]) {
+				DLAVAlertView *alertViewB = [[DLAVAlertView alloc] initWithTitle:@"Alert B" message:@"Some message." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+				alertViewB.delegate = self.delegate;
+				[alertViewB showWithCompletion:nil];
+			}
+		}];
+	}]];
+	
 #pragma mark Alerts with custom Theme
 	
 	NSString * const alertsWithCustomThemeSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with themed elements"];
