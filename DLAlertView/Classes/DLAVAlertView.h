@@ -40,6 +40,7 @@ typedef NS_ENUM (NSUInteger, DLAVAlertViewStyle) {
 
 // Called after edits in any of the default fields added by the style
 - (BOOL)alertViewShouldEnableFirstOtherButton:(DLAVAlertView *)alertView;
+- (BOOL)alertView:(DLAVAlertView *)alertView buttonAtIndex:(NSUInteger)buttonIndex shouldBeEnabled:(BOOL)enabled;
 
 @end
 
@@ -57,8 +58,9 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 
 @property (readonly, assign, nonatomic) NSInteger numberOfButtons;
 @property (readwrite, assign, nonatomic) NSInteger cancelButtonIndex;
-
+@property (readwrite, assign, nonatomic) NSInteger doneButtonIndex;
 @property (readonly, assign, nonatomic) NSInteger firstOtherButtonIndex;
+
 @property (readonly, assign, nonatomic, getter = isVisible) BOOL visible;
 @property (readwrite, assign, nonatomic) BOOL dismissesOnBackdropTap;
 @property (readwrite, assign, nonatomic) BOOL hasCustomTextFields;

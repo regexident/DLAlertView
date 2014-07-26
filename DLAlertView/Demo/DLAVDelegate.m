@@ -41,4 +41,9 @@
 	return YES;
 }
 
+- (BOOL)alertView:(DLAVAlertView *)alertView buttonAtIndex:(NSUInteger)buttonIndex shouldBeEnabled:(BOOL)enabled {
+	NSLog(@"[DLAVUsecase alertView:%p buttonAtIndex:%ld shouldBeEnabled:%s]", alertView, (long)buttonIndex, (enabled) ? "YES" : "NO");
+	return enabled; // simply forwards default behaviour
+}
+
 @end

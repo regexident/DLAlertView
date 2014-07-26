@@ -97,19 +97,20 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 			[self addButtonWithTitle:otherButtonTitle];
 		}
 		
+		NSString *firstOtherButtonTitle = otherButtonTitle ?: NSLocalizedString(@"OK", nil);
+		
 		if (otherButtonTitle) {
 			va_list args;
 			va_start(args, otherButtonTitle);
 			NSString *buttonTitle;
-			
 			while ((buttonTitle = va_arg(args, NSString *))) {
 				[self addButtonWithTitle:buttonTitle];
 			}
-			
 			va_end(args);
 		}
 		
 		_cancelButtonIndex = [self indexOfButtonWithTitle:cancelButtonTitle];
+		_doneButtonIndex = [self indexOfButtonWithTitle:firstOtherButtonTitle];
 		
 		[self applyTheme:_theme];
 		
@@ -181,6 +182,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	} else {
 		[button setTitle:NSLocalizedString(@"OK", nil) forState:UIControlStateNormal];
 	}
+	button.enabled = NO;
 	button.backgroundColor = [UIColor clearColor];
 	return button;
 }
@@ -389,10 +391,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	[self.textfields removeObjectsInRange:range];
 	[self.textFieldThemes removeObjectsInRange:range];
-	NSInteger buttonIndex = [self firstOtherButtonIndex];
+	NSInteger buttonIndex = [self doneButtonIndex];
 	
-	if (buttonIndex != -1) {
-		[self buttonAtIndex:buttonIndex].enabled = YES;
+	if (buttonIndex != -1 && self.visible) {
+		[self updateButtons];
 	}
 	
 	[self updateFrameWithAnimationOfDuration:[self animationDuration]];
@@ -436,7 +438,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	[self removeTextFieldsInRange:NSMakeRange(0, oldTextFieldCount)];
 	
-	[self updateFirstOtherButtonEnabledWithCurrentTextField:nil];
+	if (self.visible) {
+		[self updateButtons];
+	}
 }
 
 - (void)setAlertViewStyle:(DLAVAlertViewStyle)alertViewStyle {
@@ -644,6 +648,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[self.delegate willPresentAlertView:self];
 	}
 	
+	[self updateButtons];
+	
 	[self showAnimated:YES withCompletion:^{
 		[self didShowOrUnhide];
 		
@@ -687,6 +693,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)unhideWithCompletion:(void (^)(void))completion {
+	[self updateButtons];
+	
 	[self showAnimated:YES withCompletion:^{
 		[self didShowOrUnhide];
 		
@@ -881,7 +889,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	DLAVAlertViewTextFieldTheme *textFieldTheme = [self themeForTextFieldAtIndex:textField.tag];
 	textField.backgroundColor = textFieldTheme.highlightBackgroundColor;
-	[self updateFirstOtherButtonEnabledWithCurrentTextField:textField];
+	[self updateButtons];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -900,54 +908,60 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	[textField resignFirstResponder];
 	
-	BOOL returnEnabled = [self shouldSetFirstOtherButtonEnabled];
-	
-	if (textField.returnKeyType == UIReturnKeyDone) {
-		NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
-		
-		if (returnEnabled && (firstOtherButtonIndex != -1)) {
-			[self dismissWithButton:[self buttonAtIndex:firstOtherButtonIndex]];
+	if ((textField.returnKeyType == UIReturnKeyDone) && (self.doneButtonIndex != NSNotFound)) {
+		NSInteger doneButtonIndex = [self doneButtonIndex];
+		if (doneButtonIndex != -1) {
+			UIButton *doneButton = [self buttonAtIndex:doneButtonIndex];
+			if (doneButton.enabled && (doneButtonIndex != -1)) {
+				[self dismissWithButton:doneButton];
+			}
 		}
 	}
 	
-	return returnEnabled;
+	return NO;
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
-	[self updateFirstOtherButtonEnabledWithCurrentTextField:textField];
+	[self updateButtons];
 }
 
-- (BOOL)shouldSetFirstOtherButtonEnabled {
-	NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
+- (void)updateButtons {
+	NSInteger firstOtherButtonIndex = self.firstOtherButtonIndex;
+	NSInteger doneButtonIndex = self.doneButtonIndex;
 	
-	if (firstOtherButtonIndex == -1) {
-		return YES;
-	}
+	BOOL respondsTo_alertViewShouldEnableFirstOtherButton = [self.delegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)];
+	BOOL respondsTo_alertView_buttonAtIndex_shouldBeEnabled = [self.delegate respondsToSelector:@selector(alertView:buttonAtIndex:shouldBeEnabled:)];
 	
-	if ([self.delegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)]) {
-		return [self.delegate alertViewShouldEnableFirstOtherButton:self];
+	BOOL doneButtonEnabled = YES;
+	if (self.alertViewStyle == DLAVAlertViewStylePlainTextInput) {
+		if (doneButtonIndex != -1) {
+			doneButtonEnabled = [self textFieldTextAtIndex:0].length != 0;
+		}
 	} else if (self.alertViewStyle == DLAVAlertViewStyleSecureTextInput) {
-		return [self textFieldTextAtIndex:0].length != 0;
+		if (doneButtonIndex != -1) {
+			doneButtonEnabled = [self textFieldTextAtIndex:0].length != 0;
+		}
 	} else if (self.alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
-		return [self textFieldTextAtIndex:0].length != 0 && [self textFieldTextAtIndex:1].length != 0;
+		if (doneButtonIndex != -1) {
+			doneButtonEnabled = [self textFieldTextAtIndex:0].length != 0 && [self textFieldTextAtIndex:1].length != 0;;
+		}
 	}
 	
-	return YES;
-}
-
-- (void)updateFirstOtherButtonEnabledWithCurrentTextField:(UITextField *)textField {
-	if (!self.textfields.count) {
-		return;
+	NSUInteger buttonCount = self.buttons.count;
+	for (NSUInteger buttonIndex = 0; buttonIndex < buttonCount; buttonIndex++) {
+		UIButton *button = [self buttonAtIndex:buttonIndex];
+		BOOL buttonEnabled = YES;
+		if ((buttonIndex == firstOtherButtonIndex) && respondsTo_alertViewShouldEnableFirstOtherButton) {
+			buttonEnabled = [self.delegate alertViewShouldEnableFirstOtherButton:self];
+		}
+		if (respondsTo_alertView_buttonAtIndex_shouldBeEnabled) {
+			if (buttonIndex == doneButtonIndex) {
+				buttonEnabled = doneButtonEnabled;
+			}
+			buttonEnabled = [self.delegate alertView:self buttonAtIndex:buttonIndex shouldBeEnabled:buttonEnabled];
+		}
+		button.enabled = buttonEnabled;
 	}
-	
-	NSInteger firstOtherButtonIndex = [self firstOtherButtonIndex];
-	
-	if (firstOtherButtonIndex == -1) {
-		return;
-	}
-	
-	UIButton *button = [self buttonAtIndex:firstOtherButtonIndex];
-	button.enabled = [self shouldSetFirstOtherButtonEnabled];
 }
 
 #pragma mark - View Layout
