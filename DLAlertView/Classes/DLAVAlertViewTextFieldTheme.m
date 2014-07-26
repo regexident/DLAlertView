@@ -21,7 +21,11 @@
 	if (self) {
 		self.font = [UIFont systemFontOfSize:17.0];
 		self.height = 33.0;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 		self.textAlignment = NSTextAlignmentCenter;
+#else
+		self.textAlignment = UITextAlignmentCenter;
+#endif
 		self.backgroundColor = [UIColor clearColor];
 		self.highlightBackgroundColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:0.1];
 	}

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DLAlertView"
-  s.version      = "1.1.2"
+  s.version      = "1.1.3"
   s.summary      = "UIAlertView replacement that can embed custom content views, is fully themable and let's you use a delegate and/or blocks."
 
   s.description  = <<-DESC
@@ -29,8 +29,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/regexident/DLAlertView"
   s.license      = { :type => 'BSD-3', :file => 'LICENSE' }
   s.author       = { "Vincent Esche" => "regexident@gmail.com" }
-  s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/regexident/DLAlertView.git", :tag => '1.1.2' }
+  s.platform     = :ios, '5.1'
+  s.source       = { :git => "https://github.com/regexident/DLAlertView.git", :tag => '1.1.3' }
   s.source_files  = 'DLAlertView/Classes/*.{h,m}'
   s.requires_arc = true
 

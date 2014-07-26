@@ -73,8 +73,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+	static NSString *cellIdentifier = @"Cell";
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+#else
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+#endif
 	cell.textLabel.text = [@"Alert with " stringByAppendingString:[self usecaseAtIndexPath:indexPath].name];
 	return cell;
 }

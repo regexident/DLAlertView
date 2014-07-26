@@ -140,8 +140,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	UILabel *titleLabel = [[UILabel alloc] init];
 	titleLabel.text = (title.length) ? title : nil;
 	titleLabel.backgroundColor = [UIColor clearColor];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 	titleLabel.textAlignment = NSTextAlignmentCenter;
 	titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+#else
+	titleLabel.textAlignment = UITextAlignmentCenter;
+	titleLabel.lineBreakMode = UILineBreakByWordWrapping;
+#endif
 	titleLabel.numberOfLines = 0.0;
 	return titleLabel;
 }
@@ -150,8 +155,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	UILabel *messageLabel = [[UILabel alloc] init];
 	messageLabel.text = (message.length) ? message : nil;
 	messageLabel.backgroundColor = [UIColor clearColor];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 	messageLabel.textAlignment = NSTextAlignmentCenter;
 	messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
+#else
+	messageLabel.textAlignment = UITextAlignmentCenter;
+	messageLabel.lineBreakMode = UILineBreakByWordWrapping;
+#endif
 	messageLabel.numberOfLines = 0.0;
 	return messageLabel;
 }
@@ -1228,20 +1238,22 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		return size;
 	}
 	
-	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		size = [label.text sizeWithFont:label.font
-					  constrainedToSize:maxSize
-						  lineBreakMode:NSLineBreakByWordWrapping];
-#pragma clang diagnostic pop
-	} else {
+	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 		NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
 		context.minimumScaleFactor = 1.0;
 		size = [label.text boundingRectWithSize:maxSize
 										options:NSStringDrawingUsesLineFragmentOrigin
 									 attributes:@{ NSFontAttributeName : label.font }
 										context:context].size;
+#endif
+	} else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		size = [label.text sizeWithFont:label.font
+					  constrainedToSize:maxSize
+						  lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
 	}
 	
 	return size;

@@ -211,12 +211,14 @@
 #pragma mark - Device Orientation
 
 - (void)showBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow* window) {
-            window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-            [window tintColorDidChange];
-        }];
+		[self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
+			window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+			[window tintColorDidChange];
+		}];
 	}
+#endif
 	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.backgroundView.alpha = 1.0;
@@ -224,12 +226,14 @@
 }
 
 - (void)hideBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow* window) {
+        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
             window.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
             [window tintColorDidChange];
         }];
 	}
+#endif
 	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.backgroundView.alpha = 0.0;

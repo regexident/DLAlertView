@@ -57,7 +57,7 @@ None.
 
 ## Requirements.
 
-iOS 6.0+
+iOS 5.1+
 
 ## Creator
 

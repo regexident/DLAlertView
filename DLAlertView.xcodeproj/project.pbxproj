@@ -61,7 +61,7 @@
 		C22618991823D24C00991D05 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C226189B1823D24C00991D05 /* DLAlertViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLAlertViewTests.m; sourceTree = "<group>"; };
 		C22618A61823D27300991D05 /* DLAVAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DLAVAlertView.h; sourceTree = "<group>"; };
-		C22618A71823D27300991D05 /* DLAVAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DLAVAlertView.m; sourceTree = "<group>"; };
+		C22618A71823D27300991D05 /* DLAVAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DLAVAlertView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C22618A81823D27300991D05 /* DLAVAlertViewButtonTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DLAVAlertViewButtonTheme.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C22618A91823D27300991D05 /* DLAVAlertViewButtonTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLAVAlertViewButtonTheme.m; sourceTree = "<group>"; };
 		C22618AA1823D27300991D05 /* DLAVAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLAVAlertViewController.h; sourceTree = "<group>"; };
