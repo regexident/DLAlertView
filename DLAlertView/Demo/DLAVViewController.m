@@ -240,6 +240,7 @@
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"a textfield" sectionName:alertsWithTextFieldsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Look, a textfield!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 		alertView.alertViewStyle = DLAVAlertViewStylePlainTextInput;
+		alertView.delegate = self.delegate;
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%p' at index: %ld (with input: '%@')", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex, [alertView textFieldTextAtIndex:0]);
 		}];

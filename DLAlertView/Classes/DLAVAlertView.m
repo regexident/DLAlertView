@@ -235,7 +235,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}
 	
 	if (self.visible && (self.textfields.count == 1)) {
-		[self.textfields[0] becomeFirstResponder];
+		[self makeTextFieldAtIndexFirstResponder:0];
 	}
 	
 	return textfield;
@@ -433,7 +433,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}
 	
 	if (self.visible && (alertViewStyle != DLAVAlertViewStyleDefault)) {
-		[self.textfields[oldTextFieldCount] becomeFirstResponder];
+		[self makeTextFieldAtIndexFirstResponder:oldTextFieldCount];
 	}
 	
 	[self removeTextFieldsInRange:NSMakeRange(0, oldTextFieldCount)];
@@ -673,13 +673,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
     if(self.textfields.count || self.hasCustomTextFields){
         [self addKeyboardNotificationObservers];
     }
-    
-    if(self.customFirstReponderTextField != nil){
-        [self.customFirstReponderTextField becomeFirstResponder];
-    }
-    
-	if (self.textfields.count) {
-		[self.textfields[0] becomeFirstResponder];
+	
+	NSUInteger textfieldCount = self.textfields.count;
+	for (NSUInteger index = 0; index < textfieldCount; index++) {
+		[self makeTextFieldAtIndexFirstResponder:index];
 	}
 }
 
@@ -817,6 +814,20 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	});
 }
 
+- (void)makeTextFieldAtIndexFirstResponder:(NSUInteger)index {
+	BOOL hasFirstResponder = NO;
+	for (UITextField *textfield in self.textfields) {
+		hasFirstResponder |= [textfield isFirstResponder];
+	}
+	BOOL makeFirstResponder = !hasFirstResponder && (index == 0); // by default make first textfield first responder
+	if ([self.delegate respondsToSelector:@selector(alertView:textFieldAtIndex:shouldBecomeFirstResponder:)]) {
+		makeFirstResponder = [self.delegate alertView:self textFieldAtIndex:index shouldBecomeFirstResponder:makeFirstResponder];
+	}
+	if (makeFirstResponder) {
+		[self.textfields[index] becomeFirstResponder];
+	}
+}
+
 #pragma mark - Keyboard Observation
 
 - (void)addKeyboardNotificationObservers {
@@ -903,7 +914,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if (self.visible && (textField.tag + 1 < self.textfields.count)) {
-		[[self textFieldAtIndex:textField.tag + 1] becomeFirstResponder];
+		[self makeTextFieldAtIndexFirstResponder:textField.tag + 1];
 	}
 	
 	[textField resignFirstResponder];

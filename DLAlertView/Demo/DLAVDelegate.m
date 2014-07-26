@@ -12,6 +12,11 @@
 
 #pragma mark - DLAVAlertViewDelegate Protocol
 
+- (BOOL)alertView:(DLAVAlertView *)alertView textFieldAtIndex:(NSInteger)textfieldIndex shouldBecomeFirstResponder:(BOOL)becomeFirstResponder {
+	NSLog(@"[DLAVUsecase alertView:%p textFieldAtIndex:%ld shouldBecomeFirstResponder:%s]", alertView, (long)textfieldIndex, (becomeFirstResponder) ? "YES" : "NO");
+	return becomeFirstResponder; // simply forwards default behaviour
+}
+
 - (void)alertView:(DLAVAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	NSLog(@"[DLAVUsecase alertView:%p clickedButtonAtIndex:%ld]", alertView, (long)buttonIndex);
 }
