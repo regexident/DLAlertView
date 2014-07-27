@@ -146,7 +146,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 #else
 	titleLabel.textAlignment = UITextAlignmentCenter;
-	titleLabel.lineBreakMode = UILineBreakByWordWrapping;
+	titleLabel.lineBreakMode = UILineBreakModeWordWrap;
 #endif
 	titleLabel.numberOfLines = 0.0;
 	return titleLabel;
@@ -161,7 +161,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
 #else
 	messageLabel.textAlignment = UITextAlignmentCenter;
-	messageLabel.lineBreakMode = UILineBreakByWordWrapping;
+	messageLabel.lineBreakMode = UILineBreakModeWordWrap;
 #endif
 	messageLabel.numberOfLines = 0.0;
 	return messageLabel;
