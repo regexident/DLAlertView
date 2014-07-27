@@ -74,7 +74,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *cellIdentifier = @"Cell";
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 #else
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

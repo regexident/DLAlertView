@@ -141,7 +141,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	UILabel *titleLabel = [[UILabel alloc] init];
 	titleLabel.text = (title.length) ? title : nil;
 	titleLabel.backgroundColor = [UIColor clearColor];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
 	titleLabel.textAlignment = NSTextAlignmentCenter;
 	titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 #else
@@ -156,7 +156,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	UILabel *messageLabel = [[UILabel alloc] init];
 	messageLabel.text = (message.length) ? message : nil;
 	messageLabel.backgroundColor = [UIColor clearColor];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
 	messageLabel.textAlignment = NSTextAlignmentCenter;
 	messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
 #else
@@ -1264,7 +1264,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}
 	
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 		NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
 		context.minimumScaleFactor = 1.0;
 		size = [label.text boundingRectWithSize:maxSize

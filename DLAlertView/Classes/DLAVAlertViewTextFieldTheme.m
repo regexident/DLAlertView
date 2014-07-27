@@ -21,7 +21,7 @@
 	if (self) {
 		self.font = [UIFont systemFontOfSize:17.0];
 		self.height = 33.0;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
 		self.textAlignment = NSTextAlignmentCenter;
 #else
 		self.textAlignment = UITextAlignmentCenter;
