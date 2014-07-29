@@ -279,7 +279,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
     self.titleLabel = titleLabel;
     [self.clippingView addSubview:titleLabel];
     
-    UIView* titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    UIView *titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.titleBackgroundView removeFromSuperview];
     self.titleBackgroundView = titleBackgroundView;
     [self.clippingView insertSubview:titleBackgroundView belowSubview:titleLabel];
@@ -1026,8 +1026,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGFloat titleHeight = [self titleHeight];
 	DLAVTextControlMargins titleMargins = theme.titleMargins;
     CGFloat titleBackgroundHeight = titleHeight + titleMargins.top + titleMargins.bottom;
-    self.titleBackgroundView.frame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);
-	self.titleLabel.frame = CGRectMake(titleMargins.left, *offset + titleMargins.top, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
+	CGRect titleBackgroundViewFrame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);;
+    self.titleBackgroundView.frame = titleBackgroundViewFrame;
+	CGRect titleLabelFrame = CGRectMake(titleMargins.left, *offset + titleMargins.top, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
+	self.titleLabel.frame = titleLabelFrame;
 	*offset += titleBackgroundHeight;
 }
 
@@ -1263,23 +1265,21 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		return size;
 	}
 	
-	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-		NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
-		context.minimumScaleFactor = 1.0;
-		size = [label.text boundingRectWithSize:maxSize
-										options:NSStringDrawingUsesLineFragmentOrigin
-									 attributes:@{ NSFontAttributeName : label.font }
-										context:context].size;
-#endif
-	} else {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 61000
+	NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
+	context.minimumScaleFactor = 1.0;
+	size = [label.text boundingRectWithSize:maxSize
+									options:NSStringDrawingUsesLineFragmentOrigin
+								 attributes:@{ NSFontAttributeName : label.font }
+									context:context].size;
+#else
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		size = [label.text sizeWithFont:label.font
-					  constrainedToSize:maxSize
-						  lineBreakMode:NSLineBreakByWordWrapping];
+	size = [label.text sizeWithFont:label.font
+				  constrainedToSize:maxSize
+					  lineBreakMode:NSLineBreakByWordWrapping];
 #pragma clang diagnostic pop
-	}
+#endif
 	
 	return size;
 }

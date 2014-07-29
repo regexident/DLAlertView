@@ -211,7 +211,7 @@
 #pragma mark - Device Orientation
 
 - (void)showBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED > 61000
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
 		[self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
 			window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
@@ -226,7 +226,7 @@
 }
 
 - (void)hideBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED > 61000
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
         [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
             window.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;

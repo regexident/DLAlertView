@@ -43,11 +43,11 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		_contentViewMargins = DLAVTextControlMarginsMake(0.0, 10.0, 10.0, 10.0);
 		
-		_titleMargins = DLAVTextControlMarginsMake(18.0, 10.0, 10.0, 10.0);
+		_titleMargins = DLAVTextControlMarginsMake(18.0, 15.0, 10.0, 10.0);
 		_titleColor = [UIColor darkTextColor];
 		_titleFont = [UIFont boldSystemFontOfSize:17.0];
 		
-		_messageMargins = DLAVTextControlMarginsMake(-5.0, 17.0, 10.0, 10.0);
+		_messageMargins = DLAVTextControlMarginsMake(-5.0, 18.0, 10.0, 10.0);
 		_messageColor = [UIColor darkTextColor];
 		_messageFont = [UIFont systemFontOfSize:15.0];
 		
