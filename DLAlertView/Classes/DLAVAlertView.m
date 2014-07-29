@@ -583,6 +583,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		textfield.contentVerticalAlignment = theme.verticalContentAlignment;
 		textfield.contentHorizontalAlignment = theme.horizontalContentAlignment;
 		textfield.textAlignment = theme.textAlignment;
+		textfield.borderStyle = theme.borderStyle;
 	}];
 }
 

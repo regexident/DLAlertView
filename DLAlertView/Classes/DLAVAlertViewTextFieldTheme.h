@@ -11,5 +11,6 @@
 @interface DLAVAlertViewTextFieldTheme : DLAVAlertViewTextControlTheme
 
 @property (readwrite, assign, nonatomic) NSTextAlignment textAlignment;
+@property (readwrite, assign, nonatomic) UITextBorderStyle borderStyle;
 
 @end

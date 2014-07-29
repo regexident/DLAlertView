@@ -28,6 +28,7 @@
 #endif
 		self.backgroundColor = [UIColor clearColor];
 		self.highlightBackgroundColor = [UIColor colorWithHue:0.61 saturation:0.92 brightness:0.97 alpha:0.1];
+		self.borderStyle = UITextBorderStyleRoundedRect;
 	}
 	return self;
 }
