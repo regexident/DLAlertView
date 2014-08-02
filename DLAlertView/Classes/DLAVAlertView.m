@@ -955,7 +955,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		}
 	} else if (self.alertViewStyle == DLAVAlertViewStyleLoginAndPasswordInput) {
 		if (doneButtonIndex != -1) {
-			doneButtonEnabled = [self textFieldTextAtIndex:0].length != 0 && [self textFieldTextAtIndex:1].length != 0;;
+			doneButtonEnabled = [self textFieldTextAtIndex:0].length != 0 && [self textFieldTextAtIndex:1].length != 0;
 		}
 	}
 	
@@ -1027,7 +1027,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGFloat titleHeight = [self titleHeight];
 	DLAVTextControlMargins titleMargins = theme.titleMargins;
     CGFloat titleBackgroundHeight = titleHeight + titleMargins.top + titleMargins.bottom;
-	CGRect titleBackgroundViewFrame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);;
+	CGRect titleBackgroundViewFrame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);
     self.titleBackgroundView.frame = titleBackgroundViewFrame;
 	CGRect titleLabelFrame = CGRectMake(titleMargins.left, *offset + titleMargins.top, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
 	self.titleLabel.frame = titleLabelFrame;
