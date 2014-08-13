@@ -332,7 +332,7 @@
 	}]];
     
     [usecases addObject:[DLAVUsecase usecaseWithName:@"customized buttons" sectionName:alertsWithCustomThemeSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two customized buttons!" message:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two customized buttons!" message:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Left Alignment." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         alertView.maxContentWidth = 200.0;
         
         DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
@@ -341,6 +341,7 @@
 		theme.messageColor = [UIColor grayColor];
 		theme.titleFont = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
 		theme.messageFont = [UIFont fontWithName:@"Avenir-Light" size:theme.messageFont.pointSize];
+        theme.messageAlignment = NSTextAlignmentLeft;
         theme.lineWidth = 0.0;
         theme.lineColor = [UIColor clearColor];
 		DLAVAlertViewButtonTheme *leftButtonTheme = [DLAVAlertViewButtonTheme theme];
