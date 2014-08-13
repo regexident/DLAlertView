@@ -559,6 +559,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
         self.titleBackgroundView.backgroundColor = (theme.titleBackgroundColor ?: theme.backgroundColor);
 		self.messageLabel.textColor = theme.messageColor;
 		self.messageLabel.font = theme.messageFont;
+        self.messageLabel.textAlignment = theme.messageAlignment;
+        self.messageLabel.lineBreakMode = theme.messageLineBreakMode;
 		[self.lines enumerateObjectsUsingBlock:^(UIView *line, NSUInteger index, BOOL *stop) {
 			line.backgroundColor = theme.lineColor;
 		}];

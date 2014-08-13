@@ -50,6 +50,13 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		_messageMargins = DLAVTextControlMarginsMake(-5.0, 18.0, 10.0, 10.0);
 		_messageColor = [UIColor darkTextColor];
 		_messageFont = [UIFont systemFontOfSize:15.0];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
+        _messageAlignment = NSTextAlignmentCenter;
+        _messageLineBreakMode = NSLineBreakByWordWrapping;
+#else
+        _messageAlignment = UITextAlignmentCenter;
+        _messagelineBreakMode = UILineBreakModeWordWrap;
+#endif
 		
         _shadowColor = [UIColor blackColor];
         _shadowOpacity = 0.5;
