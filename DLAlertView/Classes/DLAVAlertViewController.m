@@ -169,8 +169,9 @@
 
 - (CGRect)frameForOrientation:(UIInterfaceOrientation)orientation {
 	CGRect frame;
-	
-	if ((orientation == UIInterfaceOrientationLandscapeLeft) || (orientation == UIInterfaceOrientationLandscapeRight)) {
+
+	BOOL iOS8 = [[UIDevice currentDevice] systemVersion].floatValue >= 8.0;
+	if (!iOS8 && UIInterfaceOrientationIsLandscape(orientation)) {
 		CGRect bounds = [UIScreen mainScreen].bounds;
 		frame = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
 	} else {
