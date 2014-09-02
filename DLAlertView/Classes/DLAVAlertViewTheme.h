@@ -45,6 +45,10 @@ DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, C
 @property (readwrite, assign, nonatomic) DLAVTextControlMargins messageMargins;
 @property (readwrite, strong, nonatomic) UIColor *messageColor;
 @property (readwrite, strong, nonatomic) UIFont *messageFont;
+@property (readwrite, nonatomic) NSTextAlignment messageAlignment;
+@property (readwrite, nonatomic) NSLineBreakMode messageLineBreakMode;
+
+
 
 @property (readwrite, strong, nonatomic) UIColor *shadowColor;
 @property (readwrite, assign, nonatomic) CGFloat shadowOpacity;
