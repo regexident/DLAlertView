@@ -152,11 +152,11 @@
 }
 
 - (void)windowsWithLevel:(UIWindowLevel)windowLevel block:(void (^)(UIWindow*))block {
-    if (!block) {
-        return;
-    }
-    
-    NSArray *windows = [[UIApplication sharedApplication] windows];
+	if (!block) {
+		return;
+	}
+	
+	NSArray *windows = [[UIApplication sharedApplication] windows];
 	
 	for (UIWindow *window in windows) {
 		if (window.windowLevel == windowLevel) {
@@ -202,7 +202,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return [UIApplication sharedApplication].statusBarStyle;
+	return [UIApplication sharedApplication].statusBarStyle;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -229,10 +229,10 @@
 - (void)hideBackgroundViewWithCompletion:(void (^)(BOOL finished))completion {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED > 61000
 	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-        [self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
-            window.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-            [window tintColorDidChange];
-        }];
+		[self windowsWithLevel:UIWindowLevelNormal block:^(UIWindow *window) {
+			window.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+			[window tintColorDidChange];
+		}];
 	}
 #endif
 	

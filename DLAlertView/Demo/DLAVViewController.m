@@ -330,67 +330,67 @@
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 	}]];
-    
-    [usecases addObject:[DLAVUsecase usecaseWithName:@"customized buttons" sectionName:alertsWithCustomThemeSectionName block:^{
+	
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"customized buttons" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two customized buttons!" message:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Left Alignment." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-        alertView.maxContentWidth = 200.0;
-        
-        DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
+		alertView.maxContentWidth = 200.0;
+		
+		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
 		theme.backgroundColor = [UIColor whiteColor];
 		theme.titleColor = [UIColor darkGrayColor];
 		theme.messageColor = [UIColor grayColor];
 		theme.titleFont = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
 		theme.messageFont = [UIFont fontWithName:@"Avenir-Light" size:theme.messageFont.pointSize];
-        theme.messageAlignment = NSTextAlignmentLeft;
-        theme.lineWidth = 0.0;
-        theme.lineColor = [UIColor clearColor];
+		theme.messageAlignment = NSTextAlignmentLeft;
+		theme.lineWidth = 0.0;
+		theme.lineColor = [UIColor clearColor];
 		DLAVAlertViewButtonTheme *leftButtonTheme = [DLAVAlertViewButtonTheme theme];
 		leftButtonTheme.height = 35.0;
-        leftButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5, 7.5 * 0.5);
+		leftButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5, 7.5 * 0.5);
 		leftButtonTheme.backgroundColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.882 alpha:1.000];
 		leftButtonTheme.highlightBackgroundColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.843 alpha:1.000];
-        leftButtonTheme.borderColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.843 alpha:1.000];
-        leftButtonTheme.borderWidth = 1.0;
-        leftButtonTheme.cornerRadius = 4.0;
+		leftButtonTheme.borderColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.843 alpha:1.000];
+		leftButtonTheme.borderWidth = 1.0;
+		leftButtonTheme.cornerRadius = 4.0;
 		leftButtonTheme.textColor = [UIColor colorWithWhite:0.5 alpha:1.0];
-        leftButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
-        [alertView setCustomButtonTheme:leftButtonTheme forButtonAtIndex:0];
-        DLAVAlertViewButtonTheme *rightButtonTheme = [DLAVAlertViewButtonTheme theme];
+		leftButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
+		[alertView setCustomButtonTheme:leftButtonTheme forButtonAtIndex:0];
+		DLAVAlertViewButtonTheme *rightButtonTheme = [DLAVAlertViewButtonTheme theme];
 		rightButtonTheme.height = 35.0;
-        rightButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5 * 0.5, 7.5);
+		rightButtonTheme.margins = DLAVTextControlMarginsMake(0.0, 7.5, 7.5 * 0.5, 7.5);
 		rightButtonTheme.backgroundColor = [UIColor colorWithHue:0.016 saturation:0.682 brightness:0.961 alpha:1.000];
 		rightButtonTheme.highlightBackgroundColor = [UIColor colorWithHue:0.015 saturation:0.680 brightness:0.882 alpha:1.000];
-        rightButtonTheme.borderColor = [UIColor colorWithHue:0.015 saturation:0.680 brightness:0.882 alpha:1.000];
-        rightButtonTheme.borderWidth = 1.0;
-        rightButtonTheme.cornerRadius = 4.0;
+		rightButtonTheme.borderColor = [UIColor colorWithHue:0.015 saturation:0.680 brightness:0.882 alpha:1.000];
+		rightButtonTheme.borderWidth = 1.0;
+		rightButtonTheme.cornerRadius = 4.0;
 		rightButtonTheme.textColor = [UIColor whiteColor];
-        rightButtonTheme.textShadowColor = [UIColor colorWithHue:0.016 saturation:0.682 brightness:0.750 alpha:1.000];
-        rightButtonTheme.textShadowOpacity = 0.75;
-        rightButtonTheme.textShadowRadius = 0.0;
-        rightButtonTheme.textShadowOffset = CGSizeMake(0.0, 1.0);
-        rightButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
+		rightButtonTheme.textShadowColor = [UIColor colorWithHue:0.016 saturation:0.682 brightness:0.750 alpha:1.000];
+		rightButtonTheme.textShadowOpacity = 0.75;
+		rightButtonTheme.textShadowRadius = 0.0;
+		rightButtonTheme.textShadowOffset = CGSizeMake(0.0, 1.0);
+		rightButtonTheme.font = [UIFont fontWithName:@"Avenir-Heavy" size:15.0f];
 		[alertView setCustomButtonTheme:rightButtonTheme forButtonAtIndex:1];
 		[alertView applyTheme:theme];
-        
+		
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 	}]];
-    
-    [usecases addObject:[DLAVUsecase usecaseWithName:@"title background" sectionName:alertsWithCustomThemeSectionName block:^{
+	
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"title background" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Custom Title Background" message:@"Very distinctive." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
 		theme.backgroundColor = [UIColor whiteColor];
-        theme.titleBackgroundColor = [UIColor blueColor];
-        theme.titleColor = [UIColor whiteColor];
-        theme.messageMargins = theme.titleMargins;
+		theme.titleBackgroundColor = [UIColor blueColor];
+		theme.titleColor = [UIColor whiteColor];
+		theme.messageMargins = theme.titleMargins;
 		[alertView applyTheme:theme];
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 	}]];
-    
-    [usecases addObject:[DLAVUsecase usecaseWithName:@"butt ugly theme" sectionName:alertsWithCustomThemeSectionName block:^{
+	
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"butt ugly theme" sectionName:alertsWithCustomThemeSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Yuck!" message:@"Now that's ugly!" delegate:nil cancelButtonTitle:@"Be gone!" otherButtonTitles:nil, nil];
 		DLAVAlertViewTheme *theme = [DLAVAlertViewTheme defaultTheme];
 		theme.backgroundColor = [UIColor yellowColor];

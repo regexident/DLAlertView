@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 typedef struct {
-    CGFloat top;
-    CGFloat bottom;
-    CGFloat left;
-    CGFloat right;
+	CGFloat top;
+	CGFloat bottom;
+	CGFloat left;
+	CGFloat right;
 } DLAVTextControlMargins;
 
 extern const DLAVTextControlMargins DLAVTextControlMarginsNone;

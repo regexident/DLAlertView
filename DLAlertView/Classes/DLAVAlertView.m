@@ -63,8 +63,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	if (self) {
 		self.clipsToBounds = NO;
-        
-        _delegate = delegate;
+		
+		_delegate = delegate;
 		
 		_textfields = [NSMutableArray array];
 		_buttons = [NSMutableArray array];
@@ -79,15 +79,15 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		_minContentWidth = 200.0;
 		_maxContentWidth = 270.0;
 		
-        _clippingView = [[UIView alloc] initWithFrame:self.bounds];
-        _clippingView.clipsToBounds = YES;
-        [self addSubview:_clippingView];
-        
-        _alertViewStyle = DLAVAlertViewStyleDefault;
-        
-        [self addLabelWithTitle:title];
+		_clippingView = [[UIView alloc] initWithFrame:self.bounds];
+		_clippingView.clipsToBounds = YES;
+		[self addSubview:_clippingView];
 		
-        [self addLabelWithMessage:message];
+		_alertViewStyle = DLAVAlertViewStyleDefault;
+		
+		[self addLabelWithTitle:title];
+		
+		[self addLabelWithMessage:message];
 		
 		if (cancelButtonTitle) {
 			[self addButtonWithTitle:cancelButtonTitle];
@@ -266,30 +266,30 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (DLAVAlertViewTextFieldTheme *)themeForTextFieldAtIndex:(NSUInteger)index {
-    DLAVAlertViewTextFieldTheme *textFieldTheme = self.textFieldThemes[index];
-    if ([textFieldTheme isKindOfClass:[NSNull class]]) {
+	DLAVAlertViewTextFieldTheme *textFieldTheme = self.textFieldThemes[index];
+	if ([textFieldTheme isKindOfClass:[NSNull class]]) {
 		textFieldTheme = self.theme.textFieldTheme;
 	}
-    return textFieldTheme;
+	return textFieldTheme;
 }
 
 - (void)addLabelWithTitle:(NSString *)title {
-    UILabel *titleLabel = [[self class] titleLabelWithTitle:title];
+	UILabel *titleLabel = [[self class] titleLabelWithTitle:title];
 	[self.titleLabel removeFromSuperview];
-    self.titleLabel = titleLabel;
-    [self.clippingView addSubview:titleLabel];
-    
-    UIView *titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.titleBackgroundView removeFromSuperview];
-    self.titleBackgroundView = titleBackgroundView;
-    [self.clippingView insertSubview:titleBackgroundView belowSubview:titleLabel];
+	self.titleLabel = titleLabel;
+	[self.clippingView addSubview:titleLabel];
+	
+	UIView *titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+	[self.titleBackgroundView removeFromSuperview];
+	self.titleBackgroundView = titleBackgroundView;
+	[self.clippingView insertSubview:titleBackgroundView belowSubview:titleLabel];
 }
 
 - (void)addLabelWithMessage:(NSString *)message {
-    UILabel *messageLabel = [[self class] titleLabelWithTitle:message];
+	UILabel *messageLabel = [[self class] titleLabelWithTitle:message];
 	[self.messageLabel removeFromSuperview];
-    self.messageLabel = messageLabel;
-    [self.clippingView addSubview:messageLabel];
+	self.messageLabel = messageLabel;
+	[self.clippingView addSubview:messageLabel];
 }
 
 #pragma mark - Buttons
@@ -354,29 +354,29 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (BOOL)isPrimaryButtonAtIndex:(NSUInteger)buttonIndex {
-    if (self.numberOfButtons == 1) {
-        return YES;
-    } else if (self.numberOfButtons == 2) {
-        if (self.cancelButtonIndex != -1) {
-            return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
-        } else {
-            return NO;
-        }
-    } else {
-        if (self.cancelButtonIndex != -1) {
-            return (buttonIndex == self.cancelButtonIndex) ? YES : NO;
-        } else {
-            return NO;
-        }
-    }
+	if (self.numberOfButtons == 1) {
+		return YES;
+	} else if (self.numberOfButtons == 2) {
+		if (self.cancelButtonIndex != -1) {
+			return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
+		} else {
+			return NO;
+		}
+	} else {
+		if (self.cancelButtonIndex != -1) {
+			return (buttonIndex == self.cancelButtonIndex) ? YES : NO;
+		} else {
+			return NO;
+		}
+	}
 }
 
 - (DLAVAlertViewButtonTheme *)themeForButtonAtIndex:(NSUInteger)index {
-    DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
-    if ([buttonTheme isKindOfClass:[NSNull class]]) {
-        buttonTheme = [self isPrimaryButtonAtIndex:index] ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
-    }
-    return buttonTheme;
+	DLAVAlertViewButtonTheme *buttonTheme = self.buttonThemes[index];
+	if ([buttonTheme isKindOfClass:[NSNull class]]) {
+		buttonTheme = [self isPrimaryButtonAtIndex:index] ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
+	}
+	return buttonTheme;
 }
 
 #pragma mark - Textfields
@@ -543,24 +543,24 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	}
 	CGFloat duration = ((animated) ? DLAVAlertViewThemeChangeDuration : 0.0);
 	[UIView animateWithDuration:duration animations:^{
-        CALayer *layer = self.layer;
-        layer.cornerRadius = theme.cornerRadius;
+		CALayer *layer = self.layer;
+		layer.cornerRadius = theme.cornerRadius;
 		layer.borderColor = theme.borderColor.CGColor;
 		layer.borderWidth = theme.borderWidth;
-        layer.shadowColor = theme.shadowColor.CGColor;
-        layer.shadowRadius = theme.shadowRadius;
-        layer.shadowOpacity = theme.shadowOpacity;
-        layer.shadowOffset = theme.shadowOffset;
-        CALayer *clippingLayer = self.clippingView.layer;
-        clippingLayer.cornerRadius = theme.cornerRadius;
-        self.backgroundColor = theme.backgroundColor;
+		layer.shadowColor = theme.shadowColor.CGColor;
+		layer.shadowRadius = theme.shadowRadius;
+		layer.shadowOpacity = theme.shadowOpacity;
+		layer.shadowOffset = theme.shadowOffset;
+		CALayer *clippingLayer = self.clippingView.layer;
+		clippingLayer.cornerRadius = theme.cornerRadius;
+		self.backgroundColor = theme.backgroundColor;
 		self.titleLabel.textColor = theme.titleColor;
 		self.titleLabel.font = theme.titleFont;
-        self.titleBackgroundView.backgroundColor = (theme.titleBackgroundColor ?: theme.backgroundColor);
+		self.titleBackgroundView.backgroundColor = (theme.titleBackgroundColor ?: theme.backgroundColor);
 		self.messageLabel.textColor = theme.messageColor;
 		self.messageLabel.font = theme.messageFont;
-        self.messageLabel.textAlignment = theme.messageAlignment;
-        self.messageLabel.lineBreakMode = theme.messageLineBreakMode;
+		self.messageLabel.textAlignment = theme.messageAlignment;
+		self.messageLabel.lineBreakMode = theme.messageLineBreakMode;
 		[self.lines enumerateObjectsUsingBlock:^(UIView *line, NSUInteger index, BOOL *stop) {
 			line.backgroundColor = theme.lineColor;
 		}];
@@ -603,21 +603,21 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[button setTitleColor:(theme.disabledTextColor ? : [theme.textColor colorWithAlphaComponent:0.3]) forState:UIControlStateDisabled];
 		[button setTitleColor:(theme.highlightTextColor ? : theme.textColor) forState:UIControlStateHighlighted];
 		button.backgroundColor = theme.backgroundColor;
-        
+		
 		button.contentVerticalAlignment = theme.verticalContentAlignment;
 		button.contentHorizontalAlignment = theme.horizontalContentAlignment;
 		
-        CALayer *layer = button.layer;
-        layer.borderColor = theme.borderColor.CGColor;
-        layer.borderWidth = theme.borderWidth;
-        
-        layer.cornerRadius = theme.cornerRadius;
-        
-        CALayer *titleLayer = button.titleLabel.layer;
-        titleLayer.shadowColor = theme.textShadowColor.CGColor;
-        titleLayer.shadowOpacity = theme.textShadowOpacity;
-        titleLayer.shadowRadius = theme.textShadowRadius;
-        titleLayer.shadowOffset = theme.textShadowOffset;
+		CALayer *layer = button.layer;
+		layer.borderColor = theme.borderColor.CGColor;
+		layer.borderWidth = theme.borderWidth;
+		
+		layer.cornerRadius = theme.cornerRadius;
+		
+		CALayer *titleLayer = button.titleLabel.layer;
+		titleLayer.shadowColor = theme.textShadowColor.CGColor;
+		titleLayer.shadowOpacity = theme.textShadowOpacity;
+		titleLayer.shadowRadius = theme.textShadowRadius;
+		titleLayer.shadowOffset = theme.textShadowOffset;
 	}];
 }
 
@@ -663,19 +663,19 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (void)willDismissOrHide {
-    if(self.isObservingKeyboard){
-        [self removeKeyboardNotificationObservers];
-    }
-    
+	if(self.isObservingKeyboard){
+		[self removeKeyboardNotificationObservers];
+	}
+	
 	if (self.textfields.count) {
 		[self endEditing:YES];
 	}
 }
 
 - (void)didShowOrUnhide {
-    if(self.textfields.count || self.hasCustomTextFields){
-        [self addKeyboardNotificationObservers];
-    }
+	if(self.textfields.count || self.hasCustomTextFields){
+		[self addKeyboardNotificationObservers];
+	}
 	
 	NSUInteger textfieldCount = self.textfields.count;
 	for (NSUInteger index = 0; index < textfieldCount; index++) {
@@ -722,13 +722,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
 		[self.delegate alertView:self clickedButtonAtIndex:buttonIndex];
 	}
-    
+	
 	if ([self.delegate respondsToSelector:@selector(alertView:shouldDismissAfterClickingButtonAtIndex:)]) {
 		if(![self.delegate alertView:self shouldDismissAfterClickingButtonAtIndex:buttonIndex]){
-            UIButton *clickedButton = [self buttonAtIndex:buttonIndex];
-            [self setBackgroundColorForButton:clickedButton];
-            return;
-        }
+			UIButton *clickedButton = [self buttonAtIndex:buttonIndex];
+			[self setBackgroundColorForButton:clickedButton];
+			return;
+		}
 	}
 	
 	double delayInSeconds = 0.1;
@@ -981,16 +981,16 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 #pragma mark - View Layout
 
 - (void)layoutSubviews  {
-    BOOL animationsEnabled = [UIView areAnimationsEnabled];
-    [UIView setAnimationsEnabled:NO];
-    
-    DLAVAlertViewTheme *theme = self.theme;
-    
-    self.clippingView.frame = self.bounds;
-    
-    CGSize alertSize = self.clippingView.frame.size;
-    
-    __block CGFloat offset = 0.0;
+	BOOL animationsEnabled = [UIView areAnimationsEnabled];
+	[UIView setAnimationsEnabled:NO];
+	
+	DLAVAlertViewTheme *theme = self.theme;
+	
+	self.clippingView.frame = self.bounds;
+	
+	CGSize alertSize = self.clippingView.frame.size;
+	
+	__block CGFloat offset = 0.0;
 	
 	// Layout title:
 	if (self.title) {
@@ -1009,10 +1009,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[self layoutContentViewWithTheme:theme inAlertWithSize:alertSize atVerticalOffset:&offset];
 	}
 	
-    if (self.textfields.count) {
+	if (self.textfields.count) {
 		[self layoutTextFieldsWithTheme:theme inAlertWithSize:alertSize atVerticalOffset:&offset];
 	}
-    
+	
 	NSUInteger buttonCount = self.buttons.count;
 	// Layout buttons:
 	if (buttonCount == 2) {
@@ -1028,9 +1028,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	NSAssert(offset, @"Method argument 'offset' must not be NULL.");
 	CGFloat titleHeight = [self titleHeight];
 	DLAVTextControlMargins titleMargins = theme.titleMargins;
-    CGFloat titleBackgroundHeight = titleHeight + titleMargins.top + titleMargins.bottom;
+	CGFloat titleBackgroundHeight = titleHeight + titleMargins.top + titleMargins.bottom;
 	CGRect titleBackgroundViewFrame = CGRectMake(0, *offset, alertSize.width, titleBackgroundHeight);
-    self.titleBackgroundView.frame = titleBackgroundViewFrame;
+	self.titleBackgroundView.frame = titleBackgroundViewFrame;
 	CGRect titleLabelFrame = CGRectMake(titleMargins.left, *offset + titleMargins.top, alertSize.width - titleMargins.left - titleMargins.right, titleHeight);
 	self.titleLabel.frame = titleLabelFrame;
 	*offset += titleBackgroundHeight;
@@ -1186,34 +1186,34 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (CGFloat)alertHeight  {
-    DLAVAlertViewTheme *theme = self.theme;
-    
-    CGFloat lineWidth = theme.lineWidth;
-    
+	DLAVAlertViewTheme *theme = self.theme;
+	
+	CGFloat lineWidth = theme.lineWidth;
+	
 	CGFloat height = 0.0;
 	
 	// Title height:
-    if (self.title) {
-        DLAVTextControlMargins titleMargins = theme.titleMargins;
-        height += titleMargins.top + [self titleHeight] + titleMargins.bottom;
-    }
+	if (self.title) {
+		DLAVTextControlMargins titleMargins = theme.titleMargins;
+		height += titleMargins.top + [self titleHeight] + titleMargins.bottom;
+	}
 	
 	// Message height:
 	if (self.message) {
-        DLAVTextControlMargins messageMargins = theme.messageMargins;
+		DLAVTextControlMargins messageMargins = theme.messageMargins;
 		height += messageMargins.top + [self messageHeight] + messageMargins.bottom;
 	}
 	
 	// Content view height:
 	if (self.contentView) {
-        DLAVTextControlMargins contentViewMargins = theme.contentViewMargins;
+		DLAVTextControlMargins contentViewMargins = theme.contentViewMargins;
 		height += contentViewMargins.top + [self contentViewHeight] + contentViewMargins.bottom;
 	}
 	
 	// Textfield heights:
 	NSUInteger textfieldCount = self.textfields.count;
 	if (textfieldCount) {
-        for (NSUInteger index = 0; index < textfieldCount; index++) {
+		for (NSUInteger index = 0; index < textfieldCount; index++) {
 			DLAVAlertViewTextFieldTheme *textFieldTheme = [self themeForTextFieldAtIndex:index];
 			DLAVTextControlMargins textFieldMargins = textFieldTheme.margins;
 			height += lineWidth + textFieldMargins.top + textFieldTheme.height + textFieldMargins.bottom;
@@ -1228,16 +1228,16 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		DLAVTextControlMargins leftButtonMargins = leftButtonTheme.margins;
 		DLAVTextControlMargins rightButtonMargins = rightButtonTheme.margins;
 		height += lineWidth + MAX(leftButtonMargins.top + leftButtonTheme.height + leftButtonMargins.bottom,
-                                  rightButtonMargins.top + rightButtonTheme.height + rightButtonMargins.bottom);
+								  rightButtonMargins.top + rightButtonTheme.height + rightButtonMargins.bottom);
 	} else {
-        for (NSUInteger index = 0; index < buttonCount; index++) {
+		for (NSUInteger index = 0; index < buttonCount; index++) {
 			DLAVAlertViewButtonTheme *buttonTheme = [self themeForButtonAtIndex:index];
 			DLAVTextControlMargins buttonMargins = buttonTheme.margins;
 			height += lineWidth + buttonMargins.top + buttonTheme.height + buttonMargins.bottom;
 		}
 	}
 	
-    // Use floor() to remove fractional points that would otherwise leave a gap around the content.
+	// Use floor() to remove fractional points that would otherwise leave a gap around the content.
 	return floor(height);
 }
 
@@ -1247,13 +1247,13 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (CGFloat)titleHeight  {
 	DLAVTextControlMargins margins = self.theme.titleMargins;
-    CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
+	CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
 	return ceil([[self class] optimalSizeForLabel:self.titleLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height);
 }
 
 - (CGFloat)messageHeight  {
 	DLAVTextControlMargins margins = self.theme.messageMargins;
-    CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
+	CGFloat usableWidth = [self alertWidth] - margins.left - margins.right;
 	return (self.messageLabel) ? ceil([[self class] optimalSizeForLabel:self.messageLabel inMaxSize:CGSizeMake(usableWidth, CGFLOAT_MAX)].height) : 0.0;
 }
 
@@ -1299,12 +1299,12 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)updateBoundsWithAnimationOfDuration:(NSTimeInterval)duration {
 	[UIView animateWithDuration:duration animations:^{
 		CGSize size = [self preferredFrameSize];
-        
-        CGSize screenSize = [[self class] getScreenFrameForCurrentOrientation].size;
-        CGFloat margin = 10.0;
-        size.width = MIN(screenSize.width - margin, size.width);
-        size.height = MIN(screenSize.height - margin, size.height);
-        
+		
+		CGSize screenSize = [[self class] getScreenFrameForCurrentOrientation].size;
+		CGFloat margin = 10.0;
+		size.width = MIN(screenSize.width - margin, size.width);
+		size.height = MIN(screenSize.height - margin, size.height);
+		
 		self.bounds = CGRectMake(0.0, 0.0, size.width, size.height);
 	}];
 }

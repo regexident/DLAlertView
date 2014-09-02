@@ -31,13 +31,13 @@
 		_backgroundColor = [UIColor clearColor];
 		_highlightBackgroundColor = [UIColor clearColor];
 		
-        _borderColor = [UIColor blackColor];
-        _borderWidth = 0.0;
-        
-        _cornerRadius = 0.0;
+		_borderColor = [UIColor blackColor];
+		_borderWidth = 0.0;
+		
+		_cornerRadius = 0.0;
 		
 		_height = 44.0;
-        _margins = DLAVTextControlMarginsNone;
+		_margins = DLAVTextControlMarginsNone;
 	}
 	return self;
 }
@@ -76,13 +76,13 @@
 		copy.backgroundColor = self.backgroundColor;
 		copy.highlightBackgroundColor = self.highlightBackgroundColor;
 		
-        copy.borderColor = self.borderColor;
-        copy.borderWidth = self.borderWidth;
-        
-        copy.cornerRadius = self.cornerRadius;
-        
+		copy.borderColor = self.borderColor;
+		copy.borderWidth = self.borderWidth;
+		
+		copy.cornerRadius = self.cornerRadius;
+		
 		copy.height = self.height;
-        copy.margins = self.margins;
+		copy.margins = self.margins;
 	}
 	return copy;
 }

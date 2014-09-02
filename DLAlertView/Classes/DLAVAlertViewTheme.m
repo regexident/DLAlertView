@@ -14,7 +14,7 @@
 const DLAVTextControlMargins DLAVTextControlMarginsNone = {0.0, 0.0, 0.0, 0.0};
 
 DLAVTextControlMargins DLAVTextControlMarginsMake(CGFloat top, CGFloat bottom, CGFloat left, CGFloat right) {
-    return (DLAVTextControlMargins){top, bottom, left, right};
+	return (DLAVTextControlMargins){top, bottom, left, right};
 }
 
 static DLAVAlertViewTheme *defaultTheme = nil;
@@ -35,7 +35,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		_cornerRadius = 8.0;
 		
-        _lineWidth = 1.0 / [[UIScreen mainScreen] scale];
+		_lineWidth = 1.0 / [[UIScreen mainScreen] scale];
 		_lineColor = [UIColor colorWithWhite:0.0 alpha:0.15];
 		
 		_borderColor = [UIColor clearColor];
@@ -51,22 +51,22 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		_messageColor = [UIColor darkTextColor];
 		_messageFont = [UIFont systemFontOfSize:15.0];
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
-        _messageAlignment = NSTextAlignmentCenter;
-        _messageLineBreakMode = NSLineBreakByWordWrapping;
+		_messageAlignment = NSTextAlignmentCenter;
+		_messageLineBreakMode = NSLineBreakByWordWrapping;
 #else
-        _messageAlignment = UITextAlignmentCenter;
-        _messagelineBreakMode = UILineBreakModeWordWrap;
+		_messageAlignment = UITextAlignmentCenter;
+		_messagelineBreakMode = UILineBreakModeWordWrap;
 #endif
 		
-        _shadowColor = [UIColor blackColor];
-        _shadowOpacity = 0.5;
-        _shadowRadius = 20.0;
-        _shadowOffset = CGSizeMake(0.0, 0.0);
-        
+		_shadowColor = [UIColor blackColor];
+		_shadowOpacity = 0.5;
+		_shadowRadius = 20.0;
+		_shadowOffset = CGSizeMake(0.0, 0.0);
+		
 		_textFieldTheme = [[DLAVAlertViewTextFieldTheme alloc] init];
-        
-        _buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
-        _primaryButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithBoldSystemFont];
+		
+		_buttonTheme = [[DLAVAlertViewButtonTheme alloc] init];
+		_primaryButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithBoldSystemFont];
 		_otherButtonTheme = [[[DLAVAlertViewButtonTheme alloc] init] themeWithRegularSystemFont];
 	}
 	
@@ -79,7 +79,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 
 - (void)setButtonTheme:(DLAVAlertViewButtonTheme *)buttonTheme
 {
-    _buttonTheme = _primaryButtonTheme = _otherButtonTheme = buttonTheme;
+	_buttonTheme = _primaryButtonTheme = _otherButtonTheme = buttonTheme;
 }
 
 #pragma mark - Style Adjustments
@@ -119,7 +119,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		
 		copy.cornerRadius = self.cornerRadius;
 		
-        copy.lineWidth = self.lineWidth;
+		copy.lineWidth = self.lineWidth;
 		copy.lineColor = self.lineColor;
 		
 		copy.borderColor = self.borderColor;
@@ -133,14 +133,14 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		copy.messageColor = self.messageColor;
 		copy.messageFont = self.messageFont;
 		
-        copy.shadowColor = self.shadowColor;
-        copy.shadowOpacity = self.shadowOpacity;
-        copy.shadowRadius = self.shadowRadius;
-        copy.shadowOffset = self.shadowOffset;
-        
+		copy.shadowColor = self.shadowColor;
+		copy.shadowOpacity = self.shadowOpacity;
+		copy.shadowRadius = self.shadowRadius;
+		copy.shadowOffset = self.shadowOffset;
+		
 		copy.textFieldTheme = [self.textFieldTheme copy];
-        
-        copy.primaryButtonTheme = [self.primaryButtonTheme copy];
+		
+		copy.primaryButtonTheme = [self.primaryButtonTheme copy];
 		copy.otherButtonTheme = [self.otherButtonTheme copy];
 	}
 	

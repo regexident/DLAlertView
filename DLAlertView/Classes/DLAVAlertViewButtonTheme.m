@@ -25,9 +25,9 @@
 		self.height = 44.0;
 		
 		_textShadowColor = [UIColor clearColor];
-        _textShadowOpacity = 0.0;
-        _textShadowRadius = 0.0;
-        _textShadowOffset = CGSizeMake(0.0, 0.0);
+		_textShadowOpacity = 0.0;
+		_textShadowRadius = 0.0;
+		_textShadowOffset = CGSizeMake(0.0, 0.0);
 	}
 	return self;
 }
@@ -37,10 +37,10 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
 	DLAVAlertViewButtonTheme *copy = [super copyWithZone:zone];
 	if (copy) {
-        copy.textShadowColor = self.textShadowColor;
-        copy.textShadowOpacity = self.textShadowOpacity;
-        copy.textShadowRadius = self.textShadowRadius;
-        copy.textShadowOffset = self.textShadowOffset;
+		copy.textShadowColor = self.textShadowColor;
+		copy.textShadowOpacity = self.textShadowOpacity;
+		copy.textShadowRadius = self.textShadowRadius;
+		copy.textShadowOffset = self.textShadowOffset;
 	}
 	return copy;
 }
