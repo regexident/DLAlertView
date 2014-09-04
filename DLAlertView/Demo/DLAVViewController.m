@@ -275,8 +275,9 @@
 			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            [[alertView buttonAtIndex:1] setTitle:@"A new title" forState:UIControlStateNormal];
+            [[alertView buttonAtIndex:0] setTitle:@"An animated new title" forState:UIControlStateNormal];
             [alertView addButtonWithTitle:@"A new button"];
+            [[alertView buttonAtIndex:1] setTitle:@"A new title" forState:UIControlStateNormal];
 		});
 	}]];
     

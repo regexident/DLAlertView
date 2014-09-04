@@ -314,12 +314,19 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	NSUInteger numberOfButtons = [self numberOfButtons];
 	UIButton *button = [[self class] buttonWithTitle:title target:self];
 	button.tag = numberOfButtons;
+    button.alpha = 0.0;
 	[button addTarget:self action:@selector(dismissWithButton:) forControlEvents:UIControlEventTouchUpInside];
 	[button addTarget:self action:@selector(setHighlightBackgroundColorForButton:) forControlEvents:UIControlEventTouchDown];
 	[button addTarget:self action:@selector(setBackgroundColorForButton:) forControlEvents:UIControlEventTouchDragExit];
 	[self.clippingView addSubview:button];
 	[self.buttons addObject:button];
-	
+    
+    // Fade in the button
+    [UIView animateWithDuration:([self animationDuration]/2.0f)
+                          delay:([self animationDuration]/2.0f) options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{button.alpha = 1.0;}
+                     completion:nil];
+    
 	// Theme textfield:
 	DLAVAlertViewButtonTheme *buttonTheme = [self themeForButtonAtIndex:numberOfButtons];
 	[[self class] applyTheme:buttonTheme toButton:button animated:NO];
@@ -1309,6 +1316,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		self.bounds = CGRectMake(0.0, 0.0, size.width, size.height);
 	}];
 }
+
+//- (void)updateAlphaWithAnimationOfDuration:(NSTimeInterval)duration {
+//    [UIView animateWithDuration:duration animations:^{
+//    }];
+//}
 
 - (void)updateCenterWithAnimationOfDuration:(NSTimeInterval)duration {
 	CGRect rect = [[self class] getScreenFrameForCurrentOrientation];
