@@ -90,11 +90,11 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[self addLabelWithMessage:message];
 		
 		if (cancelButtonTitle) {
-			[self addButtonWithTitle:cancelButtonTitle];
+			[self internalAddButtonWithTitle:cancelButtonTitle];
 		}
 		
 		if (otherButtonTitle) {
-			[self addButtonWithTitle:otherButtonTitle];
+			[self internalAddButtonWithTitle:otherButtonTitle];
 		}
 		
 		NSString *firstOtherButtonTitle = otherButtonTitle ?: NSLocalizedString(@"OK", nil);
@@ -104,7 +104,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 			va_start(args, otherButtonTitle);
 			NSString *buttonTitle;
 			while ((buttonTitle = va_arg(args, NSString *))) {
-				[self addButtonWithTitle:buttonTitle];
+				[self internalAddButtonWithTitle:buttonTitle];
 			}
 			va_end(args);
 		}
@@ -296,6 +296,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 - (void)addButtonWithTitle:(NSString *)title {
 	[self internalAddButtonWithTitle:title];
+    [self updateButtons];
 }
 
 - (UIButton *)internalAddButtonWithTitle:(NSString *)title {
