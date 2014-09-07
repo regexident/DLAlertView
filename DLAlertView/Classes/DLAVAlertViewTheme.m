@@ -55,7 +55,7 @@ static DLAVAlertViewTheme *defaultTheme = nil;
 		_messageLineBreakMode = NSLineBreakByWordWrapping;
 #else
 		_messageAlignment = UITextAlignmentCenter;
-		_messagelineBreakMode = UILineBreakModeWordWrap;
+		_messageLineBreakMode = UILineBreakModeWordWrap;
 #endif
 		
 		_shadowColor = [UIColor blackColor];
