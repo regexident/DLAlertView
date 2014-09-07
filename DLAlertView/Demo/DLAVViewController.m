@@ -264,7 +264,7 @@
 		}];
 	}]];
 	
-#pragma mark Alerts with dynamic Elements
+#pragma mark Alerts with Dynamic Elements
 	
 	NSString * const alertsWithDynamicElementsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with changing content"];
 	
@@ -278,6 +278,9 @@
 			[[alertView buttonAtIndex:0] setTitle:@"An animated new title" forState:UIControlStateNormal];
 			[alertView addButtonWithTitle:@"A new button"];
 			[[alertView buttonAtIndex:1] setTitle:@"A new title" forState:UIControlStateNormal];
+		});
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+			[alertView addButtonWithTitle:@"Another new button"];
 		});
 	}]];
 

@@ -324,7 +324,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	// Fade in the button
 	[UIView animateWithDuration:([self animationDuration]/2.0f)
 						  delay:([self animationDuration]/2.0f) options:UIViewAnimationOptionCurveEaseInOut
-					 animations:^{button.alpha = 1.0;}
+					 animations:^{
+						 button.alpha = 1.0;
+					 }
 					 completion:nil];
 
 	// Theme textfield:

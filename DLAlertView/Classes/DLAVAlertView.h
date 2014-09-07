@@ -98,7 +98,6 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 #pragma mark - Buttons
 
 - (void)addButtonWithTitle:(NSString *)title;
-- (UIButton *)buttonAtIndex:(NSInteger)buttonIndex;
 - (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
 - (NSInteger)indexOfButtonWithTitle:(NSString *)title;
 
@@ -121,5 +120,18 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 
 - (void)setCustomTextFieldTheme:(DLAVAlertViewTextFieldTheme *)textFieldTheme forTextFieldAtIndex:(NSUInteger)index;
 - (void)setCustomTextFieldTheme:(DLAVAlertViewTextFieldTheme *)textFieldTheme forTextFieldAtIndex:(NSUInteger)index animated:(BOOL)animated;
+
+@end
+
+@interface DLAVAlertView (Introspection)
+
+// This is an experimental introspection API. Use at own risk.
+// Changing any layout attributes of one of these elements
+// leads to undefined behaviour. Don't do it. No exceptions.
+
+- (UILabel *)titleLabel;
+- (UILabel *)messageLabel;
+- (UIButton *)buttonAtIndex:(NSInteger)buttonIndex;
+- (UITextField *)textFieldAtIndex:(NSInteger)textFieldIndex;
 
 @end

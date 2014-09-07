@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'BSD-3', :file => 'LICENSE' }
   s.author       = { "Vincent Esche" => "regexident@gmail.com" }
   s.platform     = :ios, '5.1'
-  s.source       = { :git => "https://github.com/regexident/DLAlertView.git", :tag => '1.2.2' }
+  s.source       = { :git => "https://github.com/regexident/DLAlertView.git", :tag => '1.2.3' }
   s.source_files  = 'DLAlertView/Classes/*.{h,m}'
   s.requires_arc = true
 
