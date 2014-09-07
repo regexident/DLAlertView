@@ -98,6 +98,7 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 #pragma mark - Buttons
 
 - (void)addButtonWithTitle:(NSString *)title;
+- (UIButton *)buttonAtIndex:(NSInteger)buttonIndex;
 - (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
 - (NSInteger)indexOfButtonWithTitle:(NSString *)title;
 

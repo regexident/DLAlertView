@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DLAlertView"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
   s.summary      = "UIAlertView replacement that can embed custom content views, is fully themable and let's you use a delegate and/or blocks."
 
   s.description  = <<-DESC

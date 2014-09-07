@@ -268,6 +268,19 @@
 	
 	NSString * const alertsWithDynamicElementsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with changing content"];
 	
+	[usecases addObject:[DLAVUsecase usecaseWithName:@"dynamic buttons" sectionName:alertsWithDynamicElementsSectionName block:^{
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Get ready" message:@"In a second,we're gonna change some buttons!" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+		alertView.delegate = self.delegate;
+		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"Tapped button '%p' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+		}];
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+			[[alertView buttonAtIndex:0] setTitle:@"An animated new title" forState:UIControlStateNormal];
+			[alertView addButtonWithTitle:@"A new button"];
+			[[alertView buttonAtIndex:1] setTitle:@"A new title" forState:UIControlStateNormal];
+		});
+	}]];
+
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"dynamic alert view style" sectionName:alertsWithDynamicElementsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Wait for it…" message:@"Wait for it…" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 		alertView.delegate = self.delegate;
