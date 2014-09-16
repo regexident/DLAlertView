@@ -893,8 +893,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	CGFloat keyboardHeight = CGRectGetHeight(keyboardFrame);
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 	
-	if ((orientation == UIInterfaceOrientationLandscapeRight) ||
-		(orientation == UIInterfaceOrientationLandscapeLeft)) {
+	BOOL iOS8 = [[UIDevice currentDevice] systemVersion].floatValue >= 8.0;
+	if (!iOS8 && ((orientation == UIInterfaceOrientationLandscapeRight) ||
+				  (orientation == UIInterfaceOrientationLandscapeLeft))) {
 		keyboardHeight = CGRectGetWidth(keyboardFrame);
 	}
 	
