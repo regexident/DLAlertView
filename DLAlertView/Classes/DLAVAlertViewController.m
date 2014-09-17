@@ -190,11 +190,7 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    BOOL iOS8 = [[UIDevice currentDevice] systemVersion].floatValue >= 8.0;
-    if (!iOS8) {
-        // On iOS do not handle the new orientation on this methid, which is deprecated (use viewWillTransitionToSize)
-        [self updateFrameWithOrientation:toInterfaceOrientation];
-    }
+    [self updateFrameWithOrientation:toInterfaceOrientation];
 }
 
 
