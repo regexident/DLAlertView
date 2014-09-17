@@ -181,12 +181,27 @@
 	return frame;
 }
 
+- (void)updateFrameWithOrientation:(UIInterfaceOrientation)orientation {
+    CGRect frame = [self frameForOrientation:orientation];
+    self.view.frame = frame;
+    self.backgroundView.frame = frame;
+    [self.currentAlertView updateFrameWithAnimationOfDuration:0.0];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-	CGRect frame = [self frameForOrientation:toInterfaceOrientation];
-	self.view.frame = frame;
-	self.backgroundView.frame = frame;
-	[self.currentAlertView updateFrameWithAnimationOfDuration:0.0];
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self updateFrameWithOrientation:toInterfaceOrientation];
+}
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    // iOS 8 equivalent of calling willRotateToInterfaceOrientation
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        [self updateFrameWithOrientation:orientation];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    }];
+    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
