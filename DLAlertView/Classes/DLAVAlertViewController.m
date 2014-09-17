@@ -189,19 +189,33 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self updateFrameWithOrientation:toInterfaceOrientation];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	[self updateFrameWithOrientation:toInterfaceOrientation];
+	// workaround for UIWindow fading through black during orientation rotation
+	self.view.window.alpha = 0.0;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+	// workaround for UIWindow fading through black during orientation rotation
+	self.view.window.alpha = 1.0;
+}
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    // iOS 8 equivalent of calling willRotateToInterfaceOrientation
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        [self updateFrameWithOrientation:orientation];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    }];
-    [super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+	// iOS 8 equivalent of calling willRotateToInterfaceOrientation
+	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+		UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+		[self updateFrameWithOrientation:orientation];
+		// workaround for UIWindow fading through black during orientation rotation
+		[UIView performWithoutAnimation:^{
+			self.view.window.alpha = 0.0;
+		}];
+	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+		// workaround for UIWindow fading through black during orientation rotation
+		[UIView performWithoutAnimation:^{
+			self.view.window.alpha = 1.0;
+		}];
+	}];
+	[super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
