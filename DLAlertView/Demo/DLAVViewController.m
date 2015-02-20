@@ -17,6 +17,8 @@
 #import "DLAVAlertViewTextFieldTheme.h"
 #import "DLAVAlertViewButtonTheme.h"
 
+#import "DLAVAlertView+FactoryMethods.h"
+
 @interface DLAVViewController ()
 
 @property (readwrite, strong, nonatomic) NSArray *usecases;
@@ -114,7 +116,7 @@
 		return sections;
 	}
 	NSArray *sortedUsecases = [usecases sortedArrayUsingComparator:^NSComparisonResult(DLAVUsecase *usecase1, DLAVUsecase *usecase2) {
-		return [usecase1.sectionName localizedCompare:usecase2.sectionName];
+		return [@(usecase1.sectionName.integerValue) compare:@(usecase2.sectionName.integerValue)];
 	}];
 	__block NSString *sectionName = ((DLAVUsecase *)sortedUsecases[0]).sectionName;
 	__block NSMutableIndexSet *sectionIndexes = [NSMutableIndexSet indexSetWithIndex:0];
@@ -450,6 +452,47 @@
 			}
 		}];
 	}]];
+    
+#pragma mark Alerts with default options
+    
+    NSString * const alertsWithOtherOptionsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts created by a factory method"];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"factory method use" sectionName:alertsWithOtherOptionsSectionName block:^{
+        [DLAVAlertView showAlertWithTitle:@"Look how quick this is" message:nil cancel:@"Awesome"];
+    }]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"default cancel button title" sectionName:alertsWithOtherOptionsSectionName block:^{
+        [DLAVAlertView setDefaultCancelButtonTitle:@"Ok"];
+        
+        [DLAVAlertView showAlertWithTitle:@"Set once!" message:nil cancel:nil done:nil withCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+            [DLAVAlertView showAlertWithTitle:@"And forget!"];
+            [DLAVAlertView setDefaultCancelButtonTitle:nil];
+        }];
+    }]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"default cancel button last" sectionName:alertsWithOtherOptionsSectionName block:^{
+        [DLAVAlertView setDefaultCancelButtonLast:@(YES)];
+        
+        [DLAVAlertView showAlertWithTitle:@"Cancel Button last" message:nil cancel:@"Last" done:@"First" withCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+            [DLAVAlertView showAlertWithTitle:@"Last on all alerts" message:nil cancel:@"Last" otherButtons:@[@"Every",@"Single",@"Alert",@"..."] withCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+                [DLAVAlertView setDefaultCancelButtonLast:nil];
+            }];
+        }];
+    }]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"default vertical buttons" sectionName:alertsWithOtherOptionsSectionName block:^{
+        [DLAVAlertView setDefaultPairButtons:@(NO)];
+        [DLAVAlertView setDefaultCancelButtonLast:@(YES)];
+
+        [DLAVAlertView showAlertWithTitle:@"Default for vertical buttons" message:nil cancel:@"Bottom" done:@"Top" withCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+            [DLAVAlertView showAlertWithTitle:@"Second alert with vertical buttons" message:nil cancel:@"Bottom" done:@"Top" withCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+                [DLAVAlertView setDefaultCancelButtonLast:nil];
+                [DLAVAlertView setDefaultPairButtons:nil];
+                
+            }];
+        }];
+    }]];
+
 	
 	return usecases;
 }
