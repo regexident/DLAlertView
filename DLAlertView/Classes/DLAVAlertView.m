@@ -63,9 +63,25 @@ static NSNumber *defaultPairButtons = nil;
 #pragma mark - Initialization
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitle, ...{
-	self = [self initWithFrame:CGRectZero];
-	
-	if (self) {
+    NSMutableArray *buttonTitles = [NSMutableArray array];
+    
+    if (otherButtonTitle) {
+        [buttonTitles addObject:otherButtonTitle];
+        va_list args;
+        va_start(args, otherButtonTitle);
+        NSString *buttonTitle;
+        while ((buttonTitle = va_arg(args, NSString *))) {
+            [buttonTitles addObject:otherButtonTitle];
+        }
+        va_end(args);
+    }
+    
+    return [self initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle buttonTitles:buttonTitles];
+}
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle buttonTitles:(NSArray *)buttonTitles {
+    
+    if (self = [self initWithFrame:CGRectZero]) {
 		self.clipsToBounds = NO;
 		
 		_delegate = delegate;
@@ -108,21 +124,17 @@ static NSNumber *defaultPairButtons = nil;
 			[self internalAddButtonWithTitle:cancelButtonTitle];
 		}
 		
-		if (otherButtonTitle) {
-			[self internalAddButtonWithTitle:otherButtonTitle];
-		}
-		
-		NSString *firstOtherButtonTitle = otherButtonTitle ?: NSLocalizedString(@"OK", nil);
-		
-		if (otherButtonTitle) {
-			va_list args;
-			va_start(args, otherButtonTitle);
-			NSString *buttonTitle;
-			while ((buttonTitle = va_arg(args, NSString *))) {
-				[self internalAddButtonWithTitle:buttonTitle];
-			}
-			va_end(args);
-		}
+        __block NSString *firstOtherButtonTitle = NSLocalizedString(@"OK", nil);
+        
+        [buttonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[NSString class]]) {
+                if (idx == 0) {
+                    firstOtherButtonTitle = obj;
+                }
+                
+                [self internalAddButtonWithTitle:obj];
+            }
+        }];
         
         if (cancelButtonTitle && cancelButtonLast) {
             [self internalAddButtonWithTitle:cancelButtonTitle];
