@@ -105,6 +105,9 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 + (NSNumber *)defaultCancelButtonLast;
 + (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast;
 
++ (NSNumber *)defaultPairButtons;
++ (void)setDefaultPairButtons:(NSNumber *)aDefaultPairButtons;
+
 #pragma mark - Display
 
 - (void)show;

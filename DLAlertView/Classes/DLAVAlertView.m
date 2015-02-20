@@ -17,6 +17,7 @@ static const CGFloat DLAVAlertViewThemeChangeDuration = 1.0;
 static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
 static NSNumber *defaultCancelButtonLast = nil;
+static NSNumber *defaultPairButtons = nil;
 @interface DLAVAlertViewController ()
 
 + (instancetype)sharedController;
@@ -77,6 +78,10 @@ static NSNumber *defaultCancelButtonLast = nil;
 		
 		_dismissesOnBackdropTap = NO;
         _pairButtons = YES;
+        
+        if (defaultPairButtons != nil) {
+            _pairButtons = [defaultPairButtons boolValue];
+        }
 		
 		_minContentWidth = 200.0;
 		_maxContentWidth = 270.0;
@@ -374,7 +379,7 @@ static NSNumber *defaultCancelButtonLast = nil;
 - (BOOL)isPrimaryButtonAtIndex:(NSUInteger)buttonIndex {
 	if (self.numberOfButtons == 1) {
 		return YES;
-	} else if (self.numberOfButtons == 2 && self.pairButtons) {
+	} else if (self.numberOfButtons == 2) {
 		if (self.cancelButtonIndex != -1) {
 			return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
 		} else {
@@ -408,6 +413,18 @@ static NSNumber *defaultCancelButtonLast = nil;
 + (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast {
     @synchronized(self) {
         defaultCancelButtonLast = [[NSNumber numberWithBool:aDefaultCancelButtonLast] copy];
+    }
+}
+
++ (NSNumber *)defaultPairButtons {
+    @synchronized(self) {
+        return [defaultPairButtons copy];
+    }
+}
+
++ (void)setDefaultPairButtons:(NSNumber *)aDefaultPairButtons {
+    @synchronized(self) {
+        defaultPairButtons = [[NSNumber numberWithBool:aDefaultPairButtons] copy];
     }
 }
 #pragma mark - Textfields
