@@ -31,6 +31,7 @@
 		C22618C51823E09E00991D05 /* DLAVUsecaseSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618C41823E09E00991D05 /* DLAVUsecaseSection.m */; };
 		C22618C81823FE3000991D05 /* DLAVDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618C71823FE3000991D05 /* DLAVDelegate.m */; };
 		C2D87746189A992000265C31 /* DLAVAlertViewTextControlTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D87744189A992000265C31 /* DLAVAlertViewTextControlTheme.m */; };
+		D9A009271A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A009261A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,8 @@
 		C22618C71823FE3000991D05 /* DLAVDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLAVDelegate.m; sourceTree = "<group>"; };
 		C2D87744189A992000265C31 /* DLAVAlertViewTextControlTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLAVAlertViewTextControlTheme.m; sourceTree = "<group>"; };
 		C2D87745189A992000265C31 /* DLAVAlertViewTextControlTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLAVAlertViewTextControlTheme.h; sourceTree = "<group>"; };
+		D9A009251A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DLAVAlertView+FactoryMethods.h"; sourceTree = "<group>"; };
+		D9A009261A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DLAVAlertView+FactoryMethods.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +185,8 @@
 			children = (
 				C22618A61823D27300991D05 /* DLAVAlertView.h */,
 				C22618A71823D27300991D05 /* DLAVAlertView.m */,
+				D9A009251A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.h */,
+				D9A009261A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.m */,
 				C22618AA1823D27300991D05 /* DLAVAlertViewController.h */,
 				C22618AB1823D27300991D05 /* DLAVAlertViewController.m */,
 				C22618AE1823D27300991D05 /* DLAVAlertViewTheme.h */,
@@ -317,6 +322,7 @@
 			files = (
 				C2D87746189A992000265C31 /* DLAVAlertViewTextControlTheme.m in Sources */,
 				C22618B31823D27300991D05 /* DLAVAlertViewTextFieldTheme.m in Sources */,
+				D9A009271A97E1CD009BFB8D /* DLAVAlertView+FactoryMethods.m in Sources */,
 				C22618B01823D27300991D05 /* DLAVAlertView.m in Sources */,
 				C22618C81823FE3000991D05 /* DLAVDelegate.m in Sources */,
 				C22618BC1823DA0100991D05 /* DLAVViewController.m in Sources */,

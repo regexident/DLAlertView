@@ -16,6 +16,10 @@
 static const CGFloat DLAVAlertViewThemeChangeDuration = 1.0;
 static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
+static NSString *defaultCancelButtonTitle = nil;
+static NSNumber *defaultCancelButtonLast = nil;
+static NSNumber *defaultPairButtons = nil;
+
 @interface DLAVAlertViewController ()
 
 + (instancetype)sharedController;
@@ -59,9 +63,25 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 #pragma mark - Initialization
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitle, ...{
-	self = [self initWithFrame:CGRectZero];
-	
-	if (self) {
+    NSMutableArray *buttonTitles = [NSMutableArray array];
+    
+    if (otherButtonTitle) {
+        [buttonTitles addObject:otherButtonTitle];
+        va_list args;
+        va_start(args, otherButtonTitle);
+        NSString *buttonTitle;
+        while ((buttonTitle = va_arg(args, NSString *))) {
+            [buttonTitles addObject:otherButtonTitle];
+        }
+        va_end(args);
+    }
+    
+    return [self initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle buttonTitles:buttonTitles];
+}
+
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle buttonTitles:(NSArray *)buttonTitles {
+    
+    if (self = [self initWithFrame:CGRectZero]) {
 		self.clipsToBounds = NO;
 		
 		_delegate = delegate;
@@ -76,6 +96,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		
 		_dismissesOnBackdropTap = NO;
         _pairButtons = YES;
+        
+        if (defaultPairButtons != nil) {
+            _pairButtons = [defaultPairButtons boolValue];
+        }
 		
 		_minContentWidth = 200.0;
 		_maxContentWidth = 270.0;
@@ -89,26 +113,32 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[self addLabelWithTitle:title];
 		
 		[self addLabelWithMessage:message];
+        
+        if (!cancelButtonTitle && defaultCancelButtonTitle) {
+            cancelButtonTitle = defaultCancelButtonTitle;
+        }
+        
+        BOOL cancelButtonLast = (defaultCancelButtonLast && [defaultCancelButtonLast boolValue]);
 		
-		if (cancelButtonTitle) {
+        if (cancelButtonTitle && !cancelButtonLast) {
 			[self internalAddButtonWithTitle:cancelButtonTitle];
 		}
 		
-		if (otherButtonTitle) {
-			[self internalAddButtonWithTitle:otherButtonTitle];
-		}
-		
-		NSString *firstOtherButtonTitle = otherButtonTitle ?: NSLocalizedString(@"OK", nil);
-		
-		if (otherButtonTitle) {
-			va_list args;
-			va_start(args, otherButtonTitle);
-			NSString *buttonTitle;
-			while ((buttonTitle = va_arg(args, NSString *))) {
-				[self internalAddButtonWithTitle:buttonTitle];
-			}
-			va_end(args);
-		}
+        __block NSString *firstOtherButtonTitle = NSLocalizedString(@"OK", nil);
+        
+        [buttonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[NSString class]]) {
+                if (idx == 0) {
+                    firstOtherButtonTitle = obj;
+                }
+                
+                [self internalAddButtonWithTitle:obj];
+            }
+        }];
+        
+        if (cancelButtonTitle && cancelButtonLast) {
+            [self internalAddButtonWithTitle:cancelButtonTitle];
+        }
 		
 		_cancelButtonIndex = [self indexOfButtonWithTitle:cancelButtonTitle];
 		_doneButtonIndex = [self indexOfButtonWithTitle:firstOtherButtonTitle];
@@ -367,7 +397,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (BOOL)isPrimaryButtonAtIndex:(NSUInteger)buttonIndex {
 	if (self.numberOfButtons == 1) {
 		return YES;
-	} else if (self.numberOfButtons == 2 && self.pairButtons) {
+	} else if (self.numberOfButtons == 2) {
 		if (self.cancelButtonIndex != -1) {
 			return (buttonIndex == self.cancelButtonIndex) ? NO : YES;
 		} else {
@@ -388,6 +418,44 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		buttonTheme = [self isPrimaryButtonAtIndex:index] ? self.theme.primaryButtonTheme : self.theme.otherButtonTheme;
 	}
 	return buttonTheme;
+}
+
+#pragma mark button defaults
+
++ (NSNumber *)defaultCancelButtonLast {
+    @synchronized(self) {
+        return [defaultCancelButtonLast copy];
+    }
+}
+
++ (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast {
+    @synchronized(self) {
+        defaultCancelButtonLast = [[NSNumber numberWithBool:aDefaultCancelButtonLast] copy];
+    }
+}
+
++ (NSNumber *)defaultPairButtons {
+    @synchronized(self) {
+        return [defaultPairButtons copy];
+    }
+}
+
++ (void)setDefaultPairButtons:(NSNumber *)aDefaultPairButtons {
+    @synchronized(self) {
+        defaultPairButtons = [aDefaultPairButtons copy];
+    }
+}
+
++ (NSString *)defaultCancelButtonTitle {
+    @synchronized(self) {
+        return [defaultCancelButtonTitle copy];
+    }
+}
+
++ (void)setDefaultCancelButtonTitle:(NSString *)aDefaultCancelButtonTitle {
+    @synchronized(self) {
+        defaultCancelButtonTitle = [aDefaultCancelButtonTitle copy];
+    }
 }
 
 #pragma mark - Textfields

@@ -86,6 +86,12 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
   cancelButtonTitle:(NSString *)cancelButtonTitle
   otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
 
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+           delegate:(id)delegate
+  cancelButtonTitle:(NSString *)cancelButtonTitle
+       buttonTitles:(NSArray *)buttonTitles;
+
 #pragma mark - Textfields
 
 - (void)addTextFieldWithText:(NSString *)text placeholder:(NSString *)placeholder;
@@ -101,6 +107,15 @@ typedef void (^DLAVAlertViewCompletionHandler)(DLAVAlertView *alertView, NSInteg
 - (void)addButtonWithTitle:(NSString *)title;
 - (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
 - (NSInteger)indexOfButtonWithTitle:(NSString *)title;
+
++ (NSNumber *)defaultCancelButtonLast;
++ (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast;
+
++ (NSNumber *)defaultPairButtons;
++ (void)setDefaultPairButtons:(NSNumber *)aDefaultPairButtons;
+
++ (NSString *)defaultCancelButtonTitle;
++ (void)setDefaultCancelButtonTitle:(NSString *)aDefaultCancelButtonTitle;
 
 #pragma mark - Display
 
