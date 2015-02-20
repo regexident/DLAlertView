@@ -16,6 +16,7 @@
 static const CGFloat DLAVAlertViewThemeChangeDuration = 1.0;
 static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 
+static NSNumber *defaultCancelButtonLast = nil;
 @interface DLAVAlertViewController ()
 
 + (instancetype)sharedController;
@@ -89,8 +90,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		[self addLabelWithTitle:title];
 		
 		[self addLabelWithMessage:message];
+        
+        BOOL cancelButtonLast = (defaultCancelButtonLast && [defaultCancelButtonLast boolValue]);
 		
-		if (cancelButtonTitle) {
+        if (cancelButtonTitle && !cancelButtonLast) {
 			[self internalAddButtonWithTitle:cancelButtonTitle];
 		}
 		
@@ -109,6 +112,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 			}
 			va_end(args);
 		}
+        
+        if (cancelButtonTitle && cancelButtonLast) {
+            [self internalAddButtonWithTitle:cancelButtonTitle];
+        }
 		
 		_cancelButtonIndex = [self indexOfButtonWithTitle:cancelButtonTitle];
 		_doneButtonIndex = [self indexOfButtonWithTitle:firstOtherButtonTitle];
@@ -390,6 +397,19 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	return buttonTheme;
 }
 
+#pragma mark button defaults
+
++ (NSNumber *)defaultCancelButtonLast {
+    @synchronized(self) {
+        return [defaultCancelButtonLast copy];
+    }
+}
+
++ (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast {
+    @synchronized(self) {
+        defaultCancelButtonLast = [[NSNumber numberWithBool:aDefaultCancelButtonLast] copy];
+    }
+}
 #pragma mark - Textfields
 
 - (void)removeTextFieldsInRange:(NSRange)range {
