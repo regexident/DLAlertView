@@ -174,6 +174,14 @@
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];
 	}]];
+    
+    [usecases addObject:[DLAVUsecase usecaseWithName:@"two buttons vertical" sectionName:alertsSectionName block:^{
+        DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Two buttons vertical!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        alertView.pairButtons = NO;
+        [alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
+            NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
+        }];
+    }]];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"many buttons" sectionName:alertsSectionName block:^{
 		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"Many buttons!" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"One", @"Two", @"Three", @"Four", nil];
