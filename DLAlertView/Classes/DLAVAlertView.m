@@ -442,7 +442,7 @@ static NSNumber *defaultPairButtons = nil;
 
 + (void)setDefaultPairButtons:(NSNumber *)aDefaultPairButtons {
     @synchronized(self) {
-        defaultPairButtons = [[NSNumber numberWithBool:aDefaultPairButtons] copy];
+        defaultPairButtons = [aDefaultPairButtons copy];
     }
 }
 
