@@ -75,7 +75,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 		_buttonThemes = [NSMutableArray array];
 		
 		_dismissesOnBackdropTap = NO;
-        _pairButtons = YES;
+		_pairButtons = YES;
 		
 		_minContentWidth = 200.0;
 		_maxContentWidth = 270.0;
@@ -1212,10 +1212,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	
 	// Message height:
 	if (self.message) {
-        DLAVTextControlMargins messageMargins = theme.messageMargins;
-        if (!self.title) {
-            messageMargins.top = theme.titleMargins.top;
-        }
+		DLAVTextControlMargins messageMargins = theme.messageMargins;
+		if (!self.title) {
+			messageMargins.top = theme.titleMargins.top;
+		}
 		height += messageMargins.top + [self messageHeight] + messageMargins.bottom;
 	}
 	

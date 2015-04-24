@@ -182,10 +182,10 @@
 }
 
 - (void)updateFrameWithOrientation:(UIInterfaceOrientation)orientation {
-    CGRect frame = [self frameForOrientation:orientation];
-    self.view.frame = frame;
-    self.backgroundView.frame = frame;
-    [self.currentAlertView updateFrameWithAnimationOfDuration:0.0];
+	CGRect frame = [self frameForOrientation:orientation];
+	self.view.frame = frame;
+	self.backgroundView.frame = frame;
+	[self.currentAlertView updateFrameWithAnimationOfDuration:0.0];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
