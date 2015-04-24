@@ -717,11 +717,9 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 - (void)dismissWithBackdropTap {
 	if ([self.delegate respondsToSelector:@selector(alertViewCancel:)]) {
 		[self.delegate alertViewCancel:self];
-	} else if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
-		[self.delegate alertView:self clickedButtonAtIndex:-1];
 	}
 	
-	[self didDismissWithClickedButtonIndex:-1 animated:YES];
+	[self dismissWithClickedButtonIndex:-1 animated:YES];
 }
 
 - (void)dismissWithButton:(UIButton *)sender {
