@@ -162,7 +162,7 @@
 	NSString * const alertsSectionName = [NSString stringWithFormat:@"%lu: %@", (unsigned long)sectionIndex++, @"Alerts with only buttons"];
 	
 	[usecases addObject:[DLAVUsecase usecaseWithName:@"one button" sectionName:alertsSectionName block:^{
-		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"One button!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		DLAVAlertView *alertView = [[DLAVAlertView alloc] initWithTitle:@"One button!" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 		[alertView showWithCompletion:^(DLAVAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"Tapped button '%@' at index: %ld", [alertView buttonTitleAtIndex:buttonIndex], (long)buttonIndex);
 		}];

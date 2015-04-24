@@ -464,11 +464,10 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 - (NSInteger)firstOtherButtonIndex  {
-	if (self.buttons.count == 1) {
-		return (self.cancelButtonIndex == -1) ? 0 : -1;
+	if (self.cancelButtonIndex == -1) {
+		return 0;
 	}
-	
-	return 1;
+	return (self.buttons.count == 1) ? -1 : 1;
 }
 
 - (void)setCancelButtonIndex:(NSInteger)cancelButtonIndex  {
