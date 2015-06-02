@@ -98,4 +98,33 @@
     return av;
 }
 
++ (instancetype) showAlertWith:(NSError *)error
+                withCompletion:(DLAVAlertViewCompletionHandler)handler {
+    
+    DLAVAlertView *av;
+    if (error) {
+        
+        NSString *title = @"Unknown Error";
+        NSString *message = [NSString stringWithFormat:@"An unknown error occurred. Please try agian later. (%ld)",error.code];
+        
+        if (error.code < NSURLErrorBadURL && error.code > NSURLErrorNotConnectedToInternet) {
+            
+            title = @"Network Error";
+            message = [NSString stringWithFormat:@"Please check your network connection and try again later. (%ld)",error.code];
+            
+        } else {
+            
+        }
+        
+        av = [self alertWithTitle:title
+                          message:message
+                         delegate:nil
+                           cancel:nil
+                     otherButtons:nil];
+    }
+    
+    [av showWithCompletion:handler];
+    return av;
+}
+
 @end

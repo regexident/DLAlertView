@@ -37,4 +37,7 @@
                        otherButtons:(NSArray *)otherButtons
                      withCompletion:(DLAVAlertViewCompletionHandler)handler;
 
++ (instancetype) showAlertWith:(NSError *)error
+                withCompletion:(DLAVAlertViewCompletionHandler)handler;
+
 @end
