@@ -107,7 +107,7 @@
         NSString *title = @"Unknown Error";
         NSString *message = [NSString stringWithFormat:@"An unknown error occurred. Please try agian later. (%ld)",error.code];
         
-        if (error.code < NSURLErrorBadURL && error.code > NSURLErrorNotConnectedToInternet) {
+        if (error.code <= NSURLErrorBadURL && error.code >= NSURLErrorNotConnectedToInternet) {
             
             title = @"Network Error";
             message = [NSString stringWithFormat:@"Please check your network connection and try again later. (%ld)",error.code];
