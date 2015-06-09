@@ -430,7 +430,7 @@ static NSNumber *defaultPairButtons = nil;
 
 + (void)setDefaultCancelButtonLast:(NSNumber *)aDefaultCancelButtonLast {
     @synchronized(self) {
-        defaultCancelButtonLast = [[NSNumber numberWithBool:aDefaultCancelButtonLast] copy];
+        defaultCancelButtonLast = [[NSNumber numberWithBool:aDefaultCancelButtonLast.boolValue] copy];
     }
 }
 
