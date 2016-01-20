@@ -49,7 +49,7 @@
 		
 		_alertWindow.rootViewController = self;
 		
-		CGRect frame = [self frameForOrientation:self.interfaceOrientation];
+		CGRect frame = [self frameForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 		self.view.frame = frame;
 		
 		_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
@@ -234,7 +234,7 @@
 	return [UIApplication sharedApplication].statusBarStyle;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 	return UIInterfaceOrientationMaskAll;
 }
 
