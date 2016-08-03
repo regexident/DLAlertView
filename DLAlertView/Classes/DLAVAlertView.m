@@ -1336,8 +1336,8 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 }
 
 + (CGRect)getScreenFrameForOrientation:(UIInterfaceOrientation)orientation {
-	UIScreen *screen = [UIScreen mainScreen];
-	CGRect fullScreenRect = screen.bounds;
+//	UIScreen *screen = [UIScreen mainScreen];
+	CGRect fullScreenRect = [UIApplication sharedApplication].keyWindow.bounds;
 
 	BOOL iOS8 = [[UIDevice currentDevice] systemVersion].floatValue >= 8.0;
 	if (!iOS8 && UIInterfaceOrientationIsLandscape(orientation)) {
