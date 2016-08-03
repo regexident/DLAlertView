@@ -59,7 +59,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 #pragma mark - Initialization
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitle, ...{
-	self = [self initWithFrame:CGRectZero];
+	self = [self initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
 	
 	if (self) {
 		self.clipsToBounds = NO;
@@ -280,7 +280,7 @@ static const CGFloat DLAVAlertViewAnimationDuration = 0.3;
 	self.titleLabel = titleLabel;
 	[self.clippingView addSubview:titleLabel];
 	
-	UIView *titleBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+	UIView *titleBackgroundView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
 	[self.titleBackgroundView removeFromSuperview];
 	self.titleBackgroundView = titleBackgroundView;
 	[self.clippingView insertSubview:titleBackgroundView belowSubview:titleLabel];
