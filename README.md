@@ -1,4 +1,4 @@
-# DLAlertView
+# DLAlertView [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 **DLAlertView** is an API-compatible **UIAlertView** replacement that can **embed custom content views**, is **fully themable** and let's you use a **delegate** and/or **blocks**.
 
