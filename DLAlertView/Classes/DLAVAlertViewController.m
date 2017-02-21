@@ -43,13 +43,13 @@
 		_alertViews = [NSMutableArray array];
 		
 		if (!_alertWindow) {
-			_alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+			_alertWindow = [[UIWindow alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
 			_alertWindow.windowLevel = UIWindowLevelAlert;
 		}
 		
 		_alertWindow.rootViewController = self;
 		
-		CGRect frame = [self frameForOrientation:self.interfaceOrientation];
+		CGRect frame = [self frameForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 		self.view.frame = frame;
 		
 		_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
@@ -172,10 +172,10 @@
 
 	BOOL iOS8 = [[UIDevice currentDevice] systemVersion].floatValue >= 8.0;
 	if (!iOS8 && UIInterfaceOrientationIsLandscape(orientation)) {
-		CGRect bounds = [UIScreen mainScreen].bounds;
+		CGRect bounds = [UIApplication sharedApplication].keyWindow.bounds;
 		frame = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
 	} else {
-		frame = [UIScreen mainScreen].bounds;
+		frame = [UIApplication sharedApplication].keyWindow.bounds;
 	}
 	
 	return frame;
@@ -234,7 +234,7 @@
 	return [UIApplication sharedApplication].statusBarStyle;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 	return UIInterfaceOrientationMaskAll;
 }
 

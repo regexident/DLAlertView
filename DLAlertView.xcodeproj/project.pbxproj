@@ -31,6 +31,20 @@
 		C22618C51823E09E00991D05 /* DLAVUsecaseSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618C41823E09E00991D05 /* DLAVUsecaseSection.m */; };
 		C22618C81823FE3000991D05 /* DLAVDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618C71823FE3000991D05 /* DLAVDelegate.m */; };
 		C2D87746189A992000265C31 /* DLAVAlertViewTextControlTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D87744189A992000265C31 /* DLAVAlertViewTextControlTheme.m */; };
+		E0820CC21C4FAB07004F5507 /* DLAlertViewFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = E0820CC11C4FAB07004F5507 /* DLAlertViewFramework.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E0820CC81C4FAB07004F5507 /* DLAlertViewFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0820CBF1C4FAB07004F5507 /* DLAlertViewFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E0820CCC1C4FAB16004F5507 /* DLAVAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = C22618A61823D27300991D05 /* DLAVAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CCD1C4FAB16004F5507 /* DLAVAlertViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C22618AA1823D27300991D05 /* DLAVAlertViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CCE1C4FAB16004F5507 /* DLAVAlertViewTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C22618AE1823D27300991D05 /* DLAVAlertViewTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CCF1C4FAB16004F5507 /* DLAVAlertViewTextControlTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C2D87745189A992000265C31 /* DLAVAlertViewTextControlTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CD01C4FAB16004F5507 /* DLAVAlertViewButtonTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C22618A81823D27300991D05 /* DLAVAlertViewButtonTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CD11C4FAB16004F5507 /* DLAVAlertViewTextFieldTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C22618AC1823D27300991D05 /* DLAVAlertViewTextFieldTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0820CD21C4FAB22004F5507 /* DLAVAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618A71823D27300991D05 /* DLAVAlertView.m */; };
+		E0820CD31C4FAB22004F5507 /* DLAVAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618AB1823D27300991D05 /* DLAVAlertViewController.m */; };
+		E0820CD41C4FAB22004F5507 /* DLAVAlertViewTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618AF1823D27300991D05 /* DLAVAlertViewTheme.m */; };
+		E0820CD51C4FAB22004F5507 /* DLAVAlertViewTextControlTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D87744189A992000265C31 /* DLAVAlertViewTextControlTheme.m */; };
+		E0820CD61C4FAB22004F5507 /* DLAVAlertViewButtonTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618A91823D27300991D05 /* DLAVAlertViewButtonTheme.m */; };
+		E0820CD71C4FAB22004F5507 /* DLAVAlertViewTextFieldTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C22618AD1823D27300991D05 /* DLAVAlertViewTextFieldTheme.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +55,28 @@
 			remoteGlobalIDString = C22618691823D24C00991D05;
 			remoteInfo = DLAlertView;
 		};
+		E0820CC41C4FAB07004F5507 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C22618621823D24C00991D05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0820CBE1C4FAB07004F5507;
+			remoteInfo = DLAlertViewFramework;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E0820CC71C4FAB07004F5507 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E0820CC81C4FAB07004F5507 /* DLAlertViewFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C226186A1823D24C00991D05 /* DLAlertView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DLAlertView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +117,9 @@
 		C22618C71823FE3000991D05 /* DLAVDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLAVDelegate.m; sourceTree = "<group>"; };
 		C2D87744189A992000265C31 /* DLAVAlertViewTextControlTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLAVAlertViewTextControlTheme.m; sourceTree = "<group>"; };
 		C2D87745189A992000265C31 /* DLAVAlertViewTextControlTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLAVAlertViewTextControlTheme.h; sourceTree = "<group>"; };
+		E0820CBF1C4FAB07004F5507 /* DLAlertViewFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DLAlertViewFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0820CC11C4FAB07004F5507 /* DLAlertViewFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLAlertViewFramework.h; sourceTree = "<group>"; };
+		E0820CC31C4FAB07004F5507 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +143,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E0820CBB1C4FAB07004F5507 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -113,6 +158,7 @@
 			children = (
 				C22618731823D24C00991D05 /* DLAlertView */,
 				C22618951823D24C00991D05 /* DLAlertViewTests */,
+				E0820CC01C4FAB07004F5507 /* DLAlertViewFramework */,
 				C226186C1823D24C00991D05 /* Frameworks */,
 				C226186B1823D24C00991D05 /* Products */,
 			);
@@ -123,6 +169,7 @@
 			children = (
 				C226186A1823D24C00991D05 /* DLAlertView.app */,
 				C226188E1823D24C00991D05 /* DLAlertViewTests.xctest */,
+				E0820CBF1C4FAB07004F5507 /* DLAlertViewFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,7 +263,33 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
+		E0820CC01C4FAB07004F5507 /* DLAlertViewFramework */ = {
+			isa = PBXGroup;
+			children = (
+				E0820CC11C4FAB07004F5507 /* DLAlertViewFramework.h */,
+				E0820CC31C4FAB07004F5507 /* Info.plist */,
+			);
+			path = DLAlertViewFramework;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E0820CBC1C4FAB07004F5507 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0820CCC1C4FAB16004F5507 /* DLAVAlertView.h in Headers */,
+				E0820CCD1C4FAB16004F5507 /* DLAVAlertViewController.h in Headers */,
+				E0820CCE1C4FAB16004F5507 /* DLAVAlertViewTheme.h in Headers */,
+				E0820CCF1C4FAB16004F5507 /* DLAVAlertViewTextControlTheme.h in Headers */,
+				E0820CD01C4FAB16004F5507 /* DLAVAlertViewButtonTheme.h in Headers */,
+				E0820CD11C4FAB16004F5507 /* DLAVAlertViewTextFieldTheme.h in Headers */,
+				E0820CC21C4FAB07004F5507 /* DLAlertViewFramework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		C22618691823D24C00991D05 /* DLAlertView */ = {
@@ -226,10 +299,12 @@
 				C22618661823D24C00991D05 /* Sources */,
 				C22618671823D24C00991D05 /* Frameworks */,
 				C22618681823D24C00991D05 /* Resources */,
+				E0820CC71C4FAB07004F5507 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E0820CC51C4FAB07004F5507 /* PBXTargetDependency */,
 			);
 			name = DLAlertView;
 			productName = DLAlertView;
@@ -254,6 +329,24 @@
 			productReference = C226188E1823D24C00991D05 /* DLAlertViewTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		E0820CBE1C4FAB07004F5507 /* DLAlertViewFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0820CCB1C4FAB07004F5507 /* Build configuration list for PBXNativeTarget "DLAlertViewFramework" */;
+			buildPhases = (
+				E0820CBA1C4FAB07004F5507 /* Sources */,
+				E0820CBB1C4FAB07004F5507 /* Frameworks */,
+				E0820CBC1C4FAB07004F5507 /* Headers */,
+				E0820CBD1C4FAB07004F5507 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DLAlertViewFramework;
+			productName = DLAlertViewFramework;
+			productReference = E0820CBF1C4FAB07004F5507 /* DLAlertViewFramework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -261,11 +354,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = DLAV;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Definite Loop";
 				TargetAttributes = {
 					C226188D1823D24C00991D05 = {
 						TestTargetID = C22618691823D24C00991D05;
+					};
+					E0820CBE1C4FAB07004F5507 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -284,6 +380,7 @@
 			targets = (
 				C22618691823D24C00991D05 /* DLAlertView */,
 				C226188D1823D24C00991D05 /* DLAlertViewTests */,
+				E0820CBE1C4FAB07004F5507 /* DLAlertViewFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -305,6 +402,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C226189A1823D24C00991D05 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0820CBD1C4FAB07004F5507 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +442,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E0820CBA1C4FAB07004F5507 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0820CD21C4FAB22004F5507 /* DLAVAlertView.m in Sources */,
+				E0820CD31C4FAB22004F5507 /* DLAVAlertViewController.m in Sources */,
+				E0820CD41C4FAB22004F5507 /* DLAVAlertViewTheme.m in Sources */,
+				E0820CD51C4FAB22004F5507 /* DLAVAlertViewTextControlTheme.m in Sources */,
+				E0820CD61C4FAB22004F5507 /* DLAVAlertViewButtonTheme.m in Sources */,
+				E0820CD71C4FAB22004F5507 /* DLAVAlertViewTextFieldTheme.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -345,6 +462,11 @@
 			isa = PBXTargetDependency;
 			target = C22618691823D24C00991D05 /* DLAlertView */;
 			targetProxy = C22618931823D24C00991D05 /* PBXContainerItemProxy */;
+		};
+		E0820CC51C4FAB07004F5507 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0820CBE1C4FAB07004F5507 /* DLAlertViewFramework */;
+			targetProxy = E0820CC41C4FAB07004F5507 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -404,6 +526,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -418,7 +541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -451,7 +574,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -466,7 +589,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLAlertView/DLAlertView-Prefix.pch";
 				INFOPLIST_FILE = "DLAlertView/DLAlertView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "definiteloop.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -480,7 +605,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLAlertView/DLAlertView-Prefix.pch";
 				INFOPLIST_FILE = "DLAlertView/DLAlertView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "definiteloop.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -502,6 +629,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "DLAlertViewTests/DLAlertViewTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "definiteloop.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -520,9 +648,66 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLAlertView/DLAlertView-Prefix.pch";
 				INFOPLIST_FILE = "DLAlertViewTests/DLAlertViewTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "definiteloop.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		E0820CC91C4FAB07004F5507 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = DLAlertViewFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sales-i.DLAlertViewFramework";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E0820CCA1C4FAB07004F5507 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = DLAlertViewFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sales-i.DLAlertViewFramework";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -552,6 +737,15 @@
 			buildConfigurations = (
 				C22618A31823D24C00991D05 /* Debug */,
 				C22618A41823D24C00991D05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0820CCB1C4FAB07004F5507 /* Build configuration list for PBXNativeTarget "DLAlertViewFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0820CC91C4FAB07004F5507 /* Debug */,
+				E0820CCA1C4FAB07004F5507 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
